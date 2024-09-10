@@ -142,12 +142,16 @@
     <ClCompile Include="SimUDuck.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\Behaviors\Dance\Minuet.h" />
     <ClInclude Include="lib\Behaviors\Dance\Waltz.h" />
+    <ClInclude Include="lib\Behaviors\Fly\FlyNoWay.h" />
     <ClInclude Include="lib\Behaviors\Fly\FlyWithWings.h" />
     <ClInclude Include="lib\Behaviors\IDanceBehavior.h" />
     <ClInclude Include="lib\Behaviors\IFlyBehavior.h" />
     <ClInclude Include="lib\Behaviors\IQuackBehavior.h" />
+    <ClInclude Include="lib\Behaviors\Quack\MuteQuack.h" />
     <ClInclude Include="lib\Behaviors\Quack\Quake.h" />
+    <ClInclude Include="lib\Behaviors\Quack\Squeak.h" />
     <ClInclude Include="lib\Duck\Duck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -41,5 +41,17 @@
     <ClInclude Include="lib\Behaviors\Dance\Waltz.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="lib\Behaviors\Quack\MuteQuack.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Behaviors\Quack\Squeak.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Behaviors\Fly\FlyNoWay.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Behaviors\Dance\Minuet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
