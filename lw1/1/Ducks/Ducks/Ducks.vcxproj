@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\Behaviors\Dance\Minuet.h" />
+    <ClInclude Include="lib\Behaviors\Dance\NoDance.h" />
     <ClInclude Include="lib\Behaviors\Dance\Waltz.h" />
     <ClInclude Include="lib\Behaviors\Fly\FlyNoWay.h" />
     <ClInclude Include="lib\Behaviors\Fly\FlyWithWings.h" />
@@ -150,9 +151,14 @@
     <ClInclude Include="lib\Behaviors\IFlyBehavior.h" />
     <ClInclude Include="lib\Behaviors\IQuackBehavior.h" />
     <ClInclude Include="lib\Behaviors\Quack\MuteQuack.h" />
-    <ClInclude Include="lib\Behaviors\Quack\Quake.h" />
+    <ClInclude Include="lib\Behaviors\Quack\Quack.h" />
     <ClInclude Include="lib\Behaviors\Quack\Squeak.h" />
     <ClInclude Include="lib\Duck\Duck.h" />
+    <ClInclude Include="lib\SamplesDuck\DecoyDuck.h" />
+    <ClInclude Include="lib\SamplesDuck\MallardDuck.h" />
+    <ClInclude Include="lib\SamplesDuck\ModelDuck.h" />
+    <ClInclude Include="lib\SamplesDuck\RedheadDuck.h" />
+    <ClInclude Include="lib\SamplesDuck\RubberDuck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

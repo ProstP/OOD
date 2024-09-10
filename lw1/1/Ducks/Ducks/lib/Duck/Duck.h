@@ -42,6 +42,7 @@ public:
 		m_danceBehavior->Dance();
 	}
 
+	virtual void Display() const = 0;
 	virtual ~Duck() = default;
 
 private:

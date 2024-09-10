@@ -32,7 +32,7 @@
     <ClInclude Include="lib\Behaviors\IQuackBehavior.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\Quack\Quake.h">
+    <ClInclude Include="lib\Behaviors\Quack\Quack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="lib\Behaviors\Fly\FlyWithWings.h">
@@ -51,6 +51,24 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="lib\Behaviors\Dance\Minuet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Behaviors\Dance\NoDance.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\SamplesDuck\MallardDuck.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\SamplesDuck\RedheadDuck.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\SamplesDuck\RubberDuck.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\SamplesDuck\ModelDuck.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\SamplesDuck\DecoyDuck.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
