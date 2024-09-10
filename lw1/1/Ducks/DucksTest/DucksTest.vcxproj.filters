@@ -15,30 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SimUDuck.cpp">
+    <ClCompile Include="DucksTest.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\Duck\Duck.h">
+    <ClInclude Include="..\Ducks\lib\Duck\Duck.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\IDanceBehavior.h">
+    <ClInclude Include="..\Ducks\lib\Behaviors\IDanceBehavior.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\IFlyBehavior.h">
+    <ClInclude Include="..\Ducks\lib\Behaviors\IFlyBehavior.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\IQuackBehavior.h">
+    <ClInclude Include="..\Ducks\lib\Behaviors\IQuackBehavior.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\Quack\Quake.h">
+    <ClInclude Include="..\Ducks\lib\Behaviors\Dance\Waltz.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\Fly\FlyWithWings.h">
+    <ClInclude Include="..\Ducks\lib\Behaviors\Fly\FlyWithWings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\Behaviors\Dance\Waltz.h">
+    <ClInclude Include="..\Ducks\lib\Behaviors\Quack\Quake.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

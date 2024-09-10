@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c5052ad8-5f33-4132-a50c-65969fa76f27}</ProjectGuid>
-    <RootNamespace>Ducks</RootNamespace>
+    <ProjectGuid>{6c46e611-51c9-4ece-b57d-440aa1b68252}</ProjectGuid>
+    <RootNamespace>DucksTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -93,6 +93,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -109,6 +112,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -121,6 +127,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -137,18 +146,21 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SimUDuck.cpp" />
+    <ClCompile Include="DucksTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\Behaviors\Dance\Waltz.h" />
-    <ClInclude Include="lib\Behaviors\Fly\FlyWithWings.h" />
-    <ClInclude Include="lib\Behaviors\IDanceBehavior.h" />
-    <ClInclude Include="lib\Behaviors\IFlyBehavior.h" />
-    <ClInclude Include="lib\Behaviors\IQuackBehavior.h" />
-    <ClInclude Include="lib\Behaviors\Quack\Quake.h" />
-    <ClInclude Include="lib\Duck\Duck.h" />
+    <ClInclude Include="..\Ducks\lib\Behaviors\Dance\Waltz.h" />
+    <ClInclude Include="..\Ducks\lib\Behaviors\Fly\FlyWithWings.h" />
+    <ClInclude Include="..\Ducks\lib\Behaviors\IDanceBehavior.h" />
+    <ClInclude Include="..\Ducks\lib\Behaviors\IFlyBehavior.h" />
+    <ClInclude Include="..\Ducks\lib\Behaviors\IQuackBehavior.h" />
+    <ClInclude Include="..\Ducks\lib\Behaviors\Quack\Quake.h" />
+    <ClInclude Include="..\Ducks\lib\Duck\Duck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
