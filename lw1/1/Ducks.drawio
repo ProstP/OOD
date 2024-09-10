@@ -26,10 +26,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="QlOkIQeldyx6gdsehzbM-9" value="Duck" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="420" y="210" width="370" height="330" as="geometry" />
+          <mxGeometry x="420" y="210" width="370" height="350" as="geometry" />
         </mxCell>
         <mxCell id="QlOkIQeldyx6gdsehzbM-10" value="Duck" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="455" y="240" width="320" height="284" as="geometry" />
+          <mxGeometry x="455" y="240" width="320" height="310" as="geometry" />
         </mxCell>
         <mxCell id="QlOkIQeldyx6gdsehzbM-11" value="- m_quack&lt;span style=&quot;text-align: center;&quot;&gt;Behavior : IQuackBehavior&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="QlOkIQeldyx6gdsehzbM-10" vertex="1">
           <mxGeometry y="26" width="320" height="26" as="geometry" />
@@ -57,6 +57,9 @@
         </mxCell>
         <mxCell id="QlOkIQeldyx6gdsehzbM-40" value="+ Dance() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="QlOkIQeldyx6gdsehzbM-10" vertex="1">
           <mxGeometry y="258" width="320" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="lgIc2JTGFsaPqbrekX56-0" value="+ Display() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="QlOkIQeldyx6gdsehzbM-10">
+          <mxGeometry y="284" width="320" height="26" as="geometry" />
         </mxCell>
         <mxCell id="QlOkIQeldyx6gdsehzbM-15" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;i&gt;IQuackBehavior&lt;/i&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="60" y="660" width="160" height="66" as="geometry" />
