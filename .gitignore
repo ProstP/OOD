@@ -1,3 +1,11 @@
+.vs/
+nil
+output.txt
+*.pdb
+*.obj
+Release/
+Debug/
+
 # Prerequisites
 *.d
 
