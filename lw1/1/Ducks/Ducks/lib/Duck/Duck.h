@@ -9,10 +9,6 @@
 class Duck
 {
 public:
-	Duck(std::unique_ptr<IDanceBehavior>&& d)
-	{
-	}
-
 	Duck(std::unique_ptr<IDanceBehavior>&& danceBehavior,
 		std::unique_ptr<IFlyBehavior>&& flyBehavior,
 		std::unique_ptr<IQuackBehavior>&& quackBehavior)
