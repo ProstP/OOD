@@ -71,5 +71,8 @@
     <ClInclude Include="lib\SamplesDuck\DecoyDuck.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="lib\Handler\DuckHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #pragma once
-#include "../Behaviors/Dance/Waltz.h"
-#include "../Behaviors/Fly/FlyWithWings.h"
-#include "../Behaviors/Quack/Quack.h"
+#include "../Behaviors/Dance/NoDance.h"
+#include "../Behaviors/Fly/FlyNoWay.h"
+#include "../Behaviors/Quack/MuteQuack.h"
 #include "../Duck/Duck.h"
 
 class DecoyDuck : public Duck
@@ -9,9 +9,9 @@ class DecoyDuck : public Duck
 public:
 	DecoyDuck()
 		: Duck(
-			std::make_unique<Waltz>(),
-			std::make_unique<FlyWithWings>(),
-			std::make_unique<QuackBehavior>())
+			std::make_unique<NoDance>(),
+			std::make_unique<FlyNoWay>(),
+			std::make_unique<MuteQuack>())
 	{
 	}
 

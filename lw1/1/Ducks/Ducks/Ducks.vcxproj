@@ -154,6 +154,7 @@
     <ClInclude Include="lib\Behaviors\Quack\Quack.h" />
     <ClInclude Include="lib\Behaviors\Quack\Squeak.h" />
     <ClInclude Include="lib\Duck\Duck.h" />
+    <ClInclude Include="lib\Handler\DuckHandler.h" />
     <ClInclude Include="lib\SamplesDuck\DecoyDuck.h" />
     <ClInclude Include="lib\SamplesDuck\MallardDuck.h" />
     <ClInclude Include="lib\SamplesDuck\ModelDuck.h" />
