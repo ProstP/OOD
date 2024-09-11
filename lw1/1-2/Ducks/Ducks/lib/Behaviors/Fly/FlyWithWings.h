@@ -7,6 +7,10 @@ class FlyWithWings : public IFlyBehavior
 public:
 	void Fly() override
 	{
-		std::cout << "I'm flying with wings!!" << std::endl;
+		m_flyingCount++;
+		std::cout << "I'm flying with wings!! It's my " << m_flyingCount << " departure." << std::endl;
 	}
+
+private:
+	int m_flyingCount = 0;
 };
