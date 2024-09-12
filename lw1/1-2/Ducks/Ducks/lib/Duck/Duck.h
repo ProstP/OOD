@@ -13,12 +13,11 @@ public:
 		std::unique_ptr<IFlyBehavior>&& flyBehavior,
 		std::unique_ptr<IQuackBehavior>&& quackBehavior)
 	{
-		assert(danceBehavior);
 		assert(flyBehavior);
 		assert(quackBehavior);
-		m_danceBehavior = std::move(danceBehavior);
 		m_flyBehavior = std::move(flyBehavior);
 		m_quackBehavior = std::move(quackBehavior);
+		SetDanceBehavior(std::move(danceBehavior));
 	};
 
 	void Swim() const
@@ -36,6 +35,12 @@ public:
 	void Dance() const
 	{
 		m_danceBehavior->Dance();
+	}
+
+	void SetDanceBehavior(std::unique_ptr<IDanceBehavior>&& danceBehavior)
+	{
+		assert(danceBehavior);
+		m_danceBehavior = std::move(danceBehavior);
 	}
 
 	virtual void Display() const = 0;
