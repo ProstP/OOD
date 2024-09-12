@@ -34,7 +34,12 @@ public:
 	}
 	void Dance() const
 	{
-		m_danceBehavior->Dance();
+		if (!m_danced)
+		{
+			m_danceBehavior->Dance();
+			m_danceBehavior->Dance();
+			m_danced = true;
+		}
 	}
 
 	void SetDanceBehavior(std::unique_ptr<IDanceBehavior>&& danceBehavior)
@@ -47,6 +52,7 @@ public:
 	virtual ~Duck() = default;
 
 private:
+	mutable bool m_danced = false;
 	std::unique_ptr<IDanceBehavior> m_danceBehavior;
 	std::unique_ptr<IFlyBehavior> m_flyBehavior;
 	std::unique_ptr<IQuackBehavior> m_quackBehavior;
