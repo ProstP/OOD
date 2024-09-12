@@ -33,6 +33,7 @@ TEST_CASE("Dance menthod")
 
 		THEN("Counter will be increase")
 		{
+			//Как написать тест который юы доказывал утка бует танцевать прик каждом вызове и не оставносится
 			duck.Dance();
 
 			CHECK(ptr->GetCounter() == 1);
