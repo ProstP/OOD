@@ -2,7 +2,7 @@
 
 CommandHandler::CommandHandler(Picture& picture)
 {
-	*m_picture = picture;
+	m_picture = &picture;
 }
 
 void CommandHandler::Handle(std::istream& in, std::ostream& out)

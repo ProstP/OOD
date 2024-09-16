@@ -14,7 +14,7 @@ public:
 	void ChangeShape(const std::string& id, const std::string& type, const std::string& params);
 	void DrawShape(const std::string& id);
 	void DrawPicture();
-	void SetCanvas(const ICanvas& canvas);
+	void SetCanvas(ICanvas& canvas);
 
 	~Picture();
 

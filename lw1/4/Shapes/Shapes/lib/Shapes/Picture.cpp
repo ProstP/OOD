@@ -36,9 +36,9 @@ void Picture::DrawPicture()
 {
 }
 
-void Picture::SetCanvas(const ICanvas& canvas)
+void Picture::SetCanvas(ICanvas& canvas)
 {
-	*m_canvas = canvas;
+	m_canvas = &canvas;
 }
 
 Picture::~Picture()
