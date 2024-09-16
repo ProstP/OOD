@@ -4,7 +4,7 @@ void Picture::AddShape(const std::string& id, const std::string& color, const st
 {
 }
 
-void Picture::MoveShape(const std::string&, double dx, double dy)
+void Picture::MoveShape(const std::string& id, double dx, double dy)
 {
 }
 
@@ -43,5 +43,5 @@ void Picture::SetCanvas(ICanvas& canvas)
 
 Picture::~Picture()
 {
-	delete m_canvas;
+	m_canvas = nullptr;
 }

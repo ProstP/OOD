@@ -89,6 +89,9 @@
     <ClInclude Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="lib\CommandHandler\Commands.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Shapes.rc">

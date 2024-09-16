@@ -6,7 +6,7 @@ class Picture
 {
 public:
 	void AddShape(const std::string& id, const std::string& color, const std::string& type, const std::string& params);
-	void MoveShape(const std::string&, double dx, double dy);
+	void MoveShape(const std::string& id, double dx, double dy);
 	void MovePicture(double dx, double dy);
 	void DeleteShape(const std::string& id);
 	void List(std::ostream& out) const;
