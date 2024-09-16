@@ -45,6 +45,9 @@
     <ClCompile Include="lib\DrawingStrategy\Imp\Text\DrawText.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\CommandHandler\CommandHandler.h">

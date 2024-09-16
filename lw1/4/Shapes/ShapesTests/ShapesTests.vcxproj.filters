@@ -24,12 +24,42 @@
     <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Circle\DrawCircle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Traingle\DrawTriangle.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Line\DrawLine.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Text\DrawText.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shapes\lib\Gfx\Color.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Circle\DrawCircle.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Traingle\DrawTriangle.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Line\DrawLine.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Text\DrawText.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

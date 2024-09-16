@@ -4,7 +4,7 @@
 class DrawCircle : public IDrawingStrategy
 {
 public:
-	DrawCircle(std::string params);
+	DrawCircle(const std::string& params);
 
 	void Draw(ICanvas& canvas) override;
 	void MoveTo(double dx, double dy) override;

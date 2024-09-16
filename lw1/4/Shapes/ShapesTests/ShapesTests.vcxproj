@@ -142,12 +142,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp" />
     <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Circle\DrawCircle.cpp" />
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Line\DrawLine.cpp" />
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.cpp" />
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Text\DrawText.cpp" />
+    <ClCompile Include="..\Shapes\lib\DrawingStrategy\Imp\Traingle\DrawTriangle.cpp" />
     <ClCompile Include="..\Shapes\lib\Gfx\Color.cpp" />
     <ClCompile Include="ShapesTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.h" />
     <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Circle\DrawCircle.h" />
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Line\DrawLine.h" />
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.h" />
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Text\DrawText.h" />
+    <ClInclude Include="..\Shapes\lib\DrawingStrategy\Imp\Traingle\DrawTriangle.h" />
     <ClInclude Include="..\Shapes\lib\Gfx\Color.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

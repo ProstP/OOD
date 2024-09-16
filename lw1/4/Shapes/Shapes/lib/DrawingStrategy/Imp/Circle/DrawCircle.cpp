@@ -1,15 +1,14 @@
 #include "DrawCircle.h"
 #include <regex>
-#include <string>
 #include "../../ConvertDoubleToStringWithoutZero.h"
 
-DrawCircle::DrawCircle(std::string params)
+DrawCircle::DrawCircle(const std::string& params)
 {
 	std::regex pattern("^\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*$");
 	std::smatch match;
 	if (!std::regex_match(params, match, pattern))
 	{
-		throw std::invalid_argument("Invalid paramters from circle");
+		throw std::invalid_argument("Invalid parameters for circle");
 	}
 
 	try
