@@ -1,5 +1,6 @@
 ﻿#define CATCH_CONFIG_MAIN
 #include "../../../../catch.hpp"
+#include "../Shapes/lib/DrawingStrategy/Imp/Circle/DrawCircle.h"
 #include "../Shapes/lib/Gfx/Color.h"
 
 TEST_CASE("Test with color")
@@ -59,6 +60,55 @@ TEST_CASE("Test with color")
 		THEN("hex equal hex from color")
 		{
 			CHECK(color.GetInHex() == hex);
+		}
+	}
+}
+
+TEST_CASE("Circle")
+{
+	WHEN("Params invalid")
+	{
+		auto fn = []() {
+			DrawCircle circle("dsdasda");
+		};
+
+		THEN("Will throw exception")
+		{
+			CHECK_THROWS_AS(fn(), std::invalid_argument);
+		}
+	}
+	WHEN("Params not digit")
+	{
+		auto fn = []() {
+			DrawCircle circle("12.22 . .");
+		};
+
+		THEN("Will throw exception")
+		{
+			CHECK_THROWS_AS(fn(), std::invalid_argument);
+		}
+	}
+	WHEN("Params are digits")
+	{
+		std::string params = "12.22 22 22";
+		DrawCircle circle(params);
+
+		THEN("Params are right and type circle")
+		{
+			CHECK(circle.GetType() == "circle");
+			CHECK(circle.GetParams() == params);
+		}
+	}
+	WHEN("Move")
+	{
+		std::string params = "12.22 22 22";
+		DrawCircle circle(params);
+		circle.MoveTo(5.2, -2.3);
+		std::string expected = "17.42 19.7 22";
+
+		THEN("Params are change")
+		{
+			CHECK(circle.GetParams() == expected);
 		}
 	}
 }
