@@ -4,6 +4,16 @@
 
 TEST_CASE("Test with color")
 {
+	WHEN("Creating with hex-length != 6")
+	{
+		auto fn = []() {
+			Color color("dsadasdasdasda");
+		};
+		THEN("Will throw exception")
+		{
+			CHECK_THROWS_WITH(fn(), "Hex length must be equal 6");
+		}
+	}
 	WHEN("Creating red")
 	{
 		std::string hexColor = "ff0000";
@@ -38,6 +48,17 @@ TEST_CASE("Test with color")
 			CHECK(color.GetR() == 0);
 			CHECK(color.GetG() == 0);
 			CHECK(color.GetB() == 255);
+		}
+	}
+
+	WHEN("Get hex from color")
+	{
+		std::string hex = "12ff98";
+		Color color(hex);
+
+		THEN("hex equal hex from color")
+		{
+			CHECK(color.GetInHex() == hex);
 		}
 	}
 }

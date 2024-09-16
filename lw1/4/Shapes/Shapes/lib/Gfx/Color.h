@@ -15,5 +15,6 @@ private:
 	unsigned char m_g;
 	unsigned char m_b;
 
-	unsigned char FromHexToDec(const std::string& hex);
+	static unsigned char FromHexToDec(const std::string& hex);
+	static std::string FromDecToHex(unsigned char dec);
 };
