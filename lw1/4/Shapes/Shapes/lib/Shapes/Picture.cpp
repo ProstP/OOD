@@ -129,7 +129,6 @@ void Picture::SetCanvas(ICanvas* canvas)
 
 Picture::~Picture()
 {
-	m_canvas->Close();
 	m_canvas = nullptr;
 }
 

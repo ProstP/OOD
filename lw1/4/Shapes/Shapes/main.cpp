@@ -1,7 +1,7 @@
 ﻿#include "lib/CommandHandler/CommandHandler.h"
 #include "lib/Shapes/Picture.h"
 #include <iostream>
-#include "../SFML/Canvas.h"
+#include "lib/Sfml/Canvas.h"
 
 int main()
 {

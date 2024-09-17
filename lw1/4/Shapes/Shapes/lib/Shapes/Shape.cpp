@@ -34,6 +34,7 @@ void Shape::MoveShape(double dx, double dy)
 
 void Shape::Draw(ICanvas& canvas)
 {
+	canvas.SetColor(m_color);
 	m_drawingStrategy->Draw(canvas);
 }
 

@@ -48,7 +48,7 @@
     <ClCompile Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\SFML\Canvas.cpp">
+    <ClCompile Include="lib\Sfml\Canvas.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClInclude Include="lib\CommandHandler\Commands.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\SFML\Canvas.h">
+    <ClInclude Include="lib\Sfml\Canvas.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

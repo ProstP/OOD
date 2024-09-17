@@ -22,6 +22,6 @@ private:
 	ICanvas* m_canvas;
 	std::vector<std::shared_ptr<Shape>> m_shapes;
 	void IsIdUsed(const std::string& id);
-	Shape CreateShape(const std::string& id, const std::string& color, const std::string& type, const std::string& params);
+	Shape CreateShape(const std::string& id, const std::string& type, const std::string& color, const std::string& params);
 	int FindIndexById(const std::string& id);
 };

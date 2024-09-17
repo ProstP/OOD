@@ -1,6 +1,6 @@
 #include "DrawRectangle.h"
-#include <regex>
 #include "../../ConvertDoubleToStringWithoutZero.h"
+#include <regex>
 
 DrawRectangle::DrawRectangle(const std::string& params)
 {
@@ -26,7 +26,14 @@ DrawRectangle::DrawRectangle(const std::string& params)
 
 void DrawRectangle::Draw(ICanvas& canvas)
 {
-	std::cout << "Draw rectangle" << std::endl;
+	canvas.MoveTo(m_left, m_top);
+	canvas.LineTo(m_left + m_width, m_top);
+	canvas.MoveTo(m_left + m_width, m_top);
+	canvas.LineTo(m_left + m_width, m_top + m_height);
+	canvas.MoveTo(m_left + m_width, m_top + m_height);
+	canvas.LineTo(m_left, m_top + m_height);
+	canvas.MoveTo(m_left, m_top + m_height);
+	canvas.LineTo(m_left, m_top);
 }
 
 void DrawRectangle::MoveTo(double dx, double dy)

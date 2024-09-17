@@ -11,6 +11,7 @@ CommandHandler::CommandHandler(Picture* picture)
 
 void CommandHandler::Handle(std::istream& in, std::ostream& out)
 {
+	out << "Enter command:" << std::endl;
 	std::string command;
 
 	while (std::getline(in, command))

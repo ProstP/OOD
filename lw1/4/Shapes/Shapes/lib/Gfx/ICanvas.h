@@ -10,7 +10,6 @@ public:
 	virtual void LineTo(double x, double y){};
 	virtual void DrawEllipse(double cx, double cy, double rx, double ry){};
 	virtual void DrawText(double left, double top, int fontSize, const std::string& text){};
-	virtual void Close(){};
 
 	virtual ~ICanvas() = default;
 };

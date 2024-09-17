@@ -28,7 +28,12 @@ DrawTriangle::DrawTriangle(const std::string& params)
 
 void DrawTriangle::Draw(ICanvas& canvas)
 {
-	std::cout << "Draw triangle" << std::endl;
+	canvas.MoveTo(m_x1, m_y1);
+	canvas.LineTo(m_x2, m_y2);
+	canvas.MoveTo(m_x2, m_y2);
+	canvas.LineTo(m_x3, m_y3);
+	canvas.MoveTo(m_x3, m_y3);
+	canvas.LineTo(m_x1, m_y1);
 }
 
 void DrawTriangle::MoveTo(double dx, double dy)

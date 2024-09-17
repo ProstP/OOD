@@ -26,7 +26,8 @@ DrawLine::DrawLine(const std::string params)
 
 void DrawLine::Draw(ICanvas& canvas)
 {
-	std::cout << "Draw line" << std::endl;
+	canvas.MoveTo(m_x1, m_y1);
+	canvas.LineTo(m_x2, m_y2);
 }
 
 void DrawLine::MoveTo(double dx, double dy)

@@ -26,7 +26,7 @@ DrawTextStrategy::DrawTextStrategy(const std::string& params)
 
 void DrawTextStrategy::Draw(ICanvas& canvas)
 {
-	std::cout << "Draw text" << std::endl;
+	canvas.DrawText(m_left, m_top, m_fontSize, m_text);
 }
 
 void DrawTextStrategy::MoveTo(double dx, double dy)

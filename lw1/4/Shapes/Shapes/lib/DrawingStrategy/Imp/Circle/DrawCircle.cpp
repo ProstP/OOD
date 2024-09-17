@@ -25,7 +25,7 @@ DrawCircle::DrawCircle(const std::string& params)
 
 void DrawCircle::Draw(ICanvas& canvas)
 {
-	std::cout << "Drawing circle" << std::endl;
+	canvas.DrawEllipse(m_x, m_y, m_r, m_r);
 }
 
 void DrawCircle::MoveTo(double dx, double dy)
