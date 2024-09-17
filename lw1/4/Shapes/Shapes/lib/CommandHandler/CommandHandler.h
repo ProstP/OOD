@@ -6,12 +6,12 @@
 class CommandHandler
 {
 public:
-	CommandHandler(std::unique_ptr<Picture>&& picture);
+	CommandHandler(Picture* picture);
 	void Handle(std::istream& in, std::ostream& out);
 	~CommandHandler();
 
 private:
-	std::unique_ptr<Picture> m_picture;
+	Picture* m_picture;
 
 	void DefineCommand(const std::string& command, std::ostream& out);
 	void AddShapeCommand(const std::string& command);

@@ -14,14 +14,14 @@ public:
 	void ChangeShape(const std::string& id, const std::string& type, const std::string& params);
 	void DrawShape(const std::string& id);
 	void DrawPicture();
-	void SetCanvas(std::unique_ptr<ICanvas>&& canvas);
+	void SetCanvas(ICanvas* canvas);
 
 	~Picture();
 
 private:
-	std::unique_ptr<ICanvas> m_canvas;
-	std::vector<std::unique_ptr<Shape>> m_shapes;
-	IDrawingStrategy CreateDrawingStrategyByShapeType(const std::string& type, const std::string& params);
+	ICanvas* m_canvas;
+	std::vector<std::shared_ptr<Shape>> m_shapes;
 	void IsIdUsed(const std::string& id);
+	Shape CreateShape(const std::string& id, const std::string& color, const std::string& type, const std::string& params);
 	int FindIndexById(const std::string& id);
 };

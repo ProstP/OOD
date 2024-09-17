@@ -5,7 +5,7 @@
 int main()
 {
 	Picture picture;
-	CommandHandler handler(picture);
+	CommandHandler handler(&picture);
 
 	handler.Handle(std::cin, std::cout);
 }

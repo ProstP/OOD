@@ -4,7 +4,7 @@
 
 DrawTriangle::DrawTriangle(const std::string& params)
 {
-	std::regex pattern("^\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*([\\d\.]+)\\s*$");
+	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
 	if (!std::regex_match(params, match, pattern))
 	{

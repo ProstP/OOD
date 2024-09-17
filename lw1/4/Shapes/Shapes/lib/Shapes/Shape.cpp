@@ -1,13 +1,20 @@
 #include "Shape.h"
 
-std::string Shape::GetId()
+Shape::Shape(const std::string& id, const Color& color, std::unique_ptr<IDrawingStrategy>&& drawingStrategy)
+	: m_id{ id }
+	, m_color{ color }
 {
-	return std::string();
+	SetDrawingStrategy(std::move(drawingStrategy));
 }
 
-void Shape::SetDrawingStrategy(const IDrawingStrategy& drawingStrategy)
+std::string Shape::GetId() const
 {
-	m_drawingStrategy = drawingStrategy;
+	return m_id;
+}
+
+void Shape::SetDrawingStrategy(std::unique_ptr<IDrawingStrategy>&& drawingStrategy)
+{
+	m_drawingStrategy = std::move(drawingStrategy);
 }
 
 void Shape::SetColor(const Color& color)
@@ -22,15 +29,15 @@ Color Shape::GetColor() const
 
 void Shape::MoveShape(double dx, double dy)
 {
-	m_drawingStrategy.MoveTo(dx, dy);
+	m_drawingStrategy->MoveTo(dx, dy);
 }
 
 void Shape::Draw(ICanvas& canvas)
 {
-	m_drawingStrategy.Draw(canvas);
+	m_drawingStrategy->Draw(canvas);
 }
 
 std::string Shape::ToString() const
 {
-	return std::string();
+	return m_drawingStrategy->GetType() + " " + GetId() + " #" + m_color.GetInHex() + " " + m_drawingStrategy->GetParams();
 }

@@ -6,12 +6,9 @@
 class Shape
 {
 public:
-	Shape(const std::string& id, const Color& color, const IDrawingStrategy drawingStrategy)
-		: m_id{ id }
-		, m_color{ color }
-		, m_drawingStrategy{ drawingStrategy } {};
-	std::string GetId();
-	void SetDrawingStrategy(const IDrawingStrategy& drawingStrategy);
+	Shape(const std::string& id, const Color& color, std::unique_ptr<IDrawingStrategy>&& drawingStrategy);
+	std::string GetId() const;
+	void SetDrawingStrategy(std::unique_ptr<IDrawingStrategy>&& drawingStrategy);
 	void SetColor(const Color& color);
 	Color GetColor() const;
 	void MoveShape(double dx, double dy);
@@ -22,5 +19,5 @@ public:
 private:
 	std::string m_id;
 	Color m_color;
-	IDrawingStrategy m_drawingStrategy;
+	std::unique_ptr<IDrawingStrategy> m_drawingStrategy;
 };

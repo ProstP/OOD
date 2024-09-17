@@ -4,14 +4,14 @@
 #include "../DrawingStrategy/Imp/Rectangle/DrawRectangle.h"
 #include "../DrawingStrategy/Imp/Text/DrawText.h"
 #include "../DrawingStrategy/Imp/Traingle/DrawTriangle.h"
+#include <memory>
 #include <string>
 
 void Picture::AddShape(const std::string& id, const std::string& color, const std::string& type, const std::string& params)
 {
 	IsIdUsed(id);
-	Shape shape(id, Color(color), CreateDrawingStrategyByShapeType(type, params));
-
-	m_shapes.push_back(std::make_unique<Shape>(shape));
+	
+	m_shapes.push_back(std::make_shared<Shape>(CreateShape(id, type, color, params)));
 }
 
 void Picture::MoveShape(const std::string& id, double dx, double dy)
@@ -50,7 +50,7 @@ void Picture::List(std::ostream& out) const
 {
 	for (int i = 0; i < m_shapes.size(); i++)
 	{
-		out << m_shapes[i]->ToString();
+		out << m_shapes[i]->ToString() << std::endl;
 	}
 }
 
@@ -75,7 +75,30 @@ void Picture::ChangeShape(const std::string& id, const std::string& type, const 
 		throw std::invalid_argument("Uknwown id");
 	}
 
-	m_shapes[index]->SetDrawingStrategy(CreateDrawingStrategyByShapeType(type, params));
+	if (type == "circle")
+	{
+		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawCircle>(params));
+	}
+	else if (type == "rectangle")
+	{
+		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawRectangle>(params));
+	}
+	else if (type == "triangle")
+	{
+		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawTriangle>(params));
+	}
+	else if (type == "line")
+	{
+		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawLine>(params));
+	}
+	else if (type == "text")
+	{
+		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawTextStrategy>(params));
+	}
+	else
+	{
+		throw std::invalid_argument("Unknown type");
+	}
 }
 
 void Picture::DrawShape(const std::string& id)
@@ -98,42 +121,15 @@ void Picture::DrawPicture()
 	}
 }
 
-void Picture::SetCanvas(std::unique_ptr<ICanvas>&& canvas)
+void Picture::SetCanvas(ICanvas* canvas)
 {
-	m_canvas = std::move(canvas);
+	m_canvas = canvas;
+	canvas = nullptr;
 }
 
 Picture::~Picture()
 {
 	m_canvas = nullptr;
-}
-
-IDrawingStrategy Picture::CreateDrawingStrategyByShapeType(const std::string& type, const std::string& params)
-{
-	if (type == "circle")
-	{
-		return DrawCircle(params);
-	}
-	else if (type == "rectangle")
-	{
-		return DrawRectangle(params);
-	}
-	else if (type == "triangle")
-	{
-		return DrawTriangle(params);
-	}
-	else if (type == "line")
-	{
-		return DrawLine(params);
-	}
-	else if (type == "text")
-	{
-		return DrawTextStrategy(params);
-	}
-	else
-	{
-		throw std::invalid_argument("Unknown type");
-	}
 }
 
 void Picture::IsIdUsed(const std::string& id)
@@ -144,6 +140,34 @@ void Picture::IsIdUsed(const std::string& id)
 		{
 			throw std::invalid_argument("Id alredy used");
 		}
+	}
+}
+
+Shape Picture::CreateShape(const std::string& id, const std::string& type, const std::string& color, const std::string& params)
+{
+	if (type == "circle")
+	{
+		return Shape(id, Color(color), std::make_unique<DrawCircle>(params));
+	}
+	else if (type == "rectangle")
+	{
+		return Shape(id, Color(color), std::make_unique<DrawRectangle>(params));
+	}
+	else if (type == "triangle")
+	{
+		return Shape(id, Color(color), std::make_unique<DrawTriangle>(params));
+	}
+	else if (type == "line")
+	{
+		return Shape(id, Color(color), std::make_unique<DrawLine>(params));
+	}
+	else if (type == "text")
+	{
+		return Shape(id, Color(color), std::make_unique<DrawTextStrategy>(params));
+	}
+	else
+	{
+		throw std::invalid_argument("Unknown type");
 	}
 }
 
