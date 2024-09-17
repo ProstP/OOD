@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\SFML\Canvas.cpp" />
     <ClCompile Include="lib\CommandHandler\CommandHandler.cpp" />
     <ClCompile Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp" />
     <ClCompile Include="lib\DrawingStrategy\Imp\Circle\DrawCircle.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SFML\Canvas.h" />
     <ClInclude Include="lib\CommandHandler\CommandHandler.h" />
     <ClInclude Include="lib\CommandHandler\Commands.h" />
     <ClInclude Include="lib\DrawingStrategy\IDrawingStrategy.h" />
