@@ -8,9 +8,15 @@ Color::Color(const std::string& colorInHex)
 		throw std::invalid_argument("Hex length must be equal 6");
 	}
 
-	m_r = FromHexToDec(colorInHex.substr(0, 2));
-	m_g = FromHexToDec(colorInHex.substr(2, 2));
-	m_b = FromHexToDec(colorInHex.substr(4, 2));
+	std::string hexInLower;
+	for (int i = 0; i < colorInHex.length(); i++)
+	{
+		hexInLower.push_back(std::tolower(colorInHex[i]));
+	}
+
+	m_r = FromHexToDec(hexInLower.substr(0, 2));
+	m_g = FromHexToDec(hexInLower.substr(2, 2));
+	m_b = FromHexToDec(hexInLower.substr(4, 2));
 }
 
 unsigned char Color::GetR() const

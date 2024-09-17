@@ -21,8 +21,7 @@ TEST_CASE("Color")
 	}
 	WHEN("Creating red")
 	{
-		std::string hexColor = "ff0000";
-		Color color(hexColor);
+		Color color("ff0000");
 
 		THEN("R = 255, G = 0, B = 0")
 		{
@@ -33,8 +32,7 @@ TEST_CASE("Color")
 	}
 	WHEN("Creating green")
 	{
-		std::string hexColor = "00ff00";
-		Color color(hexColor);
+		Color color("00ff00");
 
 		THEN("R = 0, G = 255, B = 0")
 		{
@@ -45,8 +43,7 @@ TEST_CASE("Color")
 	}
 	WHEN("Creating blue")
 	{
-		std::string hexColor = "0000ff";
-		Color color(hexColor);
+		Color color("0000ff");
 
 		THEN("R = 0, G = 0, B = 255")
 		{
@@ -55,7 +52,17 @@ TEST_CASE("Color")
 			CHECK(color.GetB() == 255);
 		}
 	}
+	WHEN("Create with str un upcase")
+	{
+		Color color("FFFFFF");
 
+		THEN("All parametrs is 255")
+		{
+			CHECK(color.GetR() == 255);
+			CHECK(color.GetG() == 255);
+			CHECK(color.GetB() == 255);
+		}
+	}
 	WHEN("Get hex from color")
 	{
 		std::string hex = "12ff98";
