@@ -1,10 +1,11 @@
 #include "CommandHandler.h"
 #include "Commands.h"
+#include <set>
 #include <string>
 
-CommandHandler::CommandHandler(Picture& picture)
+CommandHandler::CommandHandler(std::unique_ptr<Picture>&& picture)
 {
-	m_picture = &picture;
+	m_picture = std::move(picture);
 }
 
 void CommandHandler::Handle(std::istream& in, std::ostream& out)
@@ -140,7 +141,7 @@ void CommandHandler::ListCommand(const std::string& command, std::ostream& out)
 void CommandHandler::ChangeColorCommand(const std::string& command)
 {
 	std::smatch m;
-	ParseCommand(std::regex("^("+CHANGE_COLOR+")\\s+(\\w+)\\s+#([0-9a-f]{6})$", std::regex_constants::icase), m, command);
+	ParseCommand(std::regex("^(" + CHANGE_COLOR + ")\\s+(\\w+)\\s+#([0-9a-f]{6})$", std::regex_constants::icase), m, command);
 	std::cout << m[2].str() << "!" << std::endl;
 	std::cout << m[3].str() << "!" << std::endl;
 	//m_picture->ChangeColor();
@@ -149,7 +150,7 @@ void CommandHandler::ChangeColorCommand(const std::string& command)
 void CommandHandler::ChangeShapeCommand(const std::string& command)
 {
 	std::smatch m;
-	ParseCommand(std::regex("^("+ CHANGE_SHAPE+")\\s+(\\w+)\\s+(\\w+)\\s+(.+)$"), m, command);
+	ParseCommand(std::regex("^(" + CHANGE_SHAPE + ")\\s+(\\w+)\\s+(\\w+)\\s+(.+)$"), m, command);
 	std::cout << m[2].str() << "!" << std::endl;
 	std::cout << m[3].str() << "!" << std::endl;
 	std::cout << m[4].str() << "!" << std::endl;
@@ -177,5 +178,17 @@ void CommandHandler::ParseCommand(const std::regex& pattern, std::smatch& match,
 	if (!std::regex_match(command, match, pattern))
 	{
 		throw std::invalid_argument("Unknown command");
+	}
+}
+
+void CommandHandler::CheckIdWithReservedWords(const std::string& id)
+{
+	const std::set<std::string> reservedWords = {
+		ADD_SHAPE, MOVE_SHAPE, MOVE_PICTURE, DELETE_SHAPE, LIST, CHANGE_COLOR, CHANGE_SHAPE, DRAW_SHAPE, DRAW_PICTURE
+	};
+
+	if (reservedWords.contains(id))
+	{
+		throw std::invalid_argument("Id alredy reserved");
 	}
 }
