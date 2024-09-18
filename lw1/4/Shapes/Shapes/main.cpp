@@ -8,7 +8,7 @@ int main()
 {
 	Picture picture;
 	WindowCanvas window;
-	Canvas canvas(window.GetWindowRender());
+	Canvas canvas(&window);
 	picture.SetCanvas(&canvas);
 	CommandHandler handler(&picture);
 

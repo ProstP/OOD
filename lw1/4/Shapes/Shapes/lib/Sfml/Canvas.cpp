@@ -1,8 +1,11 @@
 #include "Canvas.h"
 
-Canvas::Canvas(std::shared_ptr<sf::RenderTarget> window)
-	: m_window(window)
+sf::Mutex mutex;
+
+Canvas::Canvas(WindowCanvas* window)
 {
+	m_window = window;
+	window = nullptr;
 	m_x = 0;
 	m_y = 0;
 	m_color = sf::Color::Black;
@@ -33,8 +36,9 @@ void Canvas::LineTo(double x, double y)
 	line[0].color = m_color;
 	line[1].color = m_color;
 
-	//m_shapes.push_back(std::make_shared<sf::VertexArray>(line));
-	m_window->draw(line);
+	m_shapes.push_back(std::make_shared<sf::VertexArray>(line));
+	m_window->DrawShapes(m_shapes);
+	//m_window->draw(line);
 }
 
 void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
@@ -45,8 +49,9 @@ void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
 	double scaleY = ry / rx;
 	circle.setScale(1, static_cast<float>(scaleY));
 
-	//m_shapes.push_back(std::make_shared<sf::CircleShape>(circle));
-	m_window->draw(circle);
+	m_shapes.push_back(std::make_shared<sf::CircleShape>(circle));
+	m_window->DrawShapes(m_shapes);
+	//m_window->draw(circle);
 }
 
 void Canvas::DrawText(double left, double top, int fontSize, const std::string& text)
@@ -58,8 +63,14 @@ void Canvas::DrawText(double left, double top, int fontSize, const std::string& 
 	drawText.setString(text);
 	drawText.setFillColor(m_color);
 
-	//m_shapes.push_back(std::make_shared<sf::Text>(drawText));
-	m_window->draw(drawText);
+	m_shapes.push_back(std::make_shared<sf::Text>(drawText));
+	m_window->DrawShapes(m_shapes);
+	//m_window->draw(drawText);
+}
+
+Canvas::~Canvas()
+{
+	m_window = nullptr;
 }
 
 // Добавить блокировку
