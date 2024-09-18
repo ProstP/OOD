@@ -1,16 +1,16 @@
 #include "Picture.h"
-#include "../DrawingStrategy/Imp/Circle/DrawCircle.h"
-#include "../DrawingStrategy/Imp/Line/DrawLine.h"
-#include "../DrawingStrategy/Imp/Rectangle/DrawRectangle.h"
-#include "../DrawingStrategy/Imp/Text/DrawText.h"
-#include "../DrawingStrategy/Imp/Traingle/DrawTriangle.h"
+#include "../Figure/Imp/Circle/Circle.h"
+#include "../Figure/Imp/Line/Line.h"
+#include "../Figure/Imp/Rectangle/Rectangle.h"
+#include "../Figure/Imp/Text/TextFigure.h"
+#include "../Figure/Imp/Traingle/Triangle.h"
 #include <memory>
 #include <string>
 
 void Picture::AddShape(const std::string& id, const std::string& color, const std::string& type, const std::string& params)
 {
 	IsIdUsed(id);
-	
+
 	m_shapes.push_back(std::make_shared<Shape>(CreateShape(id, type, color, params)));
 }
 
@@ -77,23 +77,23 @@ void Picture::ChangeShape(const std::string& id, const std::string& type, const 
 
 	if (type == "circle")
 	{
-		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawCircle>(params));
+		return m_shapes[index]->SetFigure(std::make_unique<Circle>(params));
 	}
 	else if (type == "rectangle")
 	{
-		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawRectangle>(params));
+		return m_shapes[index]->SetFigure(std::make_unique<Rectangle>(params));
 	}
 	else if (type == "triangle")
 	{
-		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawTriangle>(params));
+		return m_shapes[index]->SetFigure(std::make_unique<Triangle>(params));
 	}
 	else if (type == "line")
 	{
-		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawLine>(params));
+		return m_shapes[index]->SetFigure(std::make_unique<Line>(params));
 	}
 	else if (type == "text")
 	{
-		return m_shapes[index]->SetDrawingStrategy(std::make_unique<DrawTextStrategy>(params));
+		return m_shapes[index]->SetFigure(std::make_unique<TextFigure>(params));
 	}
 	else
 	{
@@ -147,23 +147,23 @@ Shape Picture::CreateShape(const std::string& id, const std::string& type, const
 {
 	if (type == "circle")
 	{
-		return Shape(id, Color(color), std::make_unique<DrawCircle>(params));
+		return Shape(id, Color(color), std::make_unique<Circle>(params));
 	}
 	else if (type == "rectangle")
 	{
-		return Shape(id, Color(color), std::make_unique<DrawRectangle>(params));
+		return Shape(id, Color(color), std::make_unique<Rectangle>(params));
 	}
 	else if (type == "triangle")
 	{
-		return Shape(id, Color(color), std::make_unique<DrawTriangle>(params));
+		return Shape(id, Color(color), std::make_unique<Triangle>(params));
 	}
 	else if (type == "line")
 	{
-		return Shape(id, Color(color), std::make_unique<DrawLine>(params));
+		return Shape(id, Color(color), std::make_unique<Line>(params));
 	}
 	else if (type == "text")
 	{
-		return Shape(id, Color(color), std::make_unique<DrawTextStrategy>(params));
+		return Shape(id, Color(color), std::make_unique<TextFigure>(params));
 	}
 	else
 	{

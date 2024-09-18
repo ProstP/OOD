@@ -145,12 +145,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lib\CommandHandler\CommandHandler.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\Imp\Circle\Circle.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\Imp\Line\DrawLine.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\Imp\Text\DrawText.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\Imp\Traingle\DrawTriangle.cpp" />
+    <ClCompile Include="lib\Figure\ConvertDoubleToStringWithoutZero.cpp" />
+    <ClCompile Include="lib\Figure\Imp\Circle\Circle.cpp" />
+    <ClCompile Include="lib\Figure\Imp\Line\Line.cpp" />
+    <ClCompile Include="lib\Figure\Imp\Rectangle\Rectangle.cpp" />
+    <ClCompile Include="lib\Figure\Imp\Text\TextFigure.cpp" />
+    <ClCompile Include="lib\Figure\Imp\Traingle\Triangle.cpp" />
     <ClCompile Include="lib\Gfx\Color.cpp" />
     <ClCompile Include="lib\Sfml\Canvas.cpp" />
     <ClCompile Include="lib\Shapes\Picture.cpp" />
@@ -161,13 +161,13 @@
   <ItemGroup>
     <ClInclude Include="lib\CommandHandler\CommandHandler.h" />
     <ClInclude Include="lib\CommandHandler\Commands.h" />
-    <ClInclude Include="lib\DrawingStrategy\IFigure.h" />
-    <ClInclude Include="lib\DrawingStrategy\Imp\Circle\Circle.h" />
-    <ClInclude Include="lib\DrawingStrategy\Imp\Line\DrawLine.h" />
-    <ClInclude Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.h" />
-    <ClInclude Include="lib\DrawingStrategy\Imp\Text\DrawText.h" />
-    <ClInclude Include="lib\DrawingStrategy\Imp\Traingle\DrawTriangle.h" />
-    <ClInclude Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.h" />
+    <ClInclude Include="lib\Figure\IFigure.h" />
+    <ClInclude Include="lib\Figure\Imp\Circle\Circle.h" />
+    <ClInclude Include="lib\Figure\Imp\Line\Line.h" />
+    <ClInclude Include="lib\Figure\Imp\Rectangle\Rectangle.h" />
+    <ClInclude Include="lib\Figure\Imp\Text\TextFigure.h" />
+    <ClInclude Include="lib\Figure\Imp\Traingle\Triangle.h" />
+    <ClInclude Include="lib\Figure\ConvertDoubleToStringWithoutZero.h" />
     <ClInclude Include="lib\Gfx\Color.h" />
     <ClInclude Include="lib\Gfx\ICanvas.h" />
     <ClInclude Include="lib\Sfml\Canvas.h" />

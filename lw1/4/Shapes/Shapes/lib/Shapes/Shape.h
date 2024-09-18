@@ -1,14 +1,14 @@
 #pragma once
-#include "../DrawingStrategy/IDrawingStrategy.h"
+#include "../Figure/IFigure.h"
 #include "../Gfx/Color.h"
 #include "../Gfx/ICanvas.h"
 
 class Shape
 {
 public:
-	Shape(const std::string& id, const Color& color, std::unique_ptr<IDrawingStrategy>&& drawingStrategy);
+	Shape(const std::string& id, const Color& color, std::unique_ptr<IFigure>&& figure);
 	std::string GetId() const;
-	void SetDrawingStrategy(std::unique_ptr<IDrawingStrategy>&& drawingStrategy);
+	void SetFigure(std::unique_ptr<IFigure>&& figure);
 	void SetColor(const Color& color);
 	Color GetColor() const;
 	void MoveShape(double dx, double dy);
@@ -19,5 +19,5 @@ public:
 private:
 	std::string m_id;
 	Color m_color;
-	std::unique_ptr<IDrawingStrategy> m_drawingStrategy;
+	std::unique_ptr<IFigure> m_figure;
 };

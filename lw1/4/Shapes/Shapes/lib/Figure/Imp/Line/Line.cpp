@@ -1,8 +1,8 @@
-#include "DrawLine.h"
+#include "Line.h"
 #include "../../ConvertDoubleToStringWithoutZero.h"
 #include <regex>
 
-DrawLine::DrawLine(const std::string params)
+Line::Line(const std::string params)
 {
 	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
@@ -24,13 +24,13 @@ DrawLine::DrawLine(const std::string params)
 	}
 }
 
-void DrawLine::Draw(ICanvas& canvas)
+void Line::Draw(ICanvas& canvas)
 {
 	canvas.MoveTo(m_x1, m_y1);
 	canvas.LineTo(m_x2, m_y2);
 }
 
-void DrawLine::MoveTo(double dx, double dy)
+void Line::MoveTo(double dx, double dy)
 {
 	m_x1 += dx;
 	m_x2 += dx;
@@ -38,12 +38,12 @@ void DrawLine::MoveTo(double dx, double dy)
 	m_y2 += dy;
 }
 
-std::string DrawLine::GetType() const
+std::string Line::GetType() const
 {
 	return "line";
 }
 
-std::string DrawLine::GetParams() const
+std::string Line::GetParams() const
 {
 	return ConvertDoubleToString(m_x1) + " " + ConvertDoubleToString(m_y1) + " " + ConvertDoubleToString(m_x2) + " " + ConvertDoubleToString(m_y2);
 }

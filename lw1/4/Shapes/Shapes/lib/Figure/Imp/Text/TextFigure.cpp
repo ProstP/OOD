@@ -1,8 +1,8 @@
-#include "DrawText.h"
+#include "TextFigure.h"
 #include "../../ConvertDoubleToStringWithoutZero.h"
 #include <regex>
 
-DrawTextStrategy::DrawTextStrategy(const std::string& params)
+TextFigure::TextFigure(const std::string& params)
 {
 	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s(.+)$");
 	std::smatch match;
@@ -24,23 +24,23 @@ DrawTextStrategy::DrawTextStrategy(const std::string& params)
 	}
 }
 
-void DrawTextStrategy::Draw(ICanvas& canvas)
+void TextFigure::Draw(ICanvas& canvas)
 {
 	canvas.DrawText(m_left, m_top, m_fontSize, m_text);
 }
 
-void DrawTextStrategy::MoveTo(double dx, double dy)
+void TextFigure::MoveTo(double dx, double dy)
 {
 	m_left += dx;
 	m_top += dy;
 }
 
-std::string DrawTextStrategy::GetType() const
+std::string TextFigure::GetType() const
 {
 	return "text";
 }
 
-std::string DrawTextStrategy::GetParams() const
+std::string TextFigure::GetParams() const
 {
 	return ConvertDoubleToString(m_left) + " " + ConvertDoubleToString(m_top) + " " + ConvertDoubleToString(m_fontSize) + " " + m_text;
 }

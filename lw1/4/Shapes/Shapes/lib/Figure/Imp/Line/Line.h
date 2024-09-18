@@ -1,23 +1,21 @@
 #pragma once
-#include "../../IDrawingStrategy.h"
+#include "../../IFigure.h"
 
-class DrawTriangle : public IDrawingStrategy
+class Line : public IFigure
 {
 public:
-	DrawTriangle(const std::string& params);
+	Line(const std::string params);
 
 	void Draw(ICanvas& canvas) override;
 	void MoveTo(double dx, double dy) override;
 	std::string GetType() const override;
 	std::string GetParams() const override;
 
-	~DrawTriangle() = default;
+	~Line() = default;
 
 private:
 	double m_x1;
 	double m_y1;
 	double m_x2;
 	double m_y2;
-	double m_x3;
-	double m_y3;
 };

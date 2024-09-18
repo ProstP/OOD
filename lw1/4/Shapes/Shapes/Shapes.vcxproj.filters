@@ -30,22 +30,22 @@
     <ClCompile Include="lib\Gfx\Color.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\Imp\Circle\Circle.cpp">
+    <ClCompile Include="lib\Figure\Imp\Circle\Circle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.cpp">
+    <ClCompile Include="lib\Figure\Imp\Rectangle\Rectangle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\Imp\Traingle\DrawTriangle.cpp">
+    <ClCompile Include="lib\Figure\Imp\Traingle\Triangle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\Imp\Line\DrawLine.cpp">
+    <ClCompile Include="lib\Figure\Imp\Line\Line.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\Imp\Text\DrawText.cpp">
+    <ClCompile Include="lib\Figure\Imp\Text\TextFigure.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp">
+    <ClCompile Include="lib\Figure\ConvertDoubleToStringWithoutZero.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="lib\Sfml\Canvas.cpp">
@@ -71,28 +71,28 @@
     <ClInclude Include="lib\Gfx\ICanvas.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\IFigure.h">
+    <ClInclude Include="lib\Figure\IFigure.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\Imp\Circle\Circle.h">
+    <ClInclude Include="lib\Figure\Imp\Circle\Circle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.h">
+    <ClInclude Include="lib\Figure\Imp\Rectangle\Rectangle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\Imp\Traingle\DrawTriangle.h">
+    <ClInclude Include="lib\Figure\Imp\Traingle\Triangle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\Imp\Line\DrawLine.h">
+    <ClInclude Include="lib\Figure\Imp\Line\Line.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\Imp\Text\DrawText.h">
+    <ClInclude Include="lib\Figure\Imp\Text\TextFigure.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.h">
+    <ClInclude Include="lib\Figure\ConvertDoubleToStringWithoutZero.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="lib\CommandHandler\Commands.h">

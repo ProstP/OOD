@@ -1,17 +1,17 @@
 #pragma once
-#include "../../IDrawingStrategy.h"
+#include "../../IFigure.h"
 
-class DrawRectangle : public IDrawingStrategy
+class Rectangle : public IFigure
 {
 public:
-	DrawRectangle(const std::string& params);
+	Rectangle(const std::string& params);
 
 	void Draw(ICanvas& canvas) override;
 	void MoveTo(double dx, double dy) override;
 	std::string GetType() const override;
 	std::string GetParams() const override;
 
-	~DrawRectangle() = default;
+	~Rectangle() = default;
 
 private:
 	double m_left;

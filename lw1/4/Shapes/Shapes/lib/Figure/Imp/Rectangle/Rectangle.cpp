@@ -1,8 +1,8 @@
-#include "DrawRectangle.h"
+#include "Rectangle.h"
 #include "../../ConvertDoubleToStringWithoutZero.h"
 #include <regex>
 
-DrawRectangle::DrawRectangle(const std::string& params)
+Rectangle::Rectangle(const std::string& params)
 {
 	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
@@ -24,7 +24,7 @@ DrawRectangle::DrawRectangle(const std::string& params)
 	}
 }
 
-void DrawRectangle::Draw(ICanvas& canvas)
+void Rectangle::Draw(ICanvas& canvas)
 {
 	canvas.MoveTo(m_left, m_top);
 	canvas.LineTo(m_left + m_width, m_top);
@@ -36,18 +36,18 @@ void DrawRectangle::Draw(ICanvas& canvas)
 	canvas.LineTo(m_left, m_top);
 }
 
-void DrawRectangle::MoveTo(double dx, double dy)
+void Rectangle::MoveTo(double dx, double dy)
 {
 	m_top += dy;
 	m_left += dx;
 }
 
-std::string DrawRectangle::GetType() const
+std::string Rectangle::GetType() const
 {
 	return "rectangle";
 }
 
-std::string DrawRectangle::GetParams() const
+std::string Rectangle::GetParams() const
 {
 	return ConvertDoubleToString(m_left) + " " + ConvertDoubleToString(m_top) + " " + ConvertDoubleToString(m_width) + " " + ConvertDoubleToString(m_height);
 }

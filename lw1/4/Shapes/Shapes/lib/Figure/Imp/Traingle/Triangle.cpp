@@ -1,8 +1,8 @@
-#include "DrawTriangle.h"
+#include "Triangle.h"
 #include "../../ConvertDoubleToStringWithoutZero.h"
 #include <regex>
 
-DrawTriangle::DrawTriangle(const std::string& params)
+Triangle::Triangle(const std::string& params)
 {
 	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
@@ -26,7 +26,7 @@ DrawTriangle::DrawTriangle(const std::string& params)
 	}
 }
 
-void DrawTriangle::Draw(ICanvas& canvas)
+void Triangle::Draw(ICanvas& canvas)
 {
 	canvas.MoveTo(m_x1, m_y1);
 	canvas.LineTo(m_x2, m_y2);
@@ -36,7 +36,7 @@ void DrawTriangle::Draw(ICanvas& canvas)
 	canvas.LineTo(m_x1, m_y1);
 }
 
-void DrawTriangle::MoveTo(double dx, double dy)
+void Triangle::MoveTo(double dx, double dy)
 {
 	m_x1 += dx;
 	m_x2 += dx;
@@ -46,12 +46,12 @@ void DrawTriangle::MoveTo(double dx, double dy)
 	m_y3 += dy;
 }
 
-std::string DrawTriangle::GetType() const
+std::string Triangle::GetType() const
 {
 	return "triangle";
 }
 
-std::string DrawTriangle::GetParams() const
+std::string Triangle::GetParams() const
 {
 	return ConvertDoubleToString(m_x1) + " " + ConvertDoubleToString(m_y1) + " " + ConvertDoubleToString(m_x2) + " " + ConvertDoubleToString(m_y2) + " " + ConvertDoubleToString(m_x3) + " " + ConvertDoubleToString(m_y3);
 }
