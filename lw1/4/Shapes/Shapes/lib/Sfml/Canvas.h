@@ -21,6 +21,7 @@ private:
 	double m_x;
 	double m_y;
 	sf::Color m_color;
+	sf::Font m_font;
 	std::vector<std::shared_ptr<sf::Drawable>> m_shapes;
 	sf::Thread m_thread;
 	void CanvasThread();

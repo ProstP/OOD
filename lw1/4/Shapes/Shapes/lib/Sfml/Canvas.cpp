@@ -6,6 +6,11 @@ Canvas::Canvas()
 	m_x = 0;
 	m_y = 0;
 	m_color = sf::Color::Black;
+	if (!m_font.loadFromFile("SUSE-Medium.ttf"))
+	{
+		throw std::runtime_error("Filename with font is invalid");
+	}
+
 
 	m_thread.launch();
 }
@@ -45,15 +50,9 @@ void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
 
 void Canvas::DrawText(double left, double top, int fontSize, const std::string& text)
 {
-	sf::Font font;
-	if (!font.loadFromFile("SUSE-Medium.ttf"))
-	{
-		throw std::runtime_error("Filename with font is invalid");
-	}
-
 	sf::Text drawText;
 	drawText.setPosition(static_cast<float>(left), static_cast<float>(top));
-	drawText.setFont(font);
+	drawText.setFont(m_font);
 	drawText.setCharacterSize(fontSize);
 	drawText.setString(text);
 	drawText.setFillColor(m_color);
