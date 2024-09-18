@@ -13,8 +13,6 @@ Canvas::Canvas(WindowCanvas* window)
 	{
 		throw std::runtime_error("Filename with font is invalid");
 	}
-
-	//m_thread.launch();
 }
 
 void Canvas::MoveTo(double x, double y)
@@ -37,8 +35,7 @@ void Canvas::LineTo(double x, double y)
 	line[1].color = m_color;
 
 	m_shapes.push_back(std::make_shared<sf::VertexArray>(line));
-	m_window->DrawShapes(m_shapes);
-	//m_window->draw(line);
+	m_window->DisplayShapes(m_shapes);
 }
 
 void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
@@ -50,8 +47,7 @@ void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
 	circle.setScale(1, static_cast<float>(scaleY));
 
 	m_shapes.push_back(std::make_shared<sf::CircleShape>(circle));
-	m_window->DrawShapes(m_shapes);
-	//m_window->draw(circle);
+	m_window->DisplayShapes(m_shapes);
 }
 
 void Canvas::DrawText(double left, double top, int fontSize, const std::string& text)
@@ -64,13 +60,10 @@ void Canvas::DrawText(double left, double top, int fontSize, const std::string& 
 	drawText.setFillColor(m_color);
 
 	m_shapes.push_back(std::make_shared<sf::Text>(drawText));
-	m_window->DrawShapes(m_shapes);
-	//m_window->draw(drawText);
+	m_window->DisplayShapes(m_shapes);
 }
 
 Canvas::~Canvas()
 {
 	m_window = nullptr;
 }
-
-// Добавить блокировку
