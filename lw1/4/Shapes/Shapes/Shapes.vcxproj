@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClCompile Include="lib\CommandHandler\CommandHandler.cpp" />
     <ClCompile Include="lib\DrawingStrategy\ConvertDoubleToStringWithoutZero.cpp" />
-    <ClCompile Include="lib\DrawingStrategy\Imp\Circle\DrawCircle.cpp" />
+    <ClCompile Include="lib\DrawingStrategy\Imp\Circle\Circle.cpp" />
     <ClCompile Include="lib\DrawingStrategy\Imp\Line\DrawLine.cpp" />
     <ClCompile Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.cpp" />
     <ClCompile Include="lib\DrawingStrategy\Imp\Text\DrawText.cpp" />
@@ -155,13 +155,14 @@
     <ClCompile Include="lib\Sfml\Canvas.cpp" />
     <ClCompile Include="lib\Shapes\Picture.cpp" />
     <ClCompile Include="lib\Shapes\Shape.cpp" />
+    <ClCompile Include="lib\WindowCanvas\WindowCanvas.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\CommandHandler\CommandHandler.h" />
     <ClInclude Include="lib\CommandHandler\Commands.h" />
-    <ClInclude Include="lib\DrawingStrategy\IDrawingStrategy.h" />
-    <ClInclude Include="lib\DrawingStrategy\Imp\Circle\DrawCircle.h" />
+    <ClInclude Include="lib\DrawingStrategy\IFigure.h" />
+    <ClInclude Include="lib\DrawingStrategy\Imp\Circle\Circle.h" />
     <ClInclude Include="lib\DrawingStrategy\Imp\Line\DrawLine.h" />
     <ClInclude Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.h" />
     <ClInclude Include="lib\DrawingStrategy\Imp\Text\DrawText.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="lib\Sfml\Canvas.h" />
     <ClInclude Include="lib\Shapes\Picture.h" />
     <ClInclude Include="lib\Shapes\Shape.h" />
+    <ClInclude Include="lib\WindowCanvas\WindowCanvas.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

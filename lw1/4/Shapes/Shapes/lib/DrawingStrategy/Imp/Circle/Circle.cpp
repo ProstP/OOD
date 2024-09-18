@@ -1,8 +1,8 @@
-#include "DrawCircle.h"
+#include "Circle.h"
 #include <regex>
 #include "../../ConvertDoubleToStringWithoutZero.h"
 
-DrawCircle::DrawCircle(const std::string& params)
+Circle::Circle(const std::string& params)
 {
 	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
@@ -23,23 +23,23 @@ DrawCircle::DrawCircle(const std::string& params)
 	}
 }
 
-void DrawCircle::Draw(ICanvas& canvas)
+void Circle::Draw(ICanvas& canvas)
 {
 	canvas.DrawEllipse(m_x, m_y, m_r, m_r);
 }
 
-void DrawCircle::MoveTo(double dx, double dy)
+void Circle::MoveTo(double dx, double dy)
 {
 	m_x += dx;
 	m_y += dy;
 }
 
-std::string DrawCircle::GetType() const
+std::string Circle::GetType() const
 {
 	return "circle";
 }
 
-std::string DrawCircle::GetParams() const
+std::string Circle::GetParams() const
 {
 	return ConvertDoubleToString(m_x) + " " + ConvertDoubleToString(m_y) + " " + ConvertDoubleToString(m_r);
 }

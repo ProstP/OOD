@@ -6,7 +6,7 @@
 class Canvas : public ICanvas
 {
 public:
-	Canvas();
+	Canvas(std::shared_ptr<sf::RenderTarget> window);
 
 	void MoveTo(double x, double y) override;
 	void SetColor(const Color& color) override;
@@ -17,12 +17,11 @@ public:
 	~Canvas() = default;
 
 private:
-	std::shared_ptr<sf::RenderWindow> m_window;
-	double m_x;
-	double m_y;
+	std::shared_ptr<sf::RenderTarget> m_window;
+	double m_x = 0;
+	double m_y = 0;
 	sf::Color m_color;
 	sf::Font m_font;
-	std::vector<std::shared_ptr<sf::Drawable>> m_shapes;
-	sf::Thread m_thread;
-	void CanvasThread();
+	//std::vector<std::shared_ptr<sf::Drawable>> m_shapes;
+	//sf::Thread m_thread;
 };

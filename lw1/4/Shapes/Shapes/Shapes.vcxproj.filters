@@ -30,7 +30,7 @@
     <ClCompile Include="lib\Gfx\Color.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="lib\DrawingStrategy\Imp\Circle\DrawCircle.cpp">
+    <ClCompile Include="lib\DrawingStrategy\Imp\Circle\Circle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.cpp">
@@ -51,6 +51,9 @@
     <ClCompile Include="lib\Sfml\Canvas.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="lib\WindowCanvas\WindowCanvas.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\CommandHandler\CommandHandler.h">
@@ -68,10 +71,10 @@
     <ClInclude Include="lib\Gfx\ICanvas.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\IDrawingStrategy.h">
+    <ClInclude Include="lib\DrawingStrategy\IFigure.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="lib\DrawingStrategy\Imp\Circle\DrawCircle.h">
+    <ClInclude Include="lib\DrawingStrategy\Imp\Circle\Circle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="lib\DrawingStrategy\Imp\Rectangle\DrawRectangle.h">
@@ -96,6 +99,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="lib\Sfml\Canvas.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\WindowCanvas\WindowCanvas.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,17 +1,17 @@
 #pragma once
 #include "../../IDrawingStrategy.h"
 
-class DrawCircle : public IDrawingStrategy
+class Circle : public IDrawingStrategy
 {
 public:
-	DrawCircle(const std::string& params);
+	Circle(const std::string& params);
 
 	void Draw(ICanvas& canvas) override;
 	void MoveTo(double dx, double dy) override;
 	std::string GetType() const override;
 	std::string GetParams() const override;
 
-	~DrawCircle() = default;
+	~Circle() = default;
 
 private:
 	double m_x;

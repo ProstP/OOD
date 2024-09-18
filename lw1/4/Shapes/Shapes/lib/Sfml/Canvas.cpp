@@ -1,7 +1,7 @@
 #include "Canvas.h"
 
-Canvas::Canvas()
-	: m_thread(&Canvas::CanvasThread, this)
+Canvas::Canvas(std::shared_ptr<sf::RenderTarget> window)
+	: m_window(window)
 {
 	m_x = 0;
 	m_y = 0;
@@ -11,8 +11,7 @@ Canvas::Canvas()
 		throw std::runtime_error("Filename with font is invalid");
 	}
 
-
-	m_thread.launch();
+	//m_thread.launch();
 }
 
 void Canvas::MoveTo(double x, double y)
@@ -34,7 +33,8 @@ void Canvas::LineTo(double x, double y)
 	line[0].color = m_color;
 	line[1].color = m_color;
 
-	m_shapes.push_back(std::make_shared<sf::VertexArray>(line));
+	//m_shapes.push_back(std::make_shared<sf::VertexArray>(line));
+	m_window->draw(line);
 }
 
 void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
@@ -45,7 +45,8 @@ void Canvas::DrawEllipse(double cx, double cy, double rx, double ry)
 	double scaleY = ry / rx;
 	circle.setScale(1, static_cast<float>(scaleY));
 
-	m_shapes.push_back(std::make_shared<sf::CircleShape>(circle));
+	//m_shapes.push_back(std::make_shared<sf::CircleShape>(circle));
+	m_window->draw(circle);
 }
 
 void Canvas::DrawText(double left, double top, int fontSize, const std::string& text)
@@ -57,32 +58,8 @@ void Canvas::DrawText(double left, double top, int fontSize, const std::string& 
 	drawText.setString(text);
 	drawText.setFillColor(m_color);
 
-	m_shapes.push_back(std::make_shared<sf::Text>(drawText));
+	//m_shapes.push_back(std::make_shared<sf::Text>(drawText));
+	m_window->draw(drawText);
 }
 
-void Canvas::CanvasThread()
-{
-	m_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1000, 800), "Canvas");
-	m_window->setVerticalSyncEnabled(true);
-	m_window->setActive(false);
-
-	while (m_window->isOpen())
-	{
-		sf::Event event;
-		if (m_window->pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				m_window->close();
-			}
-		}
-		m_window->clear(sf::Color::White);
-		for (int i = 0; i < m_shapes.size(); i++)
-		{
-			m_window->draw(*m_shapes[i]);
-		}
-		m_window->display();
-	}
-
-	return;
-}
+// Добавить блокировку
