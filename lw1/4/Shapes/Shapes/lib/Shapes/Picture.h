@@ -1,6 +1,9 @@
 #pragma once
 #include "Shape.h"
 #include <vector>
+//namespace
+//Создать отдельный класс для создания IFigure
+// List
 
 class Picture
 {
