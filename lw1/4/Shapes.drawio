@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 OPR/113.0.0.0" version="24.7.14">
   <diagram name="Страница — 1" id="0OpV4Xa3QXV75NDmF0c9">
-    <mxGraphModel dx="1836" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2088" dy="674" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -562,7 +562,7 @@
         <mxCell id="2IdYhjhQksEz0VN_lS5l-101" value="Canvas" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="120" y="1360" width="370" height="294" as="geometry" />
         </mxCell>
-        <mxCell id="XAlAQZyRAJn5Z6stwKX8-32" value="- m_window: sf::RenderTarget" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="2IdYhjhQksEz0VN_lS5l-101" vertex="1">
+        <mxCell id="XAlAQZyRAJn5Z6stwKX8-32" value="- m_window: WindowCanvas" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="2IdYhjhQksEz0VN_lS5l-101" vertex="1">
           <mxGeometry y="26" width="370" height="26" as="geometry" />
         </mxCell>
         <mxCell id="XAlAQZyRAJn5Z6stwKX8-33" value="- m_x: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="2IdYhjhQksEz0VN_lS5l-101" vertex="1">
@@ -685,15 +685,6 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XAlAQZyRAJn5Z6stwKX8-38" value="Canvas передавать в метод" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="-130" y="868" width="180" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="XAlAQZyRAJn5Z6stwKX8-43" value="Переименовать стратегию" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1195" y="648" width="170" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="XAlAQZyRAJn5Z6stwKX8-44" value="Вынести RenderWindow" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="-150" y="1296" width="160" height="30" as="geometry" />
-        </mxCell>
         <mxCell id="XAlAQZyRAJn5Z6stwKX8-45" value="WindowCanvas" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-310" y="1430" width="330" height="86" as="geometry" />
         </mxCell>
@@ -703,7 +694,7 @@
         <mxCell id="XAlAQZyRAJn5Z6stwKX8-47" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="XAlAQZyRAJn5Z6stwKX8-45" vertex="1">
           <mxGeometry y="52" width="330" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="mhHwwzW41xwpjwb7ciym-1" value="+ DisplayShapes(vector&lt;shared_ptr&lt;sf::Drawable&gt;&gt;): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="XAlAQZyRAJn5Z6stwKX8-45">
+        <mxCell id="mhHwwzW41xwpjwb7ciym-1" value="+ DisplayShapes(vector&lt;shared_ptr&lt;sf::Drawable&gt;&gt;): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="XAlAQZyRAJn5Z6stwKX8-45" vertex="1">
           <mxGeometry y="60" width="330" height="26" as="geometry" />
         </mxCell>
         <mxCell id="XAlAQZyRAJn5Z6stwKX8-50" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;" parent="1" source="XAlAQZyRAJn5Z6stwKX8-45" target="Rg9wagiexUnOvc4vePpl-2" edge="1">
@@ -715,7 +706,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="mhHwwzW41xwpjwb7ciym-2" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;" edge="1" parent="1" source="XAlAQZyRAJn5Z6stwKX8-45" target="2IdYhjhQksEz0VN_lS5l-101">
+        <mxCell id="mhHwwzW41xwpjwb7ciym-2" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;" parent="1" source="XAlAQZyRAJn5Z6stwKX8-45" target="2IdYhjhQksEz0VN_lS5l-101" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="180" y="1420" as="sourcePoint" />
             <mxPoint x="340" y="1420" as="targetPoint" />
