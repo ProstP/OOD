@@ -21,6 +21,8 @@ public:
 
 	void SetMeasurements(double temp, double humidity, double pressure);
 
+	~WeatherData() = default;
+
 protected:
 	WeatherInfo GetChangedData() const override;
 

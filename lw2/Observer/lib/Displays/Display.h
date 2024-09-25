@@ -7,6 +7,9 @@ namespace Displays
 
 class Display : public Observer::IObserver<WeatherStation::WeatherInfo>
 {
+public:
+	~Display() = default;
+
 private:
 	void Update(const WeatherStation::WeatherInfo& data) override;
 };
