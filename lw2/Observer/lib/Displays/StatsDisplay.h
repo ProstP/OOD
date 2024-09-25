@@ -3,6 +3,7 @@
 #include "../WeatherStation/WeatherInfo.h"
 #include <algorithm>
 #include <climits>
+#include <iostream>
 
 namespace Displays
 {
@@ -23,7 +24,9 @@ private:
 
 	void Update(const WeatherStation::WeatherInfo& data) override;
 	void UpdateData(const WeatherStation::WeatherInfo& data);
+	void PrintData();
 	void static UpdateBounds(double& min, double& max, double value);
+	void static PrintStatData(const std::string& name, double min, double max, double average);
 };
 
 } // namespace Displays

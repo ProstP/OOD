@@ -1,21 +1,11 @@
 #include "StatsDisplay.h"
-#include <iostream>
 
 void Displays::StatsDisplay::Update(const WeatherStation::WeatherInfo& data)
 {
 
 	UpdateData(data);
 
-	std::cout << "Max Temp " << m_maxTemperature << std::endl;
-	std::cout << "Min Temp " << m_minTemperature << std::endl;
-	std::cout << "Average Temp " << (m_accTemperature / m_countAcc) << std::endl;
-	std::cout << "Max Hum " << m_maxHumidity << std::endl;
-	std::cout << "Min Hum " << m_minHumidity << std::endl;
-	std::cout << "Average Hum " << (m_accHumidity / m_countAcc) << std::endl;
-	std::cout << "Max Press " << m_maxPressure << std::endl;
-	std::cout << "Min Press " << m_minPressure << std::endl;
-	std::cout << "Average Press " << (m_accPressure / m_countAcc) << std::endl;
-	std::cout << "----------------" << std::endl;
+	PrintData();
 }
 
 void Displays::StatsDisplay::UpdateData(const WeatherStation::WeatherInfo& data)
@@ -32,6 +22,14 @@ void Displays::StatsDisplay::UpdateData(const WeatherStation::WeatherInfo& data)
 	m_countAcc++;
 }
 
+void Displays::StatsDisplay::PrintData()
+{
+	PrintStatData("Temp", m_minTemperature, m_maxTemperature, (m_accTemperature / m_countAcc));
+	PrintStatData("Humidity", m_minHumidity, m_maxHumidity, (m_accHumidity/ m_countAcc));
+	PrintStatData("Pressure", m_minPressure, m_maxPressure, (m_accPressure/ m_countAcc));
+	std::cout << "----------------" << std::endl;
+}
+
 void Displays::StatsDisplay::UpdateBounds(double& min, double& max, double value)
 {
 	if (min > value)
@@ -42,4 +40,12 @@ void Displays::StatsDisplay::UpdateBounds(double& min, double& max, double value
 	{
 		max = value;
 	}
+}
+
+void Displays::StatsDisplay::PrintStatData(const std::string& name, double min, double max, double average)
+{
+	std::cout << "Max " << name << " " << max << std::endl;
+	std::cout << "Min " << name << " " << min << std::endl;
+	std::cout << "Average " << name << " " << average << std::endl;
+	std::cout << "- - - - - - - -" << std::endl;
 }
