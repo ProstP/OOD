@@ -11,44 +11,18 @@ class WeatherData : public Observable<WeatherInfo>
 {
 public:
 	// Температура в градусах Цельсия
-	double GetTemperature() const
-	{
-		return m_temperature;
-	}
+	double GetTemperature() const;
 	// Относительная влажность (0...100)
-	double GetHumidity() const
-	{
-		return m_humidity;
-	}
+	double GetHumidity() const;
 	// Атмосферное давление (в мм.рт.ст)
-	double GetPressure() const
-	{
-		return m_pressure;
-	}
+	double GetPressure() const;
 
-	void MeasurementsChanged()
-	{
-		NotifyObservers();
-	}
+	void MeasurementsChanged();
 
-	void SetMeasurements(double temp, double humidity, double pressure)
-	{
-		m_humidity = humidity;
-		m_temperature = temp;
-		m_pressure = pressure;
-
-		MeasurementsChanged();
-	}
+	void SetMeasurements(double temp, double humidity, double pressure);
 
 protected:
-	WeatherInfo GetChangedData() const override
-	{
-		WeatherInfo info;
-		info.temperature = GetTemperature();
-		info.humidity = GetHumidity();
-		info.pressure = GetPressure();
-		return info;
-	}
+	WeatherInfo GetChangedData() const override;
 
 private:
 	double m_temperature = 0.0;
