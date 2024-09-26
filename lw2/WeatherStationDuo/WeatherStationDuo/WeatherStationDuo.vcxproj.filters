@@ -32,16 +32,10 @@
     <ClInclude Include="..\lib\WeatherStation\WeatherInfo.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\Observer\IObserver.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\Observer\IObservable.h">
+    <ClInclude Include="..\lib\Observer\Observer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\Displays\DuoDisplay.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lib\Observer\Observable.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

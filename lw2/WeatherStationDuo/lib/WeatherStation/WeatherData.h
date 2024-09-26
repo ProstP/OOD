@@ -1,13 +1,11 @@
 #pragma once
-#include "../Observer/Observable.hpp"
+#include "../Observer/Observer.h"
 #include "WeatherInfo.h"
-
-using namespace Observer;
 
 namespace WeatherStation
 {
 
-class WeatherData : public Observable<WeatherInfo>
+class WeatherData : public Observer::Observable<WeatherInfo>
 {
 public:
 	double GetTemperature() const;

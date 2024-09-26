@@ -3,11 +3,13 @@
 void Displays::DuoDisplay::SetInWeatherData(WeatherStation::WeatherData& wd)
 {
 	m_inWd = &wd;
+	m_inWd->RegisterObserver(*this);
 }
 
 void Displays::DuoDisplay::SetOutWeatherData(WeatherStation::WeatherData& wd)
 {
 	m_outWd = &wd;
+	m_outWd->RegisterObserver(*this);
 }
 
 Displays::DuoDisplay::~DuoDisplay()
@@ -16,15 +18,17 @@ Displays::DuoDisplay::~DuoDisplay()
 	m_outWd = nullptr;
 }
 
-void Displays::DuoDisplay::Update(WeatherStation::WeatherData& wd)
+void Displays::DuoDisplay::Update(Observer::IObservable<WeatherStation::WeatherInfo>& subj)
 {
-	if (m_inWd == &wd)
+	if (m_inWd == &subj)
 	{
-		PrintData(wd.GetChangedData());
+		std::cout << "In:" << std::endl;
+		PrintData(subj.GetChangedData());
 	}
-	if (m_outWd == &wd)
+	if (m_outWd == &subj)
 	{
-		PrintData(wd.GetChangedData());
+		std::cout << "Out:" << std::endl;
+		PrintData(subj.GetChangedData());
 	}
 }
 

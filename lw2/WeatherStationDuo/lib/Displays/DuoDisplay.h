@@ -1,12 +1,12 @@
 #pragma once
+#include "../Observer/Observer.h"
 #include "../WeatherStation/WeatherData.h"
-
-using namespace Observer;
+#include "../WeatherStation/WeatherInfo.h"
 
 namespace Displays
 {
 
-class DuoDisplay : public IObserver<WeatherStation::WeatherInfo>
+class DuoDisplay : public Observer::IObserver<WeatherStation::WeatherInfo>
 {
 public:
 	void SetInWeatherData(WeatherStation::WeatherData& wd);
@@ -16,7 +16,7 @@ public:
 private:
 	WeatherStation::WeatherData* m_inWd;
 	WeatherStation::WeatherData* m_outWd;
-	void Update(WeatherStation::WeatherData& subj) override;
+	void Update(Observer::IObservable<WeatherStation::WeatherInfo>& subj) override;
 	void static PrintData(const WeatherStation::WeatherInfo& data);
 };
 

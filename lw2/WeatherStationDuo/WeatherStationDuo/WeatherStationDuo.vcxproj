@@ -145,9 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Displays\DuoDisplay.h" />
-    <ClInclude Include="..\lib\Observer\IObservable.h" />
-    <ClInclude Include="..\lib\Observer\IObserver.h" />
-    <ClInclude Include="..\lib\Observer\Observable.hpp" />
+    <ClInclude Include="..\lib\Observer\Observer.h" />
     <ClInclude Include="..\lib\WeatherStation\WeatherData.h" />
     <ClInclude Include="..\lib\WeatherStation\WeatherInfo.h" />
   </ItemGroup>
