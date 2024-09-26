@@ -32,7 +32,6 @@ public:
 
 	void NotifyObservers() override
 	{
-		T data = GetChangedData();
 		auto observers = m_observers;
 		for (auto* observer : observers)
 		{
