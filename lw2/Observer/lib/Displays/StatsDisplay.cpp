@@ -2,7 +2,6 @@
 
 void Displays::StatsDisplay::Update(const WeatherStation::WeatherInfo& data)
 {
-
 	UpdateData(data);
 
 	PrintData();
