@@ -1,24 +1,23 @@
 #pragma once
 #include "../Observer/Observer.h"
-#include "WeatherInfo.h"
 
 namespace WeatherStation
 {
 
-class WeatherData : public Observer::Observable<WeatherInfo>
+class WeatherData : public Observer::Observable
 {
 public:
+	WeatherData();
+
 	double GetTemperature() const;
 	double GetHumidity() const;
 	double GetPressure() const;
 
-	void MeasurementsChanged();
-
-	void SetMeasurements(double temp, double humidity, double pressure);
+	void SetTemperature(double value);
+	void SetHumidity(double value);
+	void SetPressure(double value);
 
 	~WeatherData() = default;
-
-	WeatherInfo GetChangedData() const override;
 
 private:
 	double m_temperature = 0.0;

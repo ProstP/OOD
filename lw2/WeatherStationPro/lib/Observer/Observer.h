@@ -1,61 +1,70 @@
 #pragma once
 #include <iostream>
+#include <map>
 #include <set>
 
 namespace Observer
 {
-template <typename T>
+
 class IObserver;
 
-template <typename T>
 class IObservable
 {
 public:
-	virtual void RegisterObserver(IObserver<T>& observer) = 0;
-	virtual void NotifyObservers() = 0;
-	virtual void RemoveObserver(IObserver<T>& observer) = 0;
-	virtual T GetChangedData() const = 0;
+	virtual void RegisterObserver(const std::string& type, IObserver& observer) = 0;
+	virtual void NotifyObservers(const std::string& type) = 0;
+	virtual void RemoveObserver(const std::string& type, IObserver& observer) = 0;
 
 	virtual ~IObservable() = default;
 };
 
-template <typename T>
-class Observable : public IObservable<T>
+class IObserver
 {
 public:
-	typedef IObserver<T> ObserverType;
+	virtual void Update(IObservable& subj) = 0;
+	virtual ~IObserver() = default;
+};
 
-	void RegisterObserver(ObserverType& observer) override
+class Observable : public IObservable
+{
+public:
+	void RegisterObserver(const std::string& type, IObserver& observer) override
 	{
-		m_observers.insert(&observer);
+		CheckTypeForAvailability(type);
+		m_observers[type].insert(&observer);
 	}
 
-	void NotifyObservers() override
+	void NotifyObservers(const std::string& type) override
 	{
-		auto observers = m_observers;
+		CheckTypeForAvailability(type);
+		auto observers = m_observers[type];
 		for (auto* observer : observers)
 		{
 			observer->Update(*this);
 		}
 	}
 
-	void RemoveObserver(ObserverType& observer) override
+	void RemoveObserver(const std::string& type, IObserver& observer) override
 	{
-		m_observers.erase(&observer);
+		CheckTypeForAvailability(type);
+		m_observers[type].erase(&observer);
 	}
 
-	virtual T GetChangedData() const = 0;
+protected:
+	void AddType(const std::string& type)
+	{
+		m_observers[type] = std::set<IObserver*>();
+	}
 
 private:
-	std::set<ObserverType*> m_observers;
-};
-
-template <typename T>
-class IObserver
-{
-public:
-	virtual void Update(IObservable<T>& subj) = 0;
-	virtual ~IObserver() = default;
+	std::map<std::string, std::set<IObserver*>> m_observers;
+	void CheckTypeForAvailability(const std::string& type)
+	{
+		if (!m_observers.contains(type))
+		{
+			throw std::invalid_argument("Unknown type: " + type);
+		}
+	}
 };
 
 } // namespace Observer

@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,15 +143,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\Displays\HumidityDisplay.cpp" />
+    <ClCompile Include="..\lib\Displays\PressureDisplay.cpp" />
+    <ClCompile Include="..\lib\Displays\WindDisplay.cpp" />
+    <ClCompile Include="..\lib\WeatherStation\WeatherDataPro.cpp" />
     <ClCompile Include="..\lib\Displays\DuoDisplay.cpp" />
     <ClCompile Include="..\lib\WeatherStation\WeatherData.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\lib\Displays\TempDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\Displays\HumidityDisplay.h" />
+    <ClInclude Include="..\lib\Displays\PressureDisplay.h" />
+    <ClInclude Include="..\lib\Displays\TempDisplay.h" />
+    <ClInclude Include="..\lib\Displays\WindDisplay.h" />
+    <ClInclude Include="..\lib\WeatherStation\WeatherDataPro.h" />
     <ClInclude Include="..\lib\Displays\DuoDisplay.h" />
     <ClInclude Include="..\lib\Observer\Observer.h" />
     <ClInclude Include="..\lib\WeatherStation\WeatherData.h" />
-    <ClInclude Include="..\lib\WeatherStation\WeatherInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

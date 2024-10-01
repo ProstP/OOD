@@ -1,5 +1,12 @@
 #include "WeatherData.h"
 
+WeatherStation::WeatherData::WeatherData()
+{
+	AddType("Temperature");
+	AddType("Humidity");
+	AddType("Pressure");
+}
+
 double WeatherStation::WeatherData::GetTemperature() const
 {
 	return m_temperature;
@@ -15,25 +22,20 @@ double WeatherStation::WeatherData::GetPressure() const
 	return m_pressure;
 }
 
-void WeatherStation::WeatherData::MeasurementsChanged()
+void WeatherStation::WeatherData::SetTemperature(double value)
 {
-	NotifyObservers();
+	m_temperature = value;
+	NotifyObservers("Temperature");
 }
 
-void WeatherStation::WeatherData::SetMeasurements(double temp, double humidity, double pressure)
+void WeatherStation::WeatherData::SetHumidity(double value)
 {
-	m_humidity = humidity;
-	m_temperature = temp;
-	m_pressure = pressure;
-
-	MeasurementsChanged();
+	m_humidity = value;
+	NotifyObservers("Humidity");
 }
 
-WeatherStation::WeatherInfo WeatherStation::WeatherData::GetChangedData() const
+void WeatherStation::WeatherData::SetPressure(double value)
 {
-	WeatherInfo info;
-	info.temperature = GetTemperature();
-	info.humidity = GetHumidity();
-	info.pressure = GetPressure();
-	return info;
+	m_pressure = value;
+	NotifyObservers("Pressure");
 }
