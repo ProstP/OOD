@@ -16,3 +16,9 @@ void Displays::PressureDisplay::Update(Observer::IObservable& subj)
 	std::cout << "Pressure display: " << m_wd->GetPressure() << std::endl;
 	std::cout << "<---------------->" << std::endl;
 }
+
+Displays::PressureDisplay::~PressureDisplay()
+{
+	m_wd->RemoveObserver("Pressure", *this);
+	m_wd = nullptr;
+}

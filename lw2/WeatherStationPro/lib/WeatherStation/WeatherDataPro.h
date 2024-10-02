@@ -11,16 +11,16 @@ public:
 	WeatherDataPro();
 
 	double GetWindSpeed();
-	int GetWindDirection();
+	double GetWindDirection();
 
 	void SetWindSpeed(double value);
-	void SetWindDirection(int value);
+	void SetWindDirection(double value);
 
 	~WeatherDataPro() = default;
 
 private:
 	double m_windSpeed = 0;
-	int m_windDirection = 0;
+	double m_windDirection = 0;
 };
 
 } // namespace WeatherStation

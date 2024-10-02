@@ -19,3 +19,10 @@ void Displays::WindDisplay::Update(Observer::IObservable& subj)
 			  << "Direction: " << m_wd->GetWindDirection() << std::endl;
 	std::cout << "<---------------->" << std::endl;
 }
+
+Displays::WindDisplay::~WindDisplay()
+{
+	m_wd->RemoveObserver("WindSpeed", *this);
+	m_wd->RemoveObserver("WindDirection", *this);
+	m_wd = nullptr;
+}

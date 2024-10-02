@@ -11,6 +11,8 @@ public:
 	void SetWd(WeatherStation::WeatherData& wd);
 	void Update(Observer::IObservable& subj) override;
 
+	~TempDisplay();
+
 private:
 	WeatherStation::WeatherData* m_wd;
 };

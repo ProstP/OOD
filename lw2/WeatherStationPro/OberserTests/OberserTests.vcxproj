@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{079d3ca1-0ca6-435f-89ed-e805f3793fdf}</ProjectGuid>
-    <RootNamespace>WeatherStationPro</RootNamespace>
+    <ProjectGuid>{787dc9de-2ec1-4025-aa20-c9bbd8526af6}</ProjectGuid>
+    <RootNamespace>OberserTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -94,6 +94,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -111,6 +114,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -124,6 +130,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,33 +150,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\lib\Displays\HumidityDisplay.cpp" />
-    <ClCompile Include="..\lib\Displays\PressureDisplay.cpp" />
-    <ClCompile Include="..\lib\Displays\StatData.cpp" />
-    <ClCompile Include="..\lib\Displays\StatDisplay.cpp" />
-    <ClCompile Include="..\lib\Displays\WindDirectionData.cpp" />
-    <ClCompile Include="..\lib\Displays\WindDisplay.cpp" />
-    <ClCompile Include="..\lib\WeatherStation\WeatherDataPro.cpp" />
-    <ClCompile Include="..\lib\Displays\DuoDisplay.cpp" />
-    <ClCompile Include="..\lib\WeatherStation\WeatherData.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\lib\Displays\TempDisplay.cpp" />
+    <ClCompile Include="OberserTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lib\Displays\HumidityDisplay.h" />
-    <ClInclude Include="..\lib\Displays\IStatData.h" />
-    <ClInclude Include="..\lib\Displays\PressureDisplay.h" />
-    <ClInclude Include="..\lib\Displays\StatData.h" />
-    <ClInclude Include="..\lib\Displays\StatDisplay.h" />
-    <ClInclude Include="..\lib\Displays\TempDisplay.h" />
-    <ClInclude Include="..\lib\Displays\WindDirectionData.h" />
-    <ClInclude Include="..\lib\Displays\WindDisplay.h" />
-    <ClInclude Include="..\lib\WeatherStation\WeatherDataPro.h" />
-    <ClInclude Include="..\lib\Displays\DuoDisplay.h" />
     <ClInclude Include="..\lib\Observer\Observer.h" />
-    <ClInclude Include="..\lib\WeatherStation\WeatherData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

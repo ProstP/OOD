@@ -16,3 +16,9 @@ void Displays::TempDisplay::Update(Observer::IObservable& subj)
 	std::cout << "Temp display: " << m_wd->GetTemperature() << std::endl;
 	std::cout << "<---------------->" << std::endl;
 }
+
+Displays::TempDisplay::~TempDisplay()
+{
+	m_wd->RemoveObserver("Temperature", *this);
+	m_wd = nullptr;
+}

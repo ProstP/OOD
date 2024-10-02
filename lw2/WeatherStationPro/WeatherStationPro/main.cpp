@@ -1,6 +1,7 @@
 ﻿#include "../lib/Displays/DuoDisplay.h"
 #include "../lib/Displays/HumidityDisplay.h"
 #include "../lib/Displays/PressureDisplay.h"
+#include "../lib/Displays/StatDisplay.h"
 #include "../lib/Displays/TempDisplay.h"
 #include "../lib/Displays/WindDisplay.h"
 #include "../lib/WeatherStation/WeatherData.h"
@@ -19,6 +20,7 @@ int main()
 	HumidityDisplay hd;
 	PressureDisplay pd;
 	WindDisplay windD;
+	StatDisplay sd;
 
 	DuoDisplay duo;
 	duo.SetInWeatherData(wd);
@@ -26,6 +28,7 @@ int main()
 
 	td.SetWd(wdPro);
 	windD.SetWd(wdPro);
+	sd.SetWd(wdPro);
 
 	hd.SetWd(wd);
 	pd.SetWd(wd);
@@ -39,4 +42,8 @@ int main()
 	wdPro.SetPressure(770);
 	wdPro.SetWindSpeed(10);
 	wdPro.SetWindDirection(90);
+
+	wdPro.RemoveObserver("Temperature", sd);
+	wdPro.SetTemperature(20);
+	wdPro.SetHumidity(75);
 }

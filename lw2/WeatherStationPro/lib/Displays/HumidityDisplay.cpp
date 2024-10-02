@@ -16,3 +16,9 @@ void Displays::HumidityDisplay::Update(Observer::IObservable& subj)
 	std::cout << "Humidity display: " << m_wd->GetHumidity() << std::endl;
 	std::cout << "<---------------->" << std::endl;
 }
+
+Displays::HumidityDisplay::~HumidityDisplay()
+{
+	m_wd->RemoveObserver("Humidity", *this);
+	m_wd = nullptr;
+}

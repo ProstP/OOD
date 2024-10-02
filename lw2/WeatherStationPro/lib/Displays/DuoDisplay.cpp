@@ -20,6 +20,14 @@ void Displays::DuoDisplay::SetOutWeatherData(WeatherStation::WeatherDataPro& wd)
 
 Displays::DuoDisplay::~DuoDisplay()
 {
+	m_inWd->RemoveObserver("Temperature", *this);
+	m_inWd->RemoveObserver("Humidity", *this);
+	m_inWd->RemoveObserver("Pressure", *this);
+	m_outWd->RemoveObserver("Temperature", *this);
+	m_outWd->RemoveObserver("Humidity", *this);
+	m_outWd->RemoveObserver("Pressure", *this);
+	m_outWd->RemoveObserver("WindSpeed", *this);
+	m_outWd->RemoveObserver("WindDirection", *this);
 	m_inWd = nullptr;
 	m_outWd = nullptr;
 }
