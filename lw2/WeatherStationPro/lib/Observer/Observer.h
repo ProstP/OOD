@@ -8,6 +8,7 @@ namespace Observer
 
 class IObserver;
 
+// T шаблон
 class IObservable
 {
 public:
