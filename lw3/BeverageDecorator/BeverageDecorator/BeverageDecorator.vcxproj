@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\Coffee\Coffee.cpp" />
-    <ClCompile Include="..\lib\Condiment\Condiment.cpp" />
     <ClCompile Include="..\lib\MilkShake\MilkShake.cpp" />
     <ClCompile Include="..\lib\Tea\Tea.cpp" />
     <ClCompile Include="main.cpp" />

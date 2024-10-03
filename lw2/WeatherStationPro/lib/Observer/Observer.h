@@ -59,7 +59,7 @@ protected:
 
 private:
 	std::map<std::string, std::set<IObserver*>> m_observers;
-	void CheckTypeForAvailability(const std::string& type)
+	void CheckTypeForAvailability(const std::string& type) const
 	{
 		if (!m_observers.contains(type))
 		{

@@ -27,9 +27,6 @@
     <ClCompile Include="..\lib\Tea\Tea.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\lib\Condiment\Condiment.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Beverage\IBeverage.h">
