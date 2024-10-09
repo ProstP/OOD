@@ -14,27 +14,25 @@ public:
 class Latte : public Coffee
 {
 public:
+	Latte(unsigned int size = 1)
+		: m_size(size){};
 	std::string GetDescription() const override;
 	double GetCost() const override;
+
+private:
+	unsigned int m_size;
 };
 
 class Cappuccino : public Coffee
 {
-	std::string GetDescription() const override;
-	double GetCost() const override;
-};
-
-class DoubleLatte : public Latte
-{
-	std::string GetDescription() const override;
-	double GetCost() const override;
-};
-
-class DoubleCappuccino : public Cappuccino
-{
 public:
+	Cappuccino(unsigned int size = 1)
+		: m_size(size){};
 	std::string GetDescription() const override;
 	double GetCost() const override;
+
+private:
+	unsigned int m_size;
 };
 
 } // namespace Coffee
