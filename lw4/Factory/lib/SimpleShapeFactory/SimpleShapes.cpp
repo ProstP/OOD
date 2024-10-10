@@ -4,7 +4,7 @@
 
 SimpleShapeFactory::Rectangle::Rectangle(const std::string& params)
 {
-	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
+	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
 	if (!std::regex_match(params, match, pattern))
 	{
@@ -13,10 +13,11 @@ SimpleShapeFactory::Rectangle::Rectangle(const std::string& params)
 
 	try
 	{
-		m_lt.x = std::stod(match[1]);
-		m_lt.y = std::stod(match[2]);
-		m_rb.x = std::stod(match[3]);
-		m_rb.y = std::stod(match[4]);
+		SetColor(match[1].str());
+		m_lt.x = std::stod(match[2]);
+		m_lt.y = std::stod(match[3]);
+		m_rb.x = std::stod(match[4]);
+		m_rb.y = std::stod(match[5]);
 	}
 	catch (...)
 	{
@@ -49,7 +50,7 @@ Shapes::Point SimpleShapeFactory::Rectangle::GetRightBottom() const
 
 SimpleShapeFactory::Triangle::Triangle(const std::string& params)
 {
-	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
+	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
 	if (!std::regex_match(params, match, pattern))
 	{
@@ -58,12 +59,13 @@ SimpleShapeFactory::Triangle::Triangle(const std::string& params)
 
 	try
 	{
-		m_v1.x = std::stod(match[1]);
-		m_v1.y = std::stod(match[2]);
-		m_v2.x = std::stod(match[3]);
-		m_v2.y = std::stod(match[4]);
-		m_v3.x = std::stod(match[5]);
-		m_v3.y = std::stod(match[6]);
+		SetColor(match[1].str());
+		m_v1.x = std::stod(match[2]);
+		m_v1.y = std::stod(match[3]);
+		m_v2.x = std::stod(match[4]);
+		m_v2.y = std::stod(match[5]);
+		m_v3.x = std::stod(match[6]);
+		m_v3.y = std::stod(match[7]);
 	}
 	catch (...)
 	{
@@ -97,7 +99,7 @@ Shapes::Point SimpleShapeFactory::Triangle::GetVertex3() const
 
 SimpleShapeFactory::Ellipse::Ellipse(const std::string& params)
 {
-	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
+	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
 	std::smatch match;
 	if (!std::regex_match(params, match, pattern))
 	{
@@ -106,10 +108,11 @@ SimpleShapeFactory::Ellipse::Ellipse(const std::string& params)
 
 	try
 	{
-		m_c.x = std::stod(match[1]);
-		m_c.y = std::stod(match[2]);
-		m_hr = std::stod(match[3]);
-		m_vr = std::stod(match[4]);
+		SetColor(match[1].str());
+		m_c.x = std::stod(match[2]);
+		m_c.y = std::stod(match[3]);
+		m_hr = std::stod(match[4]);
+		m_vr = std::stod(match[5]);
 	}
 	catch (...)
 	{
@@ -141,7 +144,7 @@ double SimpleShapeFactory::Ellipse::GetVerticalRadius() const
 
 SimpleShapeFactory::RegularPolygon::RegularPolygon(const std::string& params)
 {
-	std::regex pattern("^\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\\d+)\\s*$");
+	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\\d+)\\s*$");
 	std::smatch match;
 	if (!std::regex_match(params, match, pattern))
 	{
@@ -150,10 +153,11 @@ SimpleShapeFactory::RegularPolygon::RegularPolygon(const std::string& params)
 
 	try
 	{
-		m_center.x = std::stod(match[1]);
-		m_center.y = std::stod(match[2]);
-		m_r = std::stod(match[3]);
-		m_count = std::stod(match[4]);
+		SetColor(match[1].str());
+		m_center.x = std::stod(match[2]);
+		m_center.y = std::stod(match[3]);
+		m_r = std::stod(match[4]);
+		m_count = std::stod(match[5]);
 	}
 	catch (...)
 	{
@@ -165,13 +169,13 @@ void SimpleShapeFactory::RegularPolygon::Draw(Canvas::ICanvas& canvas)
 {
 	canvas.SetColor(GetColor());
 
-	const float pi = 2.0f * acos(0);
+	const float pi = 2.0f * static_cast<float>(acos(0));
 	const float angle = 2.0f * pi / m_count;
 	Shapes::Point start{ m_center.x + m_r, m_center.y };
 
-	for (int i = 1; i < m_count; i++)
+	for (unsigned int i = 1; i <= m_count; i++)
 	{
-		Shapes::Point end{ m_center.x + m_r * cos(angle), m_center.y - m_r * sin(angle) };
+		Shapes::Point end{ m_center.x + m_r * cos(angle * i), m_center.y - m_r * sin(angle * i) };
 
 		canvas.DrawLine(start, end);
 

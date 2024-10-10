@@ -12,15 +12,15 @@ Shapes::PictureDraft SimpleDesigner::SimpleDesigner::CreateDraft(std::istream& i
 
 	while (std::getline(in, line))
 	{
-		std::smatch m;
-		if (!std::regex_match(line, m, pattern))
-		{
-			throw std::invalid_argument("Invalid command to create shape");
-		}
-
 		try
 		{
-			draft.AddShape(*m_factory->CreateShape(m[1].str(), m[2].str()));
+			std::smatch m;
+			if (!std::regex_match(line, m, pattern))
+			{
+				throw std::invalid_argument("Invalid command to create shape");
+			}
+
+			draft.AddShape(m_factory->CreateShape(m[1].str(), m[2].str()));
 		}
 		catch (...)
 		{

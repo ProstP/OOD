@@ -5,19 +5,19 @@ std::shared_ptr<Shapes::Shape> SimpleShapeFactory::SimpleShapeFactory::CreateSha
 {
 	if (type == "rectangle")
 	{
-		return std::make_shared<Shapes::Shape>(Rectangle(params));
+		return std::make_shared<Rectangle>(Rectangle(params));
 	}
 	else if (type == "triangle")
 	{
-		return std::make_shared<Shapes::Shape>(Triangle(params));
+		return std::make_shared<Triangle>(Triangle(params));
 	}
 	else if (type == "ellipse")
 	{
-		return std::make_shared<Shapes::Shape>(Ellipse(params));
+		return std::make_shared<Ellipse>(Ellipse(params));
 	}
 	else if (type == "regularpolygon")
 	{
-		return std::make_shared<Shapes::Shape>(RegularPolygon(params));
+		return std::make_shared<RegularPolygon>(RegularPolygon(params));
 	}
 	else
 	{

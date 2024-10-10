@@ -9,7 +9,7 @@ namespace Shapes
 class PictureDraft
 {
 public:
-	void AddShape(const Shape& shape);
+	void AddShape(std::shared_ptr<Shape> shape);
 	int GetShapeCount() const;
 	std::shared_ptr<Shape> GetShape(int index) const;
 

@@ -6,7 +6,7 @@
 namespace SimpleShapeFactory
 {
 
-class SimpleShapeFactory : ShapeFactory::IShapeFactory
+class SimpleShapeFactory : public ShapeFactory::IShapeFactory
 {
 public:
 	std::shared_ptr<Shapes::Shape> CreateShape(const std::string& type, const std::string& params) override;

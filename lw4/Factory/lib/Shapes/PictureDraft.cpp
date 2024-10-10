@@ -1,13 +1,13 @@
 #include "PictureDraft.h"
 
-void Shapes::PictureDraft::AddShape(const Shapes::Shape& shape)
+void Shapes::PictureDraft::AddShape(std::shared_ptr<Shape> shape)
 {
-	m_shapes.push_back(std::make_shared<Shape>(shape));
+	m_shapes.push_back(shape);
 }
 
 int Shapes::PictureDraft::GetShapeCount() const
 {
-	return m_shapes.size();
+	return static_cast<int>(m_shapes.size());
 }
 
 std::shared_ptr<Shapes::Shape> Shapes::PictureDraft::GetShape(int index) const
