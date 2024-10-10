@@ -3,6 +3,7 @@
 
 std::shared_ptr<Shapes::Shape> SimpleShapeFactory::SimpleShapeFactory::CreateShape(const std::string& type, const std::string& params)
 {
+	//Вынести парсинг параметров
 	if (type == "rectangle")
 	{
 		return std::make_shared<Rectangle>(Rectangle(params));
