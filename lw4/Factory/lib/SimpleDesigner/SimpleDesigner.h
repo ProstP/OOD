@@ -13,6 +13,8 @@ public:
 		: m_factory(std::move(factory)){};
 	Shapes::PictureDraft CreateDraft(std::istream& in) override;
 
+	~SimpleDesigner() override = default;
+
 private:
 	std::unique_ptr<ShapeFactory::IShapeFactory> m_factory;
 };

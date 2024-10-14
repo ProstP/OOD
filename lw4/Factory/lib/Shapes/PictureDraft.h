@@ -9,12 +9,18 @@ namespace Shapes
 class PictureDraft
 {
 public:
-	void AddShape(std::shared_ptr<Shape> shape);
-	int GetShapeCount() const;
-	std::shared_ptr<Shape> GetShape(int index) const;
+	typedef std::vector<std::unique_ptr<Shape>> Shapes;
+
+	Shapes::iterator begin();
+	Shapes::iterator end();
+
+	Shapes::const_iterator cbegin();
+	Shapes::const_iterator cend();
+
+	void AddShape(std::unique_ptr<Shape>&& shape);
 
 private:
-	std::vector<std::shared_ptr<Shape>> m_shapes;
+	Shapes m_shapes;
 };
 
 } // namespace Shapes

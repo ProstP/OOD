@@ -7,7 +7,9 @@ namespace SimplePainter
 class SimplePainter : public Painter::IPainter
 {
 public:
-	void DrawPicture(const Shapes::PictureDraft& draft, Canvas::ICanvas& canvas) override;
+	void DrawPicture(Shapes::PictureDraft& draft, Canvas::ICanvas& canvas) override;
+
+	~SimplePainter() override = default;
 };
 
 } // namespace SimplePainter

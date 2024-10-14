@@ -9,7 +9,9 @@ namespace ShapeFactory
 class IShapeFactory
 {
 public:
-	virtual std::shared_ptr<Shapes::Shape> CreateShape(const std::string& type, const std::string& params) = 0;
+	virtual std::unique_ptr<Shapes::Shape> CreateShape(const std::string& shape) = 0;
+
+	virtual ~IShapeFactory() = default;
 };
 
 } // namespace ShapeFactory

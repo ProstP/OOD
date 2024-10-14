@@ -2,27 +2,12 @@
 #include <cmath>
 #include <regex>
 
-SimpleShapeFactory::Rectangle::Rectangle(const std::string& params)
+SimpleShapeFactory::Rectangle::Rectangle(const std::string& color, double ltX, double ltY, double rbX, double rbY)
 {
-	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
-	std::smatch match;
-	if (!std::regex_match(params, match, pattern))
-	{
-		throw std::invalid_argument("Invalid parameters for rectangle");
-	}
+	SetColor(color);
 
-	try
-	{
-		SetColor(match[1].str());
-		m_lt.x = std::stod(match[2]);
-		m_lt.y = std::stod(match[3]);
-		m_rb.x = std::stod(match[4]);
-		m_rb.y = std::stod(match[5]);
-	}
-	catch (...)
-	{
-		throw std::invalid_argument("Rectangle parametrs must be digits");
-	}
+	m_lt = Shapes::Point{ ltX, ltY };
+	m_rb = Shapes::Point{ rbX, rbY };
 }
 
 void SimpleShapeFactory::Rectangle::Draw(Canvas::ICanvas& canvas)
@@ -48,29 +33,13 @@ Shapes::Point SimpleShapeFactory::Rectangle::GetRightBottom() const
 	return m_rb;
 }
 
-SimpleShapeFactory::Triangle::Triangle(const std::string& params)
+SimpleShapeFactory::Triangle::Triangle(const std::string& color, double v1x, double v1y, double v2x, double v2y, double v3x, double v3y)
 {
-	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
-	std::smatch match;
-	if (!std::regex_match(params, match, pattern))
-	{
-		throw std::invalid_argument("Invalid parameters for triangle");
-	}
+	SetColor(color);
 
-	try
-	{
-		SetColor(match[1].str());
-		m_v1.x = std::stod(match[2]);
-		m_v1.y = std::stod(match[3]);
-		m_v2.x = std::stod(match[4]);
-		m_v2.y = std::stod(match[5]);
-		m_v3.x = std::stod(match[6]);
-		m_v3.y = std::stod(match[7]);
-	}
-	catch (...)
-	{
-		throw std::invalid_argument("Triangle parametrs must be digits");
-	}
+	m_v1 = Shapes::Point(v1x, v1y);
+	m_v2 = Shapes::Point(v2x, v2y);
+	m_v3 = Shapes::Point(v3x, v3y);
 }
 
 void SimpleShapeFactory::Triangle::Draw(Canvas::ICanvas& canvas)
@@ -97,27 +66,13 @@ Shapes::Point SimpleShapeFactory::Triangle::GetVertex3() const
 	return m_v3;
 }
 
-SimpleShapeFactory::Ellipse::Ellipse(const std::string& params)
+SimpleShapeFactory::Ellipse::Ellipse(const std::string& color, double cx, double cy, double hr, double vr)
 {
-	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*$");
-	std::smatch match;
-	if (!std::regex_match(params, match, pattern))
-	{
-		throw std::invalid_argument("Invalid parameters for circle");
-	}
+	SetColor(color);
 
-	try
-	{
-		SetColor(match[1].str());
-		m_c.x = std::stod(match[2]);
-		m_c.y = std::stod(match[3]);
-		m_hr = std::stod(match[4]);
-		m_vr = std::stod(match[5]);
-	}
-	catch (...)
-	{
-		throw std::invalid_argument("Ellipse parametrs must be digits");
-	}
+	m_c = Shapes::Point{ cx, cy };
+	m_hr = hr;
+	m_vr = vr;
 }
 
 void SimpleShapeFactory::Ellipse::Draw(Canvas::ICanvas& canvas)
@@ -142,27 +97,13 @@ double SimpleShapeFactory::Ellipse::GetVerticalRadius() const
 	return m_vr;
 }
 
-SimpleShapeFactory::RegularPolygon::RegularPolygon(const std::string& params)
+SimpleShapeFactory::RegularPolygon::RegularPolygon(const std::string& color, double cx, double cy, double r, int count)
 {
-	std::regex pattern("^\\s*(\\w+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\-?[\\d\.]+)\\s*(\\d+)\\s*$");
-	std::smatch match;
-	if (!std::regex_match(params, match, pattern))
-	{
-		throw std::invalid_argument("Invalid parameters for circle");
-	}
+	SetColor(color);
 
-	try
-	{
-		SetColor(match[1].str());
-		m_center.x = std::stod(match[2]);
-		m_center.y = std::stod(match[3]);
-		m_r = std::stod(match[4]);
-		m_count = std::stod(match[5]);
-	}
-	catch (...)
-	{
-		throw std::invalid_argument("Invalid parametrs for regular polygon");
-	}
+	m_center = Shapes::Point(cx, cy);
+	m_r = r;
+	m_count = count;
 }
 
 void SimpleShapeFactory::RegularPolygon::Draw(Canvas::ICanvas& canvas)

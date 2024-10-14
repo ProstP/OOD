@@ -1,16 +1,26 @@
 #include "PictureDraft.h"
 
-void Shapes::PictureDraft::AddShape(std::shared_ptr<Shape> shape)
+Shapes::PictureDraft::Shapes::iterator Shapes::PictureDraft::begin()
 {
-	m_shapes.push_back(shape);
+	return m_shapes.begin();
 }
 
-int Shapes::PictureDraft::GetShapeCount() const
+Shapes::PictureDraft::Shapes::iterator Shapes::PictureDraft::end()
 {
-	return static_cast<int>(m_shapes.size());
+	return m_shapes.end();
 }
 
-std::shared_ptr<Shapes::Shape> Shapes::PictureDraft::GetShape(int index) const
+Shapes::PictureDraft::Shapes::const_iterator Shapes::PictureDraft::cbegin()
 {
-	return m_shapes[index];
+	return m_shapes.cbegin();
+}
+
+Shapes::PictureDraft::Shapes::const_iterator Shapes::PictureDraft::cend()
+{
+	return m_shapes.cend();
+}
+
+void Shapes::PictureDraft::AddShape(std::unique_ptr<Shape>&& shape)
+{
+	m_shapes.push_back(std::move(shape));
 }

@@ -8,7 +8,9 @@ namespace Painter
 class IPainter
 {
 public:
-	virtual void DrawPicture(const Shapes::PictureDraft& draft, Canvas::ICanvas& canvas) = 0;
+	virtual void DrawPicture(Shapes::PictureDraft& draft, Canvas::ICanvas& canvas) = 0;
+
+	virtual ~IPainter() = default;
 };
 
 } // namespace Painter

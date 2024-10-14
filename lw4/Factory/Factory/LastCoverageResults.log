@@ -1,0 +1,22 @@
+[2024-10-14 10:13:16] [info] Start Program:
+Path:"E:\\OOD\\lw4\\Factory\\x64\\Debug\\Factory.exe"
+Arguments:
+Working directory: "E:\\OOD\\lw4\\Factory\\Factory\\"
+Modules: Selected: E:\OOD\lw4\Factory\x64\Debug\Factory.exe E:\OOD\lw4\Factory\x64\Debug\FactoryTests.exe Excluded: 
+Sources: Selected: E:\OOD\lw4\Factory\Factory E:\OOD\lw4\Factory\lib\Canvas E:\OOD\lw4\Factory\lib\Client E:\OOD\lw4\Factory\lib\Designer E:\OOD\lw4\Factory\lib\Factory E:\OOD\lw4\Factory\lib\Painter E:\OOD\lw4\Factory\lib\SFML E:\OOD\lw4\Factory\lib\Shapes E:\OOD\lw4\Factory\lib\SimpleDesigner E:\OOD\lw4\Factory\lib\SimplePainter E:\OOD\lw4\Factory\lib\SimpleShapeFactory E:\OOD\lw4\Factory\FactoryTests E:\OOD\lw4\Factory\lib\Canvas E:\OOD\lw4\Factory\lib\Client E:\OOD\lw4\Factory\lib\Designer E:\OOD\lw4\Factory\lib\Factory E:\OOD\lw4\Factory\lib\Painter E:\OOD\lw4\Factory\lib\Shapes Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: binary C:\Users\prost\AppData\Local\Temp\3gfpjxja.z1d 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2024-10-14 10:13:16] [info] Module: E:\OOD\lw4\Factory\x64\Debug\Factory.exe is selected because it matches selected pattern: 
+[2024-10-14 10:17:58] [info] ----------------------------------------------------
+[2024-10-14 10:17:58] [info] Coverage binary generated in file: C:\Users\prost\AppData\Local\Temp\3gfpjxja.z1d
+[2024-10-14 10:17:58] [info] ----------------------------------------------------
+[2024-10-14 10:17:58] [error] Your program stop with error code: 1

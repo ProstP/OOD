@@ -13,6 +13,6 @@ public:
 	virtual void SetColor(Shapes::Color color) = 0;
 
 	virtual ~ICanvas() = default;
-};//Длбавить деструктуры
+};
 
 } // namespace Canvas

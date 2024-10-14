@@ -15,4 +15,19 @@ void SfmlCanvas::WindowCanvas::DisplayShapes(const std::vector<std::shared_ptr<s
 		m_window.draw(*shapes[i]);
 	}
 	m_window.display();
+
+	/*
+	while (m_window.isOpen())
+	{
+		sf::Event e;
+		if (m_window.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed)
+			{
+				m_window.close();
+			}
+		}
+
+	}
+	*/
 }

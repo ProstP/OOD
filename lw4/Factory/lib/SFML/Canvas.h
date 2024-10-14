@@ -18,6 +18,8 @@ public:
 	void DrawEllipse(const Shapes::Point& center, double hr, double vr) override;
 	void SetColor(Shapes::Color color) override;
 
+	~SfmlCanvas() override = default;
+
 private:
 	std::unique_ptr<WindowCanvas> m_window;
 	sf::Color m_color;
