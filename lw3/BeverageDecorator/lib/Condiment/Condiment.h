@@ -232,7 +232,7 @@ public:
 protected:
 	double GetCondimentCost() const override
 	{
-		return m_count * 10;
+		return m_count * 10.0;
 	}
 	std::string GetCondimentDescription() const override
 	{
