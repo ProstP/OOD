@@ -10,7 +10,7 @@ int ConcreteDocument::Image::GetWidth() const
 	return m_width;
 }
 
-int ConcreteDocument::Image::HetHeight() const
+int ConcreteDocument::Image::GetHeight() const
 {
 	return m_height;
 }

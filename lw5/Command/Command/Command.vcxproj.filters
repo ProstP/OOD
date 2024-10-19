@@ -65,9 +65,6 @@
     <ClInclude Include="..\lib\Command\ICommand.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\Command\IUnexecutableCommand.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="..\lib\Menu\Menu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

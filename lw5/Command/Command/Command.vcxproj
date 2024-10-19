@@ -151,7 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Command\ICommand.h" />
-    <ClInclude Include="..\lib\Command\IUnexecutableCommand.h" />
     <ClInclude Include="..\lib\ConcreteDocument\Image.h" />
     <ClInclude Include="..\lib\ConcreteDocument\Paragraph.h" />
     <ClInclude Include="..\lib\DocumentCommands\DocumentCommands.h" />
