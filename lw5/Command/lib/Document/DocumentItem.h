@@ -7,6 +7,9 @@ namespace Document
 class DocumentItem
 {
 public:
+	DocumentItem()
+		: m_paragraph(nullptr)
+		, m_image(nullptr){};
 	DocumentItem(const std::shared_ptr<IParagraph> paragraph, const std::shared_ptr<IImage> image)
 		: m_paragraph(paragraph)
 		, m_image(image){};

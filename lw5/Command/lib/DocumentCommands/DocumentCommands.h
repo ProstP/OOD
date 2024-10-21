@@ -1,5 +1,5 @@
 #pragma once
-#include "../Command/IUnexecutableCommand.h"
+#include "../Command/ICommand.h"
 #include "../Document/IDocument.h"
 #include <iostream>
 #include <optional>

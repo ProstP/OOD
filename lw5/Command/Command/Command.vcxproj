@@ -140,25 +140,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\ConcreteDocument\ConcreteDocument.cpp" />
     <ClCompile Include="..\lib\ConcreteDocument\Image.cpp" />
     <ClCompile Include="..\lib\ConcreteDocument\Paragraph.cpp" />
+    <ClCompile Include="..\lib\DocHistoryCommands\DocHistoryCommands.cpp" />
     <ClCompile Include="..\lib\DocumentCommands\DocumentCommands.cpp" />
     <ClCompile Include="..\lib\Document\ConstDocumentItem.cpp" />
     <ClCompile Include="..\lib\Document\DocumentItem.cpp" />
+    <ClCompile Include="..\lib\History\History.cpp" />
     <ClCompile Include="..\lib\MenuCommands\MenuCommands.cpp" />
     <ClCompile Include="..\lib\Menu\Menu.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Command\ICommand.h" />
+    <ClInclude Include="..\lib\ConcreteDocument\ConcreteDocument.h" />
     <ClInclude Include="..\lib\ConcreteDocument\Image.h" />
     <ClInclude Include="..\lib\ConcreteDocument\Paragraph.h" />
+    <ClInclude Include="..\lib\DocHistoryCommands\DocHistoryCommands.h" />
     <ClInclude Include="..\lib\DocumentCommands\DocumentCommands.h" />
     <ClInclude Include="..\lib\Document\ConstDocumentItem.h" />
     <ClInclude Include="..\lib\Document\DocumentItem.h" />
     <ClInclude Include="..\lib\Document\IDocument.h" />
     <ClInclude Include="..\lib\Document\IImage.h" />
     <ClInclude Include="..\lib\Document\IParagraph.h" />
+    <ClInclude Include="..\lib\History\History.h" />
     <ClInclude Include="..\lib\MenuCommands\MenuCommands.h" />
     <ClInclude Include="..\lib\Menu\Menu.h" />
   </ItemGroup>
