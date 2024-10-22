@@ -2,7 +2,7 @@
 
 void MenuCommands::HelpCommand::Execute()
 {
-	m_menuPtr->Help();
+	m_menuPtr->ShowInstructions();
 }
 
 void MenuCommands::ExitCommand::Execute()

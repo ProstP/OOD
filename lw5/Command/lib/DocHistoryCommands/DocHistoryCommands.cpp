@@ -22,9 +22,10 @@ bool DocHistoryCommands::AbstractDocumentCommand::IsExecuted() const
 	return m_isExecuted;
 }
 
-DocHistoryCommands::InsertParagraphCommand::InsertParagraphCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text)
+DocHistoryCommands::InsertParagraphCommand::InsertParagraphCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text, std::function<void(std::string&, const std::string&)> fn)
 	: m_items(&items)
 	, m_text(text)
+	, m_replaceTextFn(fn)
 {
 	m_pos = pos;
 	if (pos != std::nullopt && pos.value() != 0)
@@ -39,7 +40,7 @@ DocHistoryCommands::InsertParagraphCommand::InsertParagraphCommand(std::vector<D
 
 void DocHistoryCommands::InsertParagraphCommand::ExecuteImp()
 {
-	Document::DocumentItem p(std::make_shared<ConcreteDocument::Paragraph>(m_text), nullptr);
+	Document::DocumentItem p(std::make_shared<ConcreteDocument::Paragraph>(m_text, m_replaceTextFn), nullptr);
 
 	if (m_pos == std::nullopt)
 	{
@@ -155,6 +156,11 @@ DocHistoryCommands::DeleteItemCommand::DeleteItemCommand(std::vector<Document::D
 
 void DocHistoryCommands::DeleteItemCommand::ExecuteImp()
 {
+	if (m_pos >= m_items->size())
+	{
+		throw std::out_of_range("Index to delete out of range collection");
+	}
+
 	m_items->erase(m_items->begin() + m_pos);
 }
 

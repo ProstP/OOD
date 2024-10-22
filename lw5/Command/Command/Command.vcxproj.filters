@@ -36,9 +36,6 @@
     <ClCompile Include="..\lib\MenuCommands\MenuCommands.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\lib\DocumentCommands\DocumentCommands.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="..\lib\ConcreteDocument\ConcreteDocument.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -46,6 +43,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="..\lib\DocHistoryCommands\DocHistoryCommands.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\CommandsToMenuCreator\CommandsToMenuCreator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\HtmlWriter\HtmlWriter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,9 +83,6 @@
     <ClInclude Include="..\lib\MenuCommands\MenuCommands.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\DocumentCommands\DocumentCommands.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="..\lib\ConcreteDocument\ConcreteDocument.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -90,6 +90,15 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\DocHistoryCommands\DocHistoryCommands.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\CommandsToMenuCreator\CommandsToMenuCreator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\HtmlWriter\HtmlWriter.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\FileUtils\FileUtils.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

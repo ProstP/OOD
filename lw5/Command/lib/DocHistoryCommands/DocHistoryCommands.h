@@ -3,6 +3,7 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <functional>
 
 namespace DocHistoryCommands
 {
@@ -24,10 +25,10 @@ private:
 	bool m_isExecuted = true;
 };
 
-class InsertParagraphCommand : AbstractDocumentCommand
+class InsertParagraphCommand : public AbstractDocumentCommand
 {
 public:
-	InsertParagraphCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text);
+	InsertParagraphCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text, std::function<void(std::string&, const std::string&)> fn);
 
 	~InsertParagraphCommand() override = default;
 
@@ -39,9 +40,10 @@ private:
 	std::vector<Document::DocumentItem>* m_items;
 	std::optional<size_t> m_pos;
 	std::string m_text;
+	std::function<void(std::string&, const std::string&)> m_replaceTextFn;
 };
 
-class InsertImageCommand : AbstractDocumentCommand
+class InsertImageCommand : public AbstractDocumentCommand
 {
 public:
 	InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text, int width, int height);
@@ -60,7 +62,7 @@ private:
 	int m_height;
 };
 
-class SetTitleCommand : AbstractDocumentCommand
+class SetTitleCommand : public AbstractDocumentCommand
 {
 public:
 	SetTitleCommand(std::string& title, const std::string& text)
@@ -80,7 +82,7 @@ private:
 	std::string m_oldText;
 };
 
-class ReplaceParagraphCommand : AbstractDocumentCommand
+class ReplaceParagraphCommand : public AbstractDocumentCommand
 {
 public:
 	ReplaceParagraphCommand(std::string& item, const std::string& text)
@@ -100,7 +102,7 @@ private:
 	std::string m_oldText;
 };
 
-class ResizeImageCommand : AbstractDocumentCommand
+class ResizeImageCommand : public AbstractDocumentCommand
 {
 public:
 	ResizeImageCommand(int& width, int& height, int newWidth, int newHeight)
@@ -126,7 +128,7 @@ private:
 	int m_oldH;
 };
 
-class DeleteItemCommand : AbstractDocumentCommand
+class DeleteItemCommand : public AbstractDocumentCommand
 {
 public:
 	DeleteItemCommand(std::vector<Document::DocumentItem>& items, size_t pos);
