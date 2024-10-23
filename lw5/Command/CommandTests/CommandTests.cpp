@@ -39,20 +39,6 @@ TEST_CASE("Paragraph")
 			CHECK(document.GetItem(4).GetParagraph()->GetText() == "Text3");
 		}
 	}
-
-	WHEN("Change text of paragraph")
-	{
-		document.InsertParagraph("Text0", std::nullopt);
-		document.InsertParagraph("Text1", std::nullopt);
-
-		document.GetItem(1).GetParagraph()->SetText("New Text");
-
-		THEN("Change succesfull")
-		{
-			CHECK(document.GetItem(0).GetParagraph()->GetText() == "Text0");
-			CHECK(document.GetItem(1).GetParagraph()->GetText() == "New Text");
-		}
-	}
 }
 
 TEST_CASE("Image")
@@ -200,6 +186,97 @@ TEST_CASE("File with image")
 			CHECK(std::filesystem::exists(filePath));
 			CHECK_NOTHROW(document.SetTitle("New title"));
 			CHECK(!std::filesystem::exists(filePath));
+		}
+	}
+}
+
+TEST_CASE("History has 10 command")
+{
+	ConcreteDocument::ConcreteDocument document;
+
+	WHEN("Execute 11 command")
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			document.InsertParagraph(std::to_string(i));
+		}
+
+		THEN("Can't undo first command")
+		{
+			CHECK(document.GetItemCount() == 11);
+
+			for (int i = 0; i < 11; i++)
+			{
+				document.Undo();
+			}
+
+			CHECK(document.GetItemCount() == 1);
+		}
+	}
+
+	WHEN("Delete command to delete image")
+	{
+		const std::string filePath = "image.png";
+		std::ofstream out(filePath);
+		out.close();
+
+		document.InsertImage(filePath, 1, 1);
+
+		THEN("file will delete")
+		{
+			CHECK(std::filesystem::exists(filePath));
+			CHECK_NOTHROW(document.DeleteItem(0));
+			CHECK(std::filesystem::exists(filePath));
+
+			for (int i = 0; i < 10; i++)
+			{
+				document.SetTitle(std::to_string(i));
+			}
+
+			CHECK(!std::filesystem::exists(filePath));
+		}
+	}
+}
+
+TEST_CASE("Replace text in paragraph")
+{
+	ConcreteDocument::ConcreteDocument document;
+
+	WHEN("Replace text, undo, redo")
+	{
+		document.InsertParagraph("hello");
+		document.GetItem(0).GetParagraph()->SetText("new text");
+
+		THEN("Text will changed")
+		{
+			CHECK(document.GetItem(0).GetParagraph()->GetText() == "new text");
+			CHECK_NOTHROW(document.Undo());
+			CHECK(document.GetItem(0).GetParagraph()->GetText() == "hello");
+			CHECK_NOTHROW(document.Redo());
+			CHECK(document.GetItem(0).GetParagraph()->GetText() == "new text");
+		}
+	}
+}
+
+TEST_CASE("Resize image")
+{
+	ConcreteDocument::ConcreteDocument document;
+
+	WHEN("Resize image, undo, redo")
+	{
+		document.InsertImage("path", 1, 2);
+		document.GetItem(0).GetImage()->Resize(11, 12);
+
+		THEN("Text will changed")
+		{
+			CHECK(document.GetItem(0).GetImage()->GetWidth() == 11);
+			CHECK(document.GetItem(0).GetImage()->GetHeight() == 12);
+			CHECK_NOTHROW(document.Undo());
+			CHECK(document.GetItem(0).GetImage()->GetWidth() == 1);
+			CHECK(document.GetItem(0).GetImage()->GetHeight() == 2);
+			CHECK_NOTHROW(document.Redo());
+			CHECK(document.GetItem(0).GetImage()->GetWidth() == 11);
+			CHECK(document.GetItem(0).GetImage()->GetHeight() == 12);
 		}
 	}
 }
