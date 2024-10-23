@@ -6,6 +6,8 @@
 
 int main()
 {
+	//Пересмотреть удаление картинки
+	//Однготиныее команды
 	ConcreteDocument::ConcreteDocument document;
 	Menu::Menu menu;
 	CommandsToMenuCreator::AddCommands(menu, document);
