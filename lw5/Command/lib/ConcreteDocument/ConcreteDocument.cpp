@@ -5,8 +5,8 @@
 void ConcreteDocument::ConcreteDocument::InsertParagraph(const std::string& text, std::optional<size_t> pos)
 {
 	DocumentHistory::History* historyPtr = &m_history;
-	auto fn = [historyPtr](std::string& text, const std::string& newText) {
-		historyPtr->AddAndExecuteCommand(std::make_unique<DocHistoryCommands::ReplaceParagraphCommand>(text, newText));
+	auto fn = [historyPtr](std::unique_ptr<DocHistoryCommands::AbstractDocumentCommand>&& command) {
+		historyPtr->AddAndExecuteCommand(std::move(command));
 	};
 
 	m_history.AddAndExecuteCommand(std::make_unique<DocHistoryCommands::InsertParagraphCommand>(m_items, pos, text, fn));
@@ -15,8 +15,8 @@ void ConcreteDocument::ConcreteDocument::InsertParagraph(const std::string& text
 void ConcreteDocument::ConcreteDocument::InsertImage(const std::string& path, int width, int height, std::optional<size_t> pos)
 {
 	DocumentHistory::History* historyPtr = &m_history;
-	auto fn = [historyPtr](int& width, int& height, int newWidth, int newHeight) {
-		historyPtr->AddAndExecuteCommand(std::make_unique<DocHistoryCommands::ResizeImageCommand>(width, height, newWidth, newHeight));
+	auto fn = [historyPtr](std::unique_ptr<DocHistoryCommands::AbstractDocumentCommand>&& command) {
+		historyPtr->AddAndExecuteCommand(std::move(command));
 	};
 
 	m_history.AddAndExecuteCommand(std::make_unique<DocHistoryCommands::InsertImageCommand>(m_items, pos, path, width, height, fn));

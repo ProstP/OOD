@@ -28,7 +28,7 @@ private:
 class InsertParagraphCommand : public AbstractDocumentCommand
 {
 public:
-	InsertParagraphCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text, std::function<void(std::string&, const std::string&)> fn);
+	InsertParagraphCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text, std::function<void(std::unique_ptr<DocHistoryCommands::AbstractDocumentCommand>&&)> fn);
 
 	~InsertParagraphCommand() override = default;
 
@@ -39,14 +39,13 @@ protected:
 private:
 	std::vector<Document::DocumentItem>* m_items;
 	std::optional<size_t> m_pos;
-	std::string m_text;
-	std::function<void(std::string&, const std::string&)> m_replaceTextFn;
+	Document::DocumentItem m_item;
 };
 
 class InsertImageCommand : public AbstractDocumentCommand
 {
 public:
-	InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& path, int width, int height, std::function<void(int&, int&, int, int)> fn);
+	InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& path, int width, int height, std::function<void(std::unique_ptr<DocHistoryCommands::AbstractDocumentCommand>&&)> fn);
 
 	~InsertImageCommand() override = default;
 
@@ -57,10 +56,7 @@ protected:
 private:
 	std::vector<Document::DocumentItem>* m_items;
 	std::optional<size_t> m_pos;
-	std::string m_path;
-	int m_width;
-	int m_height;
-	std::function<void(int&, int&, int, int)> m_resizeImageFn;
+	Document::DocumentItem m_item;
 };
 
 class SetTitleCommand : public AbstractDocumentCommand

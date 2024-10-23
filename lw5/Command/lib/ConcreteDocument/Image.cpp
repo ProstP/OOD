@@ -19,7 +19,8 @@ int ConcreteDocument::Image::GetHeight() const
 
 void ConcreteDocument::Image::Resize(int width, int height)
 {
-	m_resizeFunc(m_width, m_height, width, height);
+	m_resizeFunc(std::make_unique<DocHistoryCommands::ResizeImageCommand>(m_width, m_height, width, height));
+	//m_resizeFunc(m_width, m_height, width, height);
 }
 
 ConcreteDocument::Image::~Image()

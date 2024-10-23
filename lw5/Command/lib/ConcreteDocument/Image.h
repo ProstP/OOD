@@ -1,4 +1,5 @@
 #pragma once
+#include "../DocHistoryCommands/DocHistoryCommands.h"
 #include "../Document/IImage.h"
 #include <functional>
 
@@ -8,7 +9,7 @@ namespace ConcreteDocument
 class Image : public Document::IImage
 {
 public:
-	Image(const std::string& path, int width, int height, std::function<void(int&, int&, int, int)> fn)
+	Image(const std::string& path, int width, int height, std::function<void(std::unique_ptr<DocHistoryCommands::AbstractDocumentCommand>&&)> fn)
 		: m_path(path)
 		, m_width(width)
 		, m_height(height)
@@ -25,7 +26,7 @@ private:
 	std::string m_path;
 	int m_width;
 	int m_height;
-	std::function<void(int&, int&, int, int)> m_resizeFunc;
+	std::function<void(std::unique_ptr<DocHistoryCommands::AbstractDocumentCommand>&&)> m_resizeFunc;
 };
 
 } // namespace ConcreteDocument
