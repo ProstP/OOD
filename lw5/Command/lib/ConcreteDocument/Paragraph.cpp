@@ -7,5 +7,5 @@ std::string ConcreteDocument::Paragraph::GetText() const
 
 void ConcreteDocument::Paragraph::SetText(std::string text)
 {
-	m_text = text;
+	m_SetTextFn(m_text, text);
 }

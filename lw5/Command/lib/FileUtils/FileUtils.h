@@ -7,18 +7,6 @@
 class FileUtils
 {
 public:
-	static std::string GetFileName(const std::string& filePath)
-	{
-		size_t lastSlashPos = filePath.find_first_of('/');
-
-		if (lastSlashPos != std::string::npos && lastSlashPos != 0)
-		{
-			return filePath.substr(lastSlashPos + 1);
-		}
-
-		return "";
-	}
-
 	static std::string GetParantPath(const std::string path)
 	{
 		return std::filesystem::path(path).parent_path().string();

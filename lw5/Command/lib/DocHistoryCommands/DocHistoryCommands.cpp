@@ -144,11 +144,11 @@ DocHistoryCommands::DeleteItemCommand::DeleteItemCommand(std::vector<Document::D
 {
 	m_items = &items;
 
+	m_pos = pos;
 	if (pos >= m_items->size())
 	{
 		throw std::out_of_range("Out of range in deleting item");
 	}
-	m_pos = pos == 0 ? pos : pos - 1;
 
 	m_itemCopy = Document::DocumentItem(items[m_pos].GetParagraph(), items[m_pos].GetImage());
 }
