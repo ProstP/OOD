@@ -46,7 +46,7 @@ void DocumentHistory::History::Undo()
 {
 	if (!CanUndo())
 	{
-		throw std::invalid_argument("Can't undo");
+		return;
 	}
 
 	if (!m_commands[m_current]->IsExecuted())
@@ -72,7 +72,7 @@ void DocumentHistory::History::Redo()
 {
 	if (!CanRedo())
 	{
-		throw std::invalid_argument("Can't redo");
+		return;
 	}
 
 	if (m_commands[m_current + 1]->IsExecuted())
