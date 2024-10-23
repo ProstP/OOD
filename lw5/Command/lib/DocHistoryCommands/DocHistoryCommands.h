@@ -1,9 +1,9 @@
 #pragma once
 #include "../Document/DocumentItem.h"
+#include <functional>
 #include <optional>
 #include <string>
 #include <vector>
-#include <functional>
 
 namespace DocHistoryCommands
 {
@@ -46,7 +46,7 @@ private:
 class InsertImageCommand : public AbstractDocumentCommand
 {
 public:
-	InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& text, int width, int height);
+	InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& path, int width, int height, std::function<void(int&, int&, int, int)> fn);
 
 	~InsertImageCommand() override = default;
 
@@ -60,6 +60,7 @@ private:
 	std::string m_path;
 	int m_width;
 	int m_height;
+	std::function<void(int&, int&, int, int)> m_resizeImageFn;
 };
 
 class SetTitleCommand : public AbstractDocumentCommand

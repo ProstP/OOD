@@ -1,4 +1,6 @@
 #include "CommandsToMenuCreator.h"
+#include "../FileUtils/FileUtils.h"
+#include "../RandStringGenerator/RandStringGenerator.h"
 
 void CommandsToMenuCreator::AddCommands(Menu::Menu& menu, Document::IDocument& document)
 {
@@ -40,12 +42,18 @@ void CommandsToMenuCreator::AddInsertParagraphCommand(Menu::Menu& menu, Document
 void CommandsToMenuCreator::AddInsertImageCommand(Menu::Menu& menu, Document::IDocument& document)
 {
 	menu.AddItem("InsertImage", "InsertImage <pos>|end <width> <height> <path>", [&document](std::istream& in) {
+		std::string posStr;
 		std::string widthStr;
 		std::string heightStr;
 		std::string path;
+		in >> posStr;
 		in >> widthStr;
 		in >> heightStr;
 		in >> path;
+
+		const size_t length = 15;
+		std::string newPath = "images/" + GenerateRandomString(length) + ".png";
+		FileUtils::CopyFiles(path, newPath);
 
 		int width;
 		int height;
@@ -61,13 +69,13 @@ void CommandsToMenuCreator::AddInsertImageCommand(Menu::Menu& menu, Document::ID
 
 		try
 		{
-			int pos = std::stoi(widthStr);
+			int pos = std::stoi(posStr);
 
-			document.InsertImage(path, width, height, pos);
+			document.InsertImage(newPath, width, height, pos);
 		}
 		catch (...)
 		{
-			document.InsertImage(path, width, height);
+			document.InsertImage(newPath, width, height);
 		}
 	});
 }

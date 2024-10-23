@@ -1,6 +1,8 @@
 #pragma once
+#include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 
 class FileUtils
 {
@@ -17,27 +19,22 @@ public:
 		return "";
 	}
 
-	static void CopyFiles(const std::string& fromName, const std::string& toName)
+	static std::string GetParantPath(const std::string path)
 	{
-		std::ifstream from(fromName);
-		if (!from.is_open())
+		return std::filesystem::path(path).parent_path().string();
+	}
+
+	static void CopyFiles(const std::string& fromPath, const std::string& toPath)
+	{
+		std::filesystem::path from(fromPath);
+		std::filesystem::path to(toPath);
+
+		std::filesystem::path toDir = to.parent_path();
+		if (!toDir.empty() && !std::filesystem::exists(toDir))
 		{
-			throw std::invalid_argument("Failed to open file");
-		}
-		std::ofstream to(toName);
-		if (!to.is_open())
-		{
-			throw std::invalid_argument("Failed to open file");
+			std::filesystem::create_directories(toDir);
 		}
 
-		char buffer[4000];
-		while (!from.eof())
-		{
-			from.read(buffer, sizeof(buffer));
-			to.write(buffer, from.gcount());
-		}
-
-		from.close();
-		to.close();
+		std::filesystem::copy(from, to, std::filesystem::copy_options::overwrite_existing);
 	}
 };

@@ -131,6 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -170,6 +171,7 @@
     <ClInclude Include="..\lib\MenuCommands\MenuCommands.h" />
     <ClInclude Include="..\lib\CommandsToMenuCreator\CommandsToMenuCreator.h" />
     <ClInclude Include="..\lib\Menu\Menu.h" />
+    <ClInclude Include="..\lib\RandStringGenerator\RandStringGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

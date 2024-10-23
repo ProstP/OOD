@@ -1,4 +1,5 @@
 #include "ConcreteDocument.h"
+#include "../HtmlWriter/HtmlWriter.h"
 #include <iostream>
 
 void ConcreteDocument::ConcreteDocument::InsertParagraph(const std::string& text, std::optional<size_t> pos)
@@ -18,7 +19,7 @@ void ConcreteDocument::ConcreteDocument::InsertImage(const std::string& path, in
 		historyPtr->AddAndExecuteCommand(std::make_unique<DocHistoryCommands::ResizeImageCommand>(width, height, newWidth, newHeight));
 	};
 
-	//m_history;
+	m_history.AddAndExecuteCommand(std::make_unique<DocHistoryCommands::InsertImageCommand>(m_items, pos, path, width, height, fn));
 }
 
 std::string ConcreteDocument::ConcreteDocument::GetTitle() const
@@ -83,4 +84,12 @@ void ConcreteDocument::ConcreteDocument::Redo()
 
 void ConcreteDocument::ConcreteDocument::Save(const std::string& path) const
 {
+	std::vector<Document::ConstDocumentItem> items;
+
+	for (const auto& item : m_items)
+	{
+		items.push_back(Document::ConstDocumentItem(item.GetParagraph(), item.GetImage()));
+	}
+
+	HtmlWriter::WriteHtmlToFile(m_title, items, path);
 }

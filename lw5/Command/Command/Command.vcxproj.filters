@@ -101,5 +101,8 @@
     <ClInclude Include="..\lib\FileUtils\FileUtils.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\RandStringGenerator\RandStringGenerator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

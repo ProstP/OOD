@@ -28,9 +28,8 @@ DocHistoryCommands::InsertParagraphCommand::InsertParagraphCommand(std::vector<D
 	, m_replaceTextFn(fn)
 {
 	m_pos = pos;
-	if (pos != std::nullopt && pos.value() != 0)
+	if (pos != std::nullopt)
 	{
-		m_pos.value()--;
 		if (pos.value() >= m_items->size())
 		{
 			throw std::out_of_range("Out of range in inserting paragraph");
@@ -66,26 +65,26 @@ void DocHistoryCommands::InsertParagraphCommand::UnexecuteImp()
 	}
 }
 
-DocHistoryCommands::InsertImageCommand::InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& path, int width, int height)
+DocHistoryCommands::InsertImageCommand::InsertImageCommand(std::vector<Document::DocumentItem>& items, std::optional<size_t> pos, const std::string& path, int width, int height, std::function<void(int&, int&, int, int)> fn)
 	: m_items(&items)
 	, m_path(path)
 	, m_width(width)
 	, m_height(height)
+	, m_resizeImageFn(fn)
 {
 	m_pos = pos;
-	if (pos != std::nullopt && pos.value() != 0)
+	if (pos != std::nullopt)
 	{
-		m_pos.value()--;
 		if (pos.value() >= m_items->size())
 		{
-			throw std::out_of_range("Out of range in inserting paragraph");
+			throw std::out_of_range("Out of range in inserting inage");
 		}
 	}
 }
 
 void DocHistoryCommands::InsertImageCommand::ExecuteImp()
 {
-	Document::DocumentItem i(nullptr, std::make_shared<ConcreteDocument::Image>(m_path, m_width, m_height));
+	Document::DocumentItem i(nullptr, std::make_shared<ConcreteDocument::Image>(m_path, m_width, m_height, m_resizeImageFn));
 
 	if (m_pos == std::nullopt)
 	{

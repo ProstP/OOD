@@ -1,4 +1,6 @@
 #include "Image.h"
+#include <filesystem>
+#include <iostream>
 
 std::string ConcreteDocument::Image::GetPath() const
 {
@@ -17,6 +19,11 @@ int ConcreteDocument::Image::GetHeight() const
 
 void ConcreteDocument::Image::Resize(int width, int height)
 {
-	m_width = width;
-	m_height = height;
+	m_resizeFunc(m_width, m_height, width, height);
+}
+
+ConcreteDocument::Image::~Image()
+{
+	std::filesystem::path path(m_path);
+	std::filesystem::remove(path);
 }

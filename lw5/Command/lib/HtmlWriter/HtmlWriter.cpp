@@ -1,21 +1,22 @@
 #include "HtmlWriter.h"
+#include "../FileUtils/FileUtils.h"
 #include <fstream>
 
-void HtmlWriter::WriteHtmlToFile(Document::IDocument& document, const std::string& outFileName)
+void HtmlWriter::WriteHtmlToFile(const std::string& title, std::vector<Document::ConstDocumentItem> items, const std::string& outFilePath)
 {
-	std::ofstream out(outFileName);
+	std::ofstream out(outFilePath);
 	if (!out.is_open())
 	{
 		throw std::invalid_argument("Failed in open file");
 	}
 
 	out << "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n";
-	out << "<title>" << HtmlEndodeStr(document.GetTitle()) << "</title>\n";
+	out << "<title>" << HtmlEndodeStr(title) << "</title>\n";
 	out << "</head>\n<body>\n";
 
-	for (int i = 0; i < document.GetItemCount(); i++)
+	for (int i = 0; i < items.size(); i++)
 	{
-		auto item = document.GetItem(i);
+		auto item = items[i];
 
 		if (item.GetParagraph() != nullptr)
 		{
@@ -23,7 +24,11 @@ void HtmlWriter::WriteHtmlToFile(Document::IDocument& document, const std::strin
 		}
 		else if (item.GetImage() != nullptr)
 		{
-			out << "<img src=\"" << HtmlEndodeStr(item.GetImage()->GetPath())
+			std::string path = HtmlEndodeStr(item.GetImage()->GetPath());
+			std::string newPath = FileUtils::GetParantPath(outFilePath) + "/" + path;
+			FileUtils::CopyFiles(path, newPath);
+
+			out << "<img src=\"" << path
 				<< "\" width=" << item.GetImage()->GetWidth()
 				<< " height=" << item.GetImage()->GetHeight()
 				<< " />\n";
