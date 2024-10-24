@@ -75,7 +75,7 @@ void DocumentHistory::History::Redo()
 		return;
 	}
 
-	if (m_commands[m_current + 1]->IsExecuted())
+	if (m_commands[0]->IsExecuted() && m_commands[m_current + 1]->IsExecuted())
 	{
 		throw std::invalid_argument("Action already execute to redo");
 	}

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <optional>
 
+//Баг при реду
 TEST_CASE("Paragraph")
 {
 	ConcreteDocument::ConcreteDocument document;
@@ -23,10 +24,10 @@ TEST_CASE("Paragraph")
 
 	WHEN("New item will push from position")
 	{
-		document.InsertParagraph("Text0", std::nullopt);
-		document.InsertParagraph("Text1", std::nullopt);
-		document.InsertParagraph("Text2", std::nullopt);
-		document.InsertParagraph("Text3", std::nullopt);
+		document.InsertParagraph("Text0");
+		document.InsertParagraph("Text1");
+		document.InsertParagraph("Text2");
+		document.InsertParagraph("Text3");
 
 		document.InsertParagraph("AnotherText", 2);
 
@@ -182,6 +183,8 @@ TEST_CASE("File with image")
 		THEN("File will delete when delete command")
 		{
 			CHECK(std::filesystem::exists(filePath));
+			CHECK_NOTHROW(document.Undo());
+			CHECK_NOTHROW(document.Redo());
 			CHECK_NOTHROW(document.Undo());
 			CHECK(std::filesystem::exists(filePath));
 			CHECK_NOTHROW(document.SetTitle("New title"));
