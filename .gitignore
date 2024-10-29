@@ -5,6 +5,7 @@ output.txt
 *.obj
 Release/
 Debug/
+boost/
 
 # Prerequisites
 *.d
