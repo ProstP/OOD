@@ -6,6 +6,7 @@ output.txt
 Release/
 Debug/
 boost/
+*.log
 
 # Prerequisites
 *.d
