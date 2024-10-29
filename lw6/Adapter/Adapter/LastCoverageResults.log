@@ -1,0 +1,21 @@
+[2024-10-29 20:19:23] [info] Start Program:
+Path:"E:\\OOD\\lw6\\Adapter\\x64\\Debug\\Adapter.exe"
+Arguments:
+Working directory: "E:\\OOD\\lw6\\Adapter\\Adapter\\"
+Modules: Selected: E:\OOD\lw6\Adapter\x64\Debug\Adapter.exe E:\OOD\lw6\Adapter\x64\Debug\AdapterTest.exe Excluded: 
+Sources: Selected: E:\OOD\lw6\Adapter\Adapter E:\OOD\lw6\Adapter\lib\Adapter E:\OOD\lw6\Adapter\lib\GraphicsLib E:\OOD\lw6\Adapter\lib\ModernGraphicsLib E:\OOD\lw6\Adapter\lib\ShapeDrawingLib E:\OOD\lw6\Adapter\AdapterTest E:\OOD\lw6\Adapter\lib\Adapter E:\OOD\lw6\Adapter\lib\GraphicsLib E:\OOD\lw6\Adapter\lib\ModernGraphicsLib E:\OOD\lw6\Adapter\lib\ShapeDrawingLib Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: binary C:\Users\prost\AppData\Local\Temp\42ce0bty.cy1 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2024-10-29 20:19:23] [info] Module: E:\OOD\lw6\Adapter\x64\Debug\Adapter.exe is selected because it matches selected pattern: 
+[2024-10-29 20:19:23] [info] ----------------------------------------------------
+[2024-10-29 20:19:23] [info] Coverage binary generated in file: C:\Users\prost\AppData\Local\Temp\42ce0bty.cy1
+[2024-10-29 20:19:23] [info] ----------------------------------------------------

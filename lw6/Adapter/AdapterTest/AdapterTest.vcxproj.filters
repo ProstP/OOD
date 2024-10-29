@@ -18,9 +18,6 @@
     <ClCompile Include="AdapterTest.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\lib\Adapter\ModernToOldGraphicsAdapter.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Adapter\ModernToOldGraphicsAdapter.h">
