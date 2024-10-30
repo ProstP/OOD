@@ -1,4 +1,4 @@
-[2024-10-29 20:19:23] [info] Start Program:
+[2024-10-30 08:12:36] [info] Start Program:
 Path:"E:\\OOD\\lw6\\Adapter\\x64\\Debug\\Adapter.exe"
 Arguments:
 Working directory: "E:\\OOD\\lw6\\Adapter\\Adapter\\"
@@ -9,13 +9,13 @@ Cover Children: 0
 Aggregate by file: 1
 Continue after C++ exception: 0
 Optimized build support: 0
-Export: binary C:\Users\prost\AppData\Local\Temp\42ce0bty.cy1 
+Export: binary C:\Users\prost\AppData\Local\Temp\xsedm3wr.jye 
 Input coverage: 
 Unified diff: 
 Excluded line regular expressions: 
 Substitute pdb source paths: 
 
-[2024-10-29 20:19:23] [info] Module: E:\OOD\lw6\Adapter\x64\Debug\Adapter.exe is selected because it matches selected pattern: 
-[2024-10-29 20:19:23] [info] ----------------------------------------------------
-[2024-10-29 20:19:23] [info] Coverage binary generated in file: C:\Users\prost\AppData\Local\Temp\42ce0bty.cy1
-[2024-10-29 20:19:23] [info] ----------------------------------------------------
+[2024-10-30 08:12:37] [info] Module: E:\OOD\lw6\Adapter\x64\Debug\Adapter.exe is selected because it matches selected pattern: 
+[2024-10-30 08:12:37] [info] ----------------------------------------------------
+[2024-10-30 08:12:37] [info] Coverage binary generated in file: C:\Users\prost\AppData\Local\Temp\xsedm3wr.jye
+[2024-10-30 08:12:37] [info] ----------------------------------------------------

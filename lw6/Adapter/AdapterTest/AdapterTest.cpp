@@ -7,33 +7,6 @@
 #include <iostream>
 #include <sstream>
 
-TEST_CASE("Using BeginDraw and EndDraw by adapter")
-{
-	WHEN("Add graphics render to adapter")
-	{
-		modern_graphics_lib::CModernGraphicsRenderer render(std::cout);
-		Adapter::ModernToOldGraphicsAdapter adapter(render);
-
-		THEN("Adapter begin drawing")
-		{
-			CHECK_THROWS_WITH(render.BeginDraw(), "Drawing has already begun");
-		}
-	}
-
-	WHEN("Destroy adapter")
-	{
-		modern_graphics_lib::CModernGraphicsRenderer render(std::cout);
-		{
-			Adapter::ModernToOldGraphicsAdapter adapter(render);
-		}
-
-		THEN("Adapter end drawing")
-		{
-			CHECK_THROWS_WITH(render.EndDraw(), "Drawing has not been started");
-		}
-	}
-}
-
 TEST_CASE("Use adapter like ICanvas")
 {
 	WHEN("To draw triange")
@@ -41,6 +14,7 @@ TEST_CASE("Use adapter like ICanvas")
 		std::stringstream out;
 		{
 			modern_graphics_lib::CModernGraphicsRenderer render(out);
+			render.BeginDraw();
 			Adapter::ModernToOldGraphicsAdapter adapter(render);
 			shape_drawing_lib::CCanvasPainter painter(adapter);
 			shape_drawing_lib::CTriangle triangle(shape_drawing_lib::Point{ 11, 12 }, shape_drawing_lib::Point{ 21, 22 }, shape_drawing_lib::Point{ 31, 32 });
@@ -63,6 +37,7 @@ TEST_CASE("Use adapter like ICanvas")
 		std::stringstream out;
 		{
 			modern_graphics_lib::CModernGraphicsRenderer render(out);
+			render.BeginDraw();
 			Adapter::ModernToOldGraphicsAdapter adapter(render);
 			shape_drawing_lib::CCanvasPainter painter(adapter);
 			shape_drawing_lib::CRectangle rectangle(shape_drawing_lib::Point{ 10, 20 }, 5, 10);

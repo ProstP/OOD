@@ -60,7 +60,7 @@ void DocumentHistory::History::Undo()
 
 bool DocumentHistory::History::CanRedo() const
 {
-	if (m_commands.size() == 0 || (m_current == m_commands.size() - 1 && m_commands[0]->IsExecuted()))
+	if (m_commands.size() == 0 || (m_commands[m_commands.size() - 1]->IsExecuted()))
 	{
 		return false;
 	}

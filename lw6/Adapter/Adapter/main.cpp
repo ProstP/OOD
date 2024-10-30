@@ -27,6 +27,7 @@ void PaintPictureOnCanvas()
 void PaintPictureOnModernGraphicsRenderer()
 {
 	modern_graphics_lib::CModernGraphicsRenderer render(std::cout);
+	render.BeginDraw();
 	Adapter::ModernToOldGraphicsAdapter adapter(render);
 
 	shape_drawing_lib::CCanvasPainter painter(adapter);

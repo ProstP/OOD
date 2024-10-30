@@ -6,7 +6,6 @@
 #include <iostream>
 #include <optional>
 
-//Баг при реду
 TEST_CASE("Paragraph")
 {
 	ConcreteDocument::ConcreteDocument document;

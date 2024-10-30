@@ -10,10 +10,7 @@ class ModernToOldGraphicsAdapter : public graphics_lib::ICanvas
 public:
 	ModernToOldGraphicsAdapter(modern_graphics_lib::CModernGraphicsRenderer& render)
 		: m_modernRenerPtr(&render)
-		, m_pointPos(0, 0)
-	{
-		m_modernRenerPtr->BeginDraw();
-	};
+		, m_pointPos(0, 0){};
 
 	void MoveTo(int x, int y) override
 	{
@@ -26,11 +23,6 @@ public:
 		m_modernRenerPtr->DrawLine(m_pointPos, modern_graphics_lib::CPoint{ x, y });
 		m_pointPos.x = x;
 		m_pointPos.y = y;
-	}
-
-	~ModernToOldGraphicsAdapter()
-	{
-		m_modernRenerPtr->EndDraw();
 	}
 
 private:
