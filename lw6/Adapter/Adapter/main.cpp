@@ -1,4 +1,5 @@
 ﻿#include "../lib/Adapter/ModernToOldGraphicsAdapter.h"
+#include "../lib/Adapter/ModernToOldGraphicsAdapterClass.h"
 #include "../lib/ModernGraphicsLib/ModernGraphicsLib.h"
 #include "../lib/ShapeDrawingLib/ShapeDrawingLib.h"
 #include <iostream>
@@ -34,6 +35,14 @@ void PaintPictureOnModernGraphicsRenderer()
 	PaintPicture(painter);
 }
 
+void PaintPictureOnModernGraphicsRendererUsingClassAdapter()
+{
+	Adapter::ModernToOLdGraphicsAdapterClass adapter(std::cout);
+
+	shape_drawing_lib::CCanvasPainter painter(adapter);
+	PaintPicture(painter);
+}
+
 } // namespace app
 
 int main()
@@ -41,6 +50,8 @@ int main()
 	app::PaintPictureOnCanvas();
 	std::cout << "<------->" << std::endl;
 	app::PaintPictureOnModernGraphicsRenderer();
+	std::cout << "<------->" << std::endl;
+	app::PaintPictureOnModernGraphicsRendererUsingClassAdapter();
 	/*
 	std::cout << "Should we use new API (y)?" << std::endl;
 	std::string userInput;

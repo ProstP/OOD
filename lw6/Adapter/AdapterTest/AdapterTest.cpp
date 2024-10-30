@@ -57,3 +57,8 @@ TEST_CASE("Use adapter like ICanvas")
 		}
 	}
 }
+
+TEST_CASE("Use adapter class like ICanvas")
+{
+
+}
