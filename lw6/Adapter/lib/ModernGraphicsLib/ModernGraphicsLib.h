@@ -18,6 +18,20 @@ public:
 	int y;
 };
 
+// Цвет в формате RGBA, каждый компонент принимает значения от 0.0f до 1.0f
+class CRGBAColor
+{
+public:
+	CRGBAColor(float r, float g, float b, float a)
+		: r(r)
+		, g(g)
+		, b(b)
+		, a(a)
+	{
+	}
+	float r, g, b, a;
+};
+
 // Класс для современного рисования графики
 class CModernGraphicsRenderer
 {
@@ -47,15 +61,19 @@ public:
 	}
 
 	// Выполняет рисование линии
-	void DrawLine(const CPoint& start, const CPoint& end)
+	void DrawLine(const CPoint& start, const CPoint& end, const CRGBAColor& color)
 	{
 		if (!m_drawing)
 		{
 			throw std::logic_error("DrawLine is allowed between BeginDraw()/EndDraw() only");
 		}
-		m_out << boost::format(R"(  <line fromX="%1%" fromY="%2%" toX="%3%" toY="%4%"/>)")
+		m_out << boost::format(R"(  <line fromX="%1%" fromY="%2%" toX="%3%" toY="%4%">)")
 				% start.x % start.y % end.x % end.y
 			  << std::endl;
+		m_out << boost::format(R"(    <color r="%.2f" g="%.2f" b="%.2f" a="%.2f" />)")
+				% color.r % color.g % color.b % color.a
+			  << std::endl;
+		m_out << "  </line>" << std::endl;
 	}
 
 	// Этот метод должен быть вызван в конце рисования
