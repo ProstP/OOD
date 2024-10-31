@@ -35,5 +35,8 @@
     <ClInclude Include="..\lib\Adapter\ModernToOldGraphicsAdapterClass.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\ModernGraphicsLib\ModernGraphicsLibv2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

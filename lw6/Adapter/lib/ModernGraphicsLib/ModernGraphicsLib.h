@@ -50,7 +50,7 @@ public:
 	}
 
 	// Ётот метод должен быть вызван в начале рисовани€
-	void BeginDraw()
+	virtual void BeginDraw()
 	{
 		if (m_drawing)
 		{
@@ -77,7 +77,7 @@ public:
 	}
 
 	// Ётот метод должен быть вызван в конце рисовани€
-	void EndDraw()
+	virtual void EndDraw()
 	{
 		if (!m_drawing)
 		{
@@ -87,7 +87,8 @@ public:
 		m_drawing = false;
 	}
 
-private:
+//private:
+protected:
 	std::ostream& m_out;
 	bool m_drawing = false;
 };

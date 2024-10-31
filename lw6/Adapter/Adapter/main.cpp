@@ -4,6 +4,7 @@
 #include "../lib/ShapeDrawingLib/ShapeDrawingLib.h"
 #include <iostream>
 #include <string>
+#include "../lib/ModernGraphicsLib/ModernGraphicsLibv2.h"
 
 namespace app
 {

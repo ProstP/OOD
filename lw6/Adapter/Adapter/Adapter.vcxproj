@@ -154,6 +154,7 @@
     <ClInclude Include="..\lib\Adapter\ModernToOldGraphicsAdapterClass.h" />
     <ClInclude Include="..\lib\GraphicsLib\GraphicsLib.h" />
     <ClInclude Include="..\lib\ModernGraphicsLib\ModernGraphicsLib.h" />
+    <ClInclude Include="..\lib\ModernGraphicsLib\ModernGraphicsLibv2.h" />
     <ClInclude Include="..\lib\ShapeDrawingLib\ShapeDrawingLib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,16 +5,18 @@
 namespace Adapter
 {
 
+template <typename AdapteeType = modern_graphics_lib::CModernGraphicsRenderer>
+requires(std::derived_from<AdapteeType, modern_graphics_lib::CModernGraphicsRenderer>) 
 class ModernToOLdGraphicsAdapterClass : public graphics_lib::ICanvas
-	, private modern_graphics_lib::CModernGraphicsRenderer
+	, private AdapteeType
 {
 public:
 	ModernToOLdGraphicsAdapterClass(std::ostream& strm)
-		: CModernGraphicsRenderer(strm)
+		: AdapteeType(strm)
 		, m_pointPos(0, 0)
 		, m_color(0, 0, 0, 1)
 	{
-		BeginDraw();
+		this->BeginDraw();
 	};
 
 	void SetColor(uint32_t rgbColor) override
@@ -36,7 +38,7 @@ public:
 	}
 	void LineTo(int x, int y) override
 	{
-		DrawLine(m_pointPos, modern_graphics_lib::CPoint(x, y), m_color);
+		this->DrawLine(m_pointPos, modern_graphics_lib::CPoint(x, y), m_color);
 		m_pointPos.x = x;
 		m_pointPos.y = y;
 	}
