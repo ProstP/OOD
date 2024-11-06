@@ -18,6 +18,9 @@
     <ClCompile Include="Composite.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\Shape\Shapes.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\Canvas\ICanvas.h">
@@ -26,7 +29,7 @@
     <ClInclude Include="..\lib\CommonTypes\CommonTypes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\lib\Shape\Shape.h">
+    <ClInclude Include="..\lib\Shape\Shapes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
