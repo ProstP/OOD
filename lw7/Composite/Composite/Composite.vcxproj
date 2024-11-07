@@ -143,9 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\CommandHandler\CommandHandler.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\CommandHandler\CommandHandler.h" />
     <ClInclude Include="..\lib\CommonTypes\CommonTypes.h" />
     <ClInclude Include="..\lib\Canvas\ICanvas.h" />
     <ClInclude Include="..\lib\OutstreamCanvas\OutstreamCanvas.h" />

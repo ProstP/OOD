@@ -6,6 +6,12 @@ namespace SimpleShapes
 
 class Rectangle : public Shapes::Shape
 {
+public:
+	Rectangle(Shapes::Group& group)
+		: Shape(group)
+	{
+	}
+
 protected:
 	void DrawImp(Canvas::ICanvas& canvas) const override
 	{
@@ -21,6 +27,12 @@ protected:
 
 class Triangle : public Shapes::Shape
 {
+public:
+	Triangle(Shapes::Group& group)
+		: Shape(group)
+	{
+	}
+
 protected:
 	void DrawImp(Canvas::ICanvas& canvas) const override
 	{
@@ -35,6 +47,12 @@ protected:
 
 class Ellipse : public Shapes::Shape
 {
+public:
+	Ellipse(Shapes::Group& group)
+		: Shape(group)
+	{
+	}
+
 protected:
 	void DrawImp(Canvas::ICanvas& canvas) const override
 	{
