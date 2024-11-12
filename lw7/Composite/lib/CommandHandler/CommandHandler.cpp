@@ -351,6 +351,11 @@ void CommandHandler::HelpCommand(std::ostream& out)
 
 void CommandHandler::UpToTreeCommand(std::stringstream& iss, std::ostream& out)
 {
+	if (m_currentShape->GetParent())
+	{
+		throw std::invalid_argument("Can't up to tree, already on root");
+	}
+
 	m_currentShape = m_currentShape->GetParent();
 
 	out << "Up to tree" << std::endl

@@ -100,39 +100,45 @@ public:
 	}
 	void InsertShape(std::shared_ptr<IShape> shape, size_t pos)
 	{
+		if (pos > m_shapes.size())
+		{
+			throw std::out_of_range("Out of range in inserting shape");
+		}
+
+		RectD shapeFrame = shape->GetFrame();
+
+		if (shapeFrame.left < m_groupFrame.left)
+		{
+			double endX = m_groupFrame.left + m_groupFrame.width;
+
+			m_groupFrame.left = shapeFrame.left;
+			m_groupFrame.width = endX - m_groupFrame.left;
+		}
+		if (shapeFrame.top < m_groupFrame.top)
+		{
+			double endY = m_groupFrame.top + m_groupFrame.height;
+
+			m_groupFrame.top = shapeFrame.top;
+			m_groupFrame.height = endY - m_groupFrame.top;
+		}
+		if (shapeFrame.left + shapeFrame.width > m_groupFrame.left + m_groupFrame.width)
+		{
+			m_groupFrame.width = shapeFrame.left + shapeFrame.width - m_groupFrame.left;
+		}
+		if (shapeFrame.top + shapeFrame.height > m_groupFrame.top + m_groupFrame.height)
+		{
+			m_groupFrame.height = shapeFrame.top + shapeFrame.height - m_groupFrame.top;
+		}
+
 		if (m_shapes.empty())
 		{
 			m_shapes.push_back(shape);
 			return;
 		}
-
-		if (pos > m_shapes.size())
-		{
-			throw std::out_of_range("Out of range in inserting shape");
-		}
 		else if (pos == m_shapes.size())
 		{
 			m_shapes.push_back(shape);
 			return;
-		}
-
-		RectD shapeRect = shape->GetFrame();
-
-		if (shapeRect.left < m_groupRect.left)
-		{
-			m_groupRect.left = shapeRect.left;
-		}
-		if (shapeRect.top < m_groupRect.top)
-		{
-			m_groupRect.top = shapeRect.top;
-		}
-		if (shapeRect.left + shapeRect.width > m_groupRect.left + m_groupRect.width)
-		{
-			m_groupRect.width = shapeRect.left + shapeRect.width - m_groupRect.left;
-		}
-		if (shapeRect.top + shapeRect.height > m_groupRect.top + m_groupRect.height)
-		{
-			m_groupRect.height = shapeRect.top + shapeRect.height - m_groupRect.top;
 		}
 
 		m_shapes.insert(m_shapes.begin() + pos, shape);
@@ -158,7 +164,7 @@ public:
 
 	RectD GetFrame() const override
 	{
-		return m_groupRect;
+		return m_groupFrame;
 	}
 	void SetFrame(RectD rect) override
 	{
@@ -166,20 +172,20 @@ public:
 		{
 			RectD shapeRect = shape->GetFrame();
 
-			double startX = shapeRect.left - m_groupRect.left;
+			double startX = shapeRect.left - m_groupFrame.left;
 			double endX = startX + shapeRect.width;
 
-			double newStartX = (startX / m_groupRect.width) * rect.width;
-			double newEndX = (endX / m_groupRect.width) * rect.width;
+			double newStartX = (startX / m_groupFrame.width) * rect.width;
+			double newEndX = (endX / m_groupFrame.width) * rect.width;
 
 			shapeRect.width = newEndX - newStartX;
 			shapeRect.left = newStartX - rect.left;
 
-			double startY = shapeRect.top - m_groupRect.top;
+			double startY = shapeRect.top - m_groupFrame.top;
 			double endY = startY + shapeRect.height;
 
-			double newStartY = (startY / m_groupRect.height) * rect.height;
-			double newEndY = (endY / m_groupRect.height) * rect.height;
+			double newStartY = (startY / m_groupFrame.height) * rect.height;
+			double newEndY = (endY / m_groupFrame.height) * rect.height;
 
 			shapeRect.height = newEndY - newStartY;
 			shapeRect.top = newStartY - rect.top;
@@ -187,7 +193,7 @@ public:
 			shape->SetFrame(shapeRect);
 		}
 
-		m_groupRect = rect;
+		m_groupFrame = rect;
 	}
 
 	StyleWithThickness GetOutlineStyle() const override
@@ -260,22 +266,22 @@ public:
 private:
 	std::shared_ptr<IShape> m_parent;
 	std::vector<std::shared_ptr<IShape>> m_shapes;
-	RectD m_groupRect = { 0, 0, 0, 0 };
+	RectD m_groupFrame = { 0, 0, 0, 0 };
 };
 
 class Shape : public IShape
 {
 public:
 	Shape(std::shared_ptr<IShape> parent)
-		: m_rect({ 0, 0, 0, 0 })
+		: m_frame({ 0, 0, 0, 0 })
 		, m_parent(parent){};
 	RectD GetFrame() const override
 	{
-		return m_rect;
+		return m_frame;
 	}
 	void SetFrame(RectD rect) override
 	{
-		m_rect = rect;
+		m_frame = rect;
 	}
 
 	StyleWithThickness GetOutlineStyle() const override
@@ -350,7 +356,7 @@ protected:
 	virtual void DrawImp(Canvas::ICanvas& canvas) const = 0;
 
 private:
-	RectD m_rect;
+	RectD m_frame;
 	StyleWithThickness m_outlineStyle;
 	Style m_fillStyle;
 	std::shared_ptr<IShape> m_parent;
@@ -361,7 +367,7 @@ class Slide
 public:
 	Slide(double width, double height)
 	{
-		RectD rect{ 0.0, 0.0, width, height };
+		RectD rect{ 0.0, 0.0, 0, 0 };
 		m_shapes = std::make_shared<Group>(nullptr);
 		m_shapes->SetFrame(rect);
 	}
@@ -374,11 +380,11 @@ public:
 		canvas.BeginFill(m_backgroundColor);
 
 		RectD rect = m_shapes->GetFrame();
-		canvas.MoveTo(rect.left, rect.top);
-		canvas.LineTo(rect.left + rect.width, rect.top);
-		canvas.LineTo(rect.left + rect.width, rect.top + rect.height);
-		canvas.LineTo(rect.left, rect.top + rect.height);
-		canvas.LineTo(rect.left, rect.top);
+		canvas.MoveTo(0, 0);
+		canvas.LineTo(m_width, 0);
+		canvas.LineTo(m_width, m_height);
+		canvas.LineTo(0, m_height);
+		canvas.LineTo(0, 0);
 
 		canvas.EndFill();
 	}
@@ -388,6 +394,8 @@ public:
 	}
 
 private:
+	double m_width;
+	double m_height;
 	std::shared_ptr<Group> m_shapes;
 	RGBAColor m_backgroundColor;
 };
