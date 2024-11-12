@@ -84,7 +84,7 @@ public:
 	virtual void SetFillStyle(Style style) = 0;
 
 	virtual Group* GetGroup() = 0;
-	virtual Group* GetParent() = 0;
+	virtual std::shared_ptr<IShape> GetParent() = 0;
 
 	virtual ~IShape() = default;
 };
@@ -92,22 +92,28 @@ public:
 class Group : public IShape
 {
 public:
-	Group(Group& parent)
+	Group(std::shared_ptr<IShape> parent)
 		: m_parent(parent){};
 	size_t GetShapeCount() const
 	{
 		return m_shapes.size();
 	}
-	void InserShape(std::shared_ptr<IShape> shape, size_t pos)
+	void InsertShape(std::shared_ptr<IShape> shape, size_t pos)
 	{
 		if (m_shapes.empty())
 		{
 			m_shapes.push_back(shape);
+			return;
 		}
 
-		if (pos >= m_shapes.size())
+		if (pos > m_shapes.size())
 		{
 			throw std::out_of_range("Out of range in inserting shape");
+		}
+		else if (pos == m_shapes.size())
+		{
+			m_shapes.push_back(shape);
+			return;
 		}
 
 		RectD shapeRect = shape->GetFrame();
@@ -191,7 +197,7 @@ public:
 			return StyleWithThickness();
 		}
 		StyleWithThickness style = m_shapes[0]->GetOutlineStyle();
-		for (int i = 1; m_shapes.size(); i++)
+		for (int i = 1; i < m_shapes.size(); i++)
 		{
 			if (style != m_shapes[i]->GetOutlineStyle())
 			{
@@ -203,7 +209,7 @@ public:
 	}
 	void SetOutlineStyle(StyleWithThickness style) override
 	{
-		for (int i = 0; i <= m_shapes.size(); i++)
+		for (int i = 0; i < m_shapes.size(); i++)
 		{
 			m_shapes[i]->SetOutlineStyle(style);
 		}
@@ -216,7 +222,7 @@ public:
 			return Style();
 		}
 		Style style = m_shapes[0]->GetFillStyle();
-		for (int i = 1; m_shapes.size(); i++)
+		for (int i = 1; i < m_shapes.size(); i++)
 		{
 			if (style != m_shapes[i]->GetFillStyle())
 			{
@@ -228,7 +234,7 @@ public:
 	}
 	void SetFillStyle(Style style) override
 	{
-		for (int i = 0; i <= m_shapes.size(); i++)
+		for (int i = 0; i < m_shapes.size(); i++)
 		{
 			m_shapes[i]->SetFillStyle(style);
 		}
@@ -238,9 +244,9 @@ public:
 	{
 		return this;
 	}
-	Group* GetParent() override
+	std::shared_ptr<IShape> GetParent() override
 	{
-		return &m_parent;
+		return m_parent;
 	}
 
 	void Draw(Canvas::ICanvas& canvas) const override
@@ -252,7 +258,7 @@ public:
 	}
 
 private:
-	Group& m_parent;
+	std::shared_ptr<IShape> m_parent;
 	std::vector<std::shared_ptr<IShape>> m_shapes;
 	RectD m_groupRect = { 0, 0, 0, 0 };
 };
@@ -260,8 +266,9 @@ private:
 class Shape : public IShape
 {
 public:
-	Shape(Group& parent)
-		: m_parent(parent){};
+	Shape(std::shared_ptr<IShape> parent)
+		: m_rect({ 0, 0, 0, 0 })
+		, m_parent(parent){};
 	RectD GetFrame() const override
 	{
 		return m_rect;
@@ -293,9 +300,9 @@ public:
 	{
 		return nullptr;
 	}
-	Group* GetParent() override
+	std::shared_ptr<IShape> GetParent() override
 	{
-		return &m_parent;
+		return m_parent;
 	}
 
 	void Draw(Canvas::ICanvas& canvas) const final override
@@ -346,16 +353,16 @@ private:
 	RectD m_rect;
 	StyleWithThickness m_outlineStyle;
 	Style m_fillStyle;
-	Group& m_parent;
+	std::shared_ptr<IShape> m_parent;
 };
 
 class Slide
 {
 public:
-	Slide(int width, int height)
+	Slide(double width, double height)
 	{
-		RectD rect{ 0, 0, width, height };
-		m_shapes = std::make_shared<Group>();
+		RectD rect{ 0.0, 0.0, width, height };
+		m_shapes = std::make_shared<Group>(nullptr);
 		m_shapes->SetFrame(rect);
 	}
 	std::shared_ptr<Group> GetShapes()

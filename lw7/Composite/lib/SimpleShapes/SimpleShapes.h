@@ -7,8 +7,8 @@ namespace SimpleShapes
 class Rectangle : public Shapes::Shape
 {
 public:
-	Rectangle(Shapes::Group& group)
-		: Shape(group)
+	Rectangle(std::shared_ptr<Shapes::IShape> parent)
+		: Shape(parent)
 	{
 	}
 
@@ -28,8 +28,8 @@ protected:
 class Triangle : public Shapes::Shape
 {
 public:
-	Triangle(Shapes::Group& group)
-		: Shape(group)
+	Triangle(std::shared_ptr<Shapes::IShape> parent)
+		: Shape(parent)
 	{
 	}
 
@@ -48,8 +48,8 @@ protected:
 class Ellipse : public Shapes::Shape
 {
 public:
-	Ellipse(Shapes::Group& group)
-		: Shape(group)
+	Ellipse(std::shared_ptr<Shapes::IShape> parent)
+		: Shape(parent)
 	{
 	}
 
