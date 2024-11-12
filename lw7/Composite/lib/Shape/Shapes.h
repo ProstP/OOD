@@ -18,34 +18,45 @@ public:
 	virtual ~IDrawable() = default;
 };
 
-class Style
+class IStyle
 {
 public:
-	bool IsEnable() const
+	virtual bool IsEnable() const = 0;
+	virtual void Enable(bool enable) = 0;
+	virtual std::optional<RGBAColor> GetColor() const = 0;
+	virtual void SetColor(RGBAColor color) = 0;
+
+	~IStyle() = default;
+};
+
+class IStyleWithThickness : public IStyle
+{
+public:
+	virtual int GetThickness() const = 0;
+	virtual void SetThickness(int thickness) = 0;
+
+	~IStyleWithThickness() = default;
+};
+
+class Style : public IStyle
+{
+public:
+	bool IsEnable() const override
 	{
 		return m_enable;
 	}
-	void Enable(bool enable)
+	void Enable(bool enable) override
 	{
 		m_enable = enable;
 	}
 
-	std::optional<RGBAColor> GetColor() const
+	std::optional<RGBAColor> GetColor() const override
 	{
 		return m_color;
 	}
-	void SetColor(RGBAColor color)
+	void SetColor(RGBAColor color) override
 	{
 		m_color = color;
-	}
-
-	virtual bool operator==(Style style)
-	{
-		return (this->IsEnable() == style.IsEnable() && this->GetColor() == style.GetColor());
-	}
-	virtual bool operator!=(Style style)
-	{
-		return !(*this == style);
 	}
 
 private:
@@ -53,20 +64,111 @@ private:
 	std::optional<RGBAColor> m_color = std::nullopt;
 };
 
-class StyleWithThickness : public Style
+class StyleWithThickness : public IStyleWithThickness
 {
 public:
-	int GetThickness() const
+	bool IsEnable() const override
+	{
+		return m_enable;
+	}
+	void Enable(bool enable) override
+	{
+		m_enable = enable;
+	}
+
+	std::optional<RGBAColor> GetColor() const override
+	{
+		return m_color;
+	}
+	void SetColor(RGBAColor color) override
+	{
+		m_color = color;
+	}
+
+	int GetThickness() const override
 	{
 		return m_thickness;
 	}
-	void SetThickness(int thickness)
+	void SetThickness(int thickness) override
 	{
 		m_thickness = thickness;
 	}
 
 private:
+	bool m_enable = false;
+	std::optional<RGBAColor> m_color = std::nullopt;
 	int m_thickness = 1;
+};
+
+class GroupStyle : public IStyle
+{
+public:
+	void AddStyle(std::shared_ptr<IStyle> style)
+	{
+		m_styles.push_back(style);
+	};
+
+	bool IsEnable() const override
+	{
+		CheckStylesToEmpty();
+
+		bool enable = m_styles[0]->IsEnable();
+
+		for (int i = 1; i < m_styles.size(); i++)
+		{
+			if (enable != m_styles[i]->IsEnable())
+			{
+				return false;
+			}
+		}
+
+		return enable;
+	}
+	void Enable(bool enable) override
+	{
+		CheckStylesToEmpty();
+
+		for (int i = 0; i < m_styles.size(); i++)
+		{
+			m_styles[i]->Enable(enable);
+		}
+	}
+
+	std::optional<RGBAColor> GetColor() const override
+	{
+		CheckStylesToEmpty();
+
+		std::optional<RGBAColor> color = m_styles[0]->GetColor();
+
+		for (int i = 1; i < m_styles.size(); i++)
+		{
+			if (color != m_styles[i]->GetColor())
+			{
+				return std::nullopt;
+			}
+		}
+
+		return color;
+	}
+	void SetColor(RGBAColor color) override
+	{
+		CheckStylesToEmpty();
+
+		for (int i = 0; i < m_styles.size(); i++)
+		{
+			m_styles[i]->SetColor(color);
+		}
+	}
+
+private:
+	std::vector<std::shared_ptr<IStyle>> m_styles;
+	void CheckStylesToEmpty() const
+	{
+		if (m_styles.size())
+		{
+			throw std::invalid_argument("Group without styles");
+		}
+	}
 };
 
 class Group;
@@ -77,11 +179,11 @@ public:
 	virtual RectD GetFrame() const = 0;
 	virtual void SetFrame(RectD rect) = 0;
 
-	virtual StyleWithThickness GetOutlineStyle() const = 0;
-	virtual void SetOutlineStyle(StyleWithThickness style) = 0;
+	virtual std::shared_ptr<IStyleWithThickness> GetOutlineStyle() const = 0;
+	virtual void SetOutlineStyle(std::shared_ptr<IStyleWithThickness> style) = 0;
 
-	virtual Style GetFillStyle() const = 0;
-	virtual void SetFillStyle(Style style) = 0;
+	virtual std::shared_ptr<IStyle> GetFillStyle() const = 0;
+	virtual void SetFillStyle(std::shared_ptr<IStyle> style) = 0;
 
 	virtual Group* GetGroup() = 0;
 	virtual std::shared_ptr<IShape> GetParent() = 0;
@@ -196,24 +298,24 @@ public:
 		m_groupFrame = rect;
 	}
 
-	StyleWithThickness GetOutlineStyle() const override
+	std::shared_ptr<IStyleWithThickness> GetOutlineStyle() const override
 	{
 		if (m_shapes.size() == 0)
 		{
-			return StyleWithThickness();
+			return nullptr;
 		}
-		StyleWithThickness style = m_shapes[0]->GetOutlineStyle();
+		auto style = m_shapes[0]->GetOutlineStyle();
 		for (int i = 1; i < m_shapes.size(); i++)
 		{
-			if (style != m_shapes[i]->GetOutlineStyle())
+			if (style->IsEnable() != m_shapes[i]->GetOutlineStyle()->IsEnable() && style->GetColor() != m_shapes[i]->GetOutlineStyle()->GetColor() && style->GetThickness() != m_shapes[i]->GetOutlineStyle()->GetThickness())
 			{
-				return StyleWithThickness();
+				return nullptr;
 			}
 		}
 
 		return style;
 	}
-	void SetOutlineStyle(StyleWithThickness style) override
+	void SetOutlineStyle(std::shared_ptr<IStyleWithThickness> style) override
 	{
 		for (int i = 0; i < m_shapes.size(); i++)
 		{
@@ -221,24 +323,24 @@ public:
 		}
 	}
 
-	Style GetFillStyle() const override
+	std::shared_ptr<IStyle> GetFillStyle() const override
 	{
 		if (m_shapes.size() == 0)
 		{
-			return Style();
+			return nullptr;
 		}
-		Style style = m_shapes[0]->GetFillStyle();
+		auto style = m_shapes[0]->GetFillStyle();
 		for (int i = 1; i < m_shapes.size(); i++)
 		{
-			if (style != m_shapes[i]->GetFillStyle())
+			if (style->IsEnable() != m_shapes[i]->GetFillStyle()->IsEnable() && style->GetColor() != m_shapes[i]->GetFillStyle()->GetColor())
 			{
-				return Style();
+				return nullptr;
 			}
 		}
 
 		return style;
 	}
-	void SetFillStyle(Style style) override
+	void SetFillStyle(std::shared_ptr<IStyle> style) override
 	{
 		for (int i = 0; i < m_shapes.size(); i++)
 		{
@@ -284,20 +386,20 @@ public:
 		m_frame = rect;
 	}
 
-	StyleWithThickness GetOutlineStyle() const override
+	std::shared_ptr<IStyleWithThickness> GetOutlineStyle() const override
 	{
 		return m_outlineStyle;
 	}
-	void SetOutlineStyle(StyleWithThickness style) override
+	void SetOutlineStyle(std::shared_ptr<IStyleWithThickness> style) override
 	{
 		m_outlineStyle = style;
 	}
 
-	Style GetFillStyle() const override
+	std::shared_ptr<IStyle> GetFillStyle() const override
 	{
 		return m_fillStyle;
 	}
-	void SetFillStyle(Style style) override
+	void SetFillStyle(std::shared_ptr<IStyle> style) override
 	{
 		m_fillStyle = style;
 	}
@@ -313,14 +415,14 @@ public:
 
 	void Draw(Canvas::ICanvas& canvas) const final override
 	{
-		if (!m_fillStyle.IsEnable() && !m_outlineStyle.IsEnable())
+		if (!m_fillStyle->IsEnable() && !m_outlineStyle->IsEnable())
 		{
 			throw std::invalid_argument("Shape is invisible");
 		}
 
-		if (m_fillStyle.IsEnable())
+		if (m_fillStyle->IsEnable())
 		{
-			std::optional<RGBAColor> color = m_fillStyle.GetColor();
+			std::optional<RGBAColor> color = m_fillStyle->GetColor();
 			if (color == std::nullopt)
 			{
 				canvas.BeginFill(0x00000000);
@@ -330,9 +432,9 @@ public:
 				canvas.BeginFill(color.value());
 			}
 		}
-		if (m_outlineStyle.IsEnable())
+		if (m_outlineStyle->IsEnable())
 		{
-			std::optional<RGBAColor> color = m_outlineStyle.GetColor();
+			std::optional<RGBAColor> color = m_outlineStyle->GetColor();
 			if (color == std::nullopt)
 			{
 				canvas.SetOutlineColor(0x00000000);
@@ -341,7 +443,7 @@ public:
 			{
 				canvas.SetOutlineColor(color.value());
 			}
-			canvas.SetOutlineThickness(m_outlineStyle.GetThickness());
+			canvas.SetOutlineThickness(m_outlineStyle->GetThickness());
 		}
 
 		DrawImp(canvas);
@@ -357,8 +459,8 @@ protected:
 
 private:
 	RectD m_frame;
-	StyleWithThickness m_outlineStyle;
-	Style m_fillStyle;
+	std::shared_ptr<IStyleWithThickness> m_outlineStyle;
+	std::shared_ptr<IStyle> m_fillStyle;
 	std::shared_ptr<IShape> m_parent;
 };
 

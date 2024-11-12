@@ -226,7 +226,7 @@ void CommandHandler::SetOutlineCommand(std::stringstream& iss, std::ostream& out
 		style.SetThickness(thickness);
 	}
 
-	m_currentShape->SetOutlineStyle(style);
+	m_currentShape->SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
 
 	out << "Outline style was changed" << std::endl
 		<< std::endl;
@@ -250,7 +250,7 @@ void CommandHandler::SetFillCommand(std::stringstream& iss, std::ostream& out)
 		style.SetColor(color);
 	}
 
-	m_currentShape->SetFillStyle(style);
+	m_currentShape->SetFillStyle(std::make_shared<Shapes::Style>(style));
 
 	out << "Fill style was changed" << std::endl
 		<< std::endl;
@@ -297,37 +297,42 @@ void CommandHandler::StatusCommand(std::ostream& out)
 	out << "  Height: " << frame.height << std::endl;
 
 	auto outlineStyle = m_currentShape->GetOutlineStyle();
-	out << "  Outline style:" << std::endl;
-	out << "    Enable: " << (outlineStyle.IsEnable() ? "true" : "false") << std::endl;
-	out << "    Color: ";
-	auto outLineColor = outlineStyle.GetColor();
-	if (outLineColor == std::nullopt)
+	if (outlineStyle != nullptr)
 	{
-		out << "empty";
+		out << "  Outline style:" << std::endl;
+		out << "    Enable: " << (outlineStyle->IsEnable() ? "true" : "false") << std::endl;
+		out << "    Color: ";
+		auto outLineColor = outlineStyle->GetColor();
+		if (outLineColor == std::nullopt)
+		{
+			out << "empty";
+		}
+		else
+		{
+			PrintColor(outLineColor.value(), out);
+		}
+		out << std::endl;
+		out << "    Thickness: " << outlineStyle->GetThickness() << std::endl;
 	}
-	else
-	{
-		PrintColor(outLineColor.value(), out);
-	}
-	out << std::endl;
-	out << "    Thickness: " << outlineStyle.GetThickness() << std::endl;
 
 	auto fillStyle = m_currentShape->GetFillStyle();
-
-	out << "  Fill style:" << std::endl;
-	out << "    Enable: " << (fillStyle.IsEnable() ? "true" : "false") << std::endl;
-	out << "    Color: ";
-	auto fillColor = fillStyle.GetColor();
-	if (fillColor == std::nullopt)
+	if (fillStyle != nullptr)
 	{
-		out << "empty";
+		out << "  Fill style:" << std::endl;
+		out << "    Enable: " << (fillStyle->IsEnable() ? "true" : "false") << std::endl;
+		out << "    Color: ";
+		auto fillColor = fillStyle->GetColor();
+		if (fillColor == std::nullopt)
+		{
+			out << "empty";
+		}
+		else
+		{
+			PrintColor(fillColor.value(), out);
+		}
+		out << std::endl;
 	}
-	else
-	{
-		PrintColor(fillColor.value(), out);
-	}
-	out << std::endl
-		<< std::endl;
+	out << std::endl;
 }
 
 void CommandHandler::HelpCommand(std::ostream& out)
@@ -351,7 +356,7 @@ void CommandHandler::HelpCommand(std::ostream& out)
 
 void CommandHandler::UpToTreeCommand(std::stringstream& iss, std::ostream& out)
 {
-	if (m_currentShape->GetParent())
+	if (m_currentShape->GetParent() == nullptr)
 	{
 		throw std::invalid_argument("Can't up to tree, already on root");
 	}
