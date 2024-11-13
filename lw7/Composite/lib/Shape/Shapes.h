@@ -394,7 +394,7 @@ public:
 			double newEndX = (endX / m_groupFrame.width) * rect.width;
 
 			shapeRect.width = newEndX - newStartX;
-			shapeRect.left = newStartX - rect.left;
+			shapeRect.left = newStartX + rect.left;
 
 			double startY = shapeRect.top - m_groupFrame.top;
 			double endY = startY + shapeRect.height;
@@ -403,7 +403,7 @@ public:
 			double newEndY = (endY / m_groupFrame.height) * rect.height;
 
 			shapeRect.height = newEndY - newStartY;
-			shapeRect.top = newStartY - rect.top;
+			shapeRect.top = newStartY + rect.top;
 
 			shape->SetFrame(shapeRect);
 		}

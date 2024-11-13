@@ -470,3 +470,29 @@ TEST_CASE("Style with thickness tests")
 		}
 	}
 }
+
+TEST_CASE("Resize childs")
+{
+	WHEN("Child set new frame to group")
+	{
+		Shapes::Group group(nullptr);
+
+		RectD frame{ 100, 100, 100, 100 };
+		group.SetFrame(frame);
+
+		SimpleShapes::Rectangle r(nullptr);
+		RectD shapeFrame{ 125, 125, 50, 50 };
+		r.SetFrame(shapeFrame);
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		THEN("Child frame will change")
+		{
+			CHECK_NOTHROW(group.SetFrame(RectD{ 40, 40, 40, 40 }));
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().left == 50);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().top == 50);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().width == 20);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().height == 20);
+		}
+	}
+}
