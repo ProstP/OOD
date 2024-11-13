@@ -112,17 +112,14 @@ public:
 	{
 		CheckStylesToEmpty();
 
-		bool enable = m_styles[0]->IsEnable();
-
-		for (int i = 1; i < m_styles.size(); i++)
+		if (CheckStyleToEqualEachOther())
 		{
-			if (enable != m_styles[i]->IsEnable())
-			{
-				return false;
-			}
+			return m_styles[0]->IsEnable();
 		}
-
-		return enable;
+		else
+		{
+			return false;
+		}
 	}
 	void Enable(bool enable) override
 	{
@@ -138,17 +135,14 @@ public:
 	{
 		CheckStylesToEmpty();
 
-		std::optional<RGBAColor> color = m_styles[0]->GetColor();
-
-		for (int i = 1; i < m_styles.size(); i++)
+		if (CheckStyleToEqualEachOther())
 		{
-			if (color != m_styles[i]->GetColor())
-			{
-				return std::nullopt;
-			}
+			return m_styles[0]->GetColor();
 		}
-
-		return color;
+		else
+		{
+			return std::nullopt;
+		}
 	}
 	void SetColor(RGBAColor color) override
 	{
@@ -164,10 +158,129 @@ private:
 	std::vector<std::shared_ptr<IStyle>> m_styles;
 	void CheckStylesToEmpty() const
 	{
-		if (m_styles.size())
+		if (m_styles.empty())
 		{
-			throw std::invalid_argument("Group without styles");
+			throw std::invalid_argument("Style withut childs");
 		}
+	}
+	bool CheckStyleToEqualEachOther() const
+	{
+		CheckStylesToEmpty();
+
+		for (size_t i = 1; i < m_styles.size(); i++)
+		{
+			if (m_styles[i - 1]->IsEnable() != m_styles[i]->IsEnable()
+				|| m_styles[i - 1]->GetColor() != m_styles[i]->GetColor())
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+};
+
+class GroupStyleWithThicness : public IStyleWithThickness
+{
+public:
+	void AddStyle(std::shared_ptr<IStyleWithThickness> style)
+	{
+		m_styles.push_back(style);
+	};
+
+	bool IsEnable() const override
+	{
+		CheckStylesToEmpty();
+
+		if (CheckStyleToEqualEachOther())
+		{
+			return m_styles[0]->IsEnable();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	void Enable(bool enable) override
+	{
+		CheckStylesToEmpty();
+
+		for (int i = 0; i < m_styles.size(); i++)
+		{
+			m_styles[i]->Enable(enable);
+		}
+	}
+
+	std::optional<RGBAColor> GetColor() const override
+	{
+		CheckStylesToEmpty();
+
+		if (CheckStyleToEqualEachOther())
+		{
+			return m_styles[0]->GetColor();
+		}
+		else
+		{
+			return std::nullopt;
+		}
+	}
+	void SetColor(RGBAColor color) override
+	{
+		CheckStylesToEmpty();
+
+		for (int i = 0; i < m_styles.size(); i++)
+		{
+			m_styles[i]->SetColor(color);
+		}
+	}
+
+	int GetThickness() const override
+	{
+		CheckStylesToEmpty();
+
+		if (CheckStyleToEqualEachOther())
+		{
+			return m_styles[0]->GetThickness();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	void SetThickness(int thickness) override
+	{
+		CheckStylesToEmpty();
+
+		for (int i = 0; i < m_styles.size(); i++)
+		{
+			m_styles[i]->SetThickness(thickness);
+		}
+	}
+
+private:
+	std::vector<std::shared_ptr<IStyleWithThickness>> m_styles;
+	void CheckStylesToEmpty() const
+	{
+		if (m_styles.empty())
+		{
+			throw std::invalid_argument("Style withut childs");
+		}
+	}
+	bool CheckStyleToEqualEachOther() const
+	{
+		CheckStylesToEmpty();
+
+		for (size_t i = 1; i < m_styles.size(); i++)
+		{
+			if (m_styles[i - 1]->IsEnable() != m_styles[i]->IsEnable()
+				|| m_styles[i - 1]->GetColor() != m_styles[i]->GetColor()
+				|| m_styles[i - 1]->GetThickness() != m_styles[i]->GetThickness())
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 };
 
@@ -304,16 +417,14 @@ public:
 		{
 			return nullptr;
 		}
-		auto style = m_shapes[0]->GetOutlineStyle();
+		GroupStyleWithThicness groupStyle;
+
 		for (int i = 1; i < m_shapes.size(); i++)
 		{
-			if (style->IsEnable() != m_shapes[i]->GetOutlineStyle()->IsEnable() && style->GetColor() != m_shapes[i]->GetOutlineStyle()->GetColor() && style->GetThickness() != m_shapes[i]->GetOutlineStyle()->GetThickness())
-			{
-				return nullptr;
-			}
+			groupStyle.AddStyle(m_shapes[i]->GetOutlineStyle());
 		}
 
-		return style;
+		return std::make_shared<GroupStyleWithThicness>(groupStyle);
 	}
 	void SetOutlineStyle(std::shared_ptr<IStyleWithThickness> style) override
 	{
@@ -329,16 +440,14 @@ public:
 		{
 			return nullptr;
 		}
-		auto style = m_shapes[0]->GetFillStyle();
+		GroupStyle style;
+
 		for (int i = 1; i < m_shapes.size(); i++)
 		{
-			if (style->IsEnable() != m_shapes[i]->GetFillStyle()->IsEnable() && style->GetColor() != m_shapes[i]->GetFillStyle()->GetColor())
-			{
-				return nullptr;
-			}
+			style.AddStyle(m_shapes[i]->GetFillStyle());
 		}
 
-		return style;
+		return std::make_shared<GroupStyle>(style);
 	}
 	void SetFillStyle(std::shared_ptr<IStyle> style) override
 	{

@@ -233,7 +233,7 @@ TEST_CASE("Removing shape")
 		RectD rect2{ 2, 2, 2, 2 };
 		RectD rect3{ 3, 3, 3, 3 };
 		RectD rect4{ 4, 4, 4, 4 };
-		
+
 		r.SetFrame(rect4);
 		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
 		r.SetFrame(rect3);
@@ -264,6 +264,209 @@ TEST_CASE("Removing shape")
 			CHECK_NOTHROW(group.RemoveShapeAtIndex(1));
 
 			CHECK(group.GetShapeAtIndex(0)->GetFrame().left == rect2.left);
+		}
+	}
+}
+
+TEST_CASE("Style tests")
+{
+	WHEN("Get fill style from same stylies")
+	{
+		Shapes::Group group(nullptr);
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::Style style;
+
+		style.Enable(true);
+		style.SetColor(0x11223344);
+		r.SetFillStyle(std::make_shared<Shapes::Style>(style));
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		auto groupStyle = group.GetFillStyle();
+
+		THEN("Return style")
+		{
+			CHECK(groupStyle->IsEnable() == style.IsEnable());
+			CHECK(groupStyle->GetColor() == style.GetColor());
+		}
+	}
+
+	WHEN("Set new style via group style")
+	{
+		Shapes::Group group(nullptr);
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::Style style;
+
+		style.Enable(true);
+		style.SetColor(0x11221122);
+		r.SetFillStyle(std::make_shared<Shapes::Style>(style));
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		auto groupStyle = group.GetFillStyle();
+
+		THEN("Child of group setting new style")
+		{
+			CHECK_NOTHROW(groupStyle->SetColor(0x123321));
+
+			CHECK(group.GetShapeAtIndex(0)->GetFillStyle()->GetColor() == 0x123321);
+			CHECK(group.GetShapeAtIndex(1)->GetFillStyle()->GetColor() == 0x123321);
+
+			CHECK_NOTHROW(groupStyle->Enable(false));
+
+			CHECK(group.GetShapeAtIndex(0)->GetFillStyle()->IsEnable() == false);
+			CHECK(group.GetShapeAtIndex(1)->GetFillStyle()->IsEnable() == false);
+		}
+	}
+
+	WHEN("Child count = 0")
+	{
+		Shapes::GroupStyle groupStyle;
+
+		THEN("Exception")
+		{
+			CHECK_THROWS_WITH(groupStyle.IsEnable(), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.Enable(false), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.GetColor(), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.SetColor(0x11111111), "Style withut childs");
+		}
+	}
+
+	WHEN("Styles not same")
+	{
+		Shapes::GroupStyle groupStyle;
+
+		Shapes::Style style1;
+		style1.Enable(true);
+		style1.SetColor(0x123321);
+		Shapes::Style style2;
+		style2.Enable(true);
+		style2.SetColor(0x321123);
+
+		groupStyle.AddStyle(std::make_shared<Shapes::Style>(style1));
+		groupStyle.AddStyle(std::make_shared<Shapes::Style>(style2));
+
+		THEN("Return defualt value for this types")
+		{
+			CHECK(groupStyle.IsEnable() == false);
+			CHECK(groupStyle.GetColor() == std::nullopt);
+		}
+	}
+}
+
+TEST_CASE("Style with thickness tests")
+{
+	WHEN("Get fill style from same stylies")
+	{
+		Shapes::Group group(nullptr);
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::StyleWithThickness style;
+
+		style.Enable(true);
+		style.SetColor(0x11223344);
+		style.SetThickness(3);
+		r.SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		auto groupStyle = group.GetOutlineStyle();
+
+		THEN("Return style")
+		{
+			CHECK(groupStyle->IsEnable() == style.IsEnable());
+			CHECK(groupStyle->GetColor() == style.GetColor());
+			CHECK(groupStyle->GetThickness() == style.GetThickness());
+		}
+	}
+
+	WHEN("Set new style via group style")
+	{
+		Shapes::Group group(nullptr);
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::StyleWithThickness style;
+
+		style.Enable(true);
+		style.SetColor(0x11221122);
+		style.SetThickness(3);
+		r.SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		auto groupStyle = group.GetOutlineStyle();
+
+		THEN("Child of group setting new style")
+		{
+			CHECK_NOTHROW(groupStyle->SetColor(0x123321));
+
+			CHECK(group.GetShapeAtIndex(0)->GetOutlineStyle()->GetColor() == 0x123321);
+			CHECK(group.GetShapeAtIndex(1)->GetOutlineStyle()->GetColor() == 0x123321);
+
+			CHECK_NOTHROW(groupStyle->Enable(false));
+
+			CHECK(group.GetShapeAtIndex(0)->GetOutlineStyle()->IsEnable() == false);
+			CHECK(group.GetShapeAtIndex(1)->GetOutlineStyle()->IsEnable() == false);
+
+			CHECK_NOTHROW(groupStyle->SetThickness(1));
+
+			CHECK(group.GetShapeAtIndex(0)->GetOutlineStyle()->GetThickness() == 1);
+			CHECK(group.GetShapeAtIndex(1)->GetOutlineStyle()->GetThickness() == 1);
+		}
+	}
+
+	WHEN("Child count = 0")
+	{
+		Shapes::GroupStyleWithThicness groupStyle;
+
+		THEN("Exception")
+		{
+			CHECK_THROWS_WITH(groupStyle.IsEnable(), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.Enable(false), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.GetColor(), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.SetColor(0x11111111), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.GetThickness(), "Style withut childs");
+			CHECK_THROWS_WITH(groupStyle.SetThickness(2), "Style withut childs");
+		}
+	}
+
+	WHEN("Styles not same")
+	{
+		Shapes::GroupStyleWithThicness groupStyle;
+
+		Shapes::StyleWithThickness style1;
+		style1.Enable(true);
+		style1.SetColor(0x123321);
+		style1.SetThickness(1);
+		Shapes::StyleWithThickness style2;
+		style2.Enable(true);
+		style2.SetColor(0x321123);
+		style1.SetThickness(1);
+
+		groupStyle.AddStyle(std::make_shared<Shapes::StyleWithThickness>(style1));
+		groupStyle.AddStyle(std::make_shared<Shapes::StyleWithThickness>(style2));
+
+		THEN("Return defualt value for this types")
+		{
+			CHECK(groupStyle.IsEnable() == false);
+			CHECK(groupStyle.GetColor() == std::nullopt);
+			CHECK(groupStyle.GetThickness() == 0);
 		}
 	}
 }
