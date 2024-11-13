@@ -183,6 +183,7 @@ private:
 class GroupStyleWithThicness : public IStyleWithThickness
 {
 public:
+// Поправить
 	void AddStyle(std::shared_ptr<IStyleWithThickness> style)
 	{
 		m_styles.push_back(style);
