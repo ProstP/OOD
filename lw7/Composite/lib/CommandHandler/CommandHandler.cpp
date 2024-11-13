@@ -151,20 +151,13 @@ void CommandHandler::AddGroupCommand(std::stringstream& iss, std::ostream& out)
 		throw std::invalid_argument("Current shape not group");
 	}
 
-	double left;
-	double top;
-	double width;
-	double height;
 	int pos;
 
-	iss >> left >> top >> width >> height >> pos;
-
-	RectD rect{ left, top, width, height };
+	iss >> pos;
 
 	std::shared_ptr<Shapes::Group> ptr = std::make_shared<Shapes::Group>(m_currentShape);
 	std::shared_ptr<Shapes::IShape> newGroup = std::make_shared<Shapes::Group>(m_currentShape);
 
-	newGroup->SetFrame(rect);
 	group->InsertShape(newGroup, pos);
 
 	out << "Group was created" << std::endl
@@ -342,7 +335,7 @@ void CommandHandler::HelpCommand(std::ostream& out)
 	out << "  "
 		<< "Exit: " << EXIT_COMMAND << std::endl;
 	out << "  " << ADD_SHAPE_COMMAND << " <type> <left> <top> <width> <height> <pos>" << std::endl;
-	out << "  " << ADD_GROUP_COMMAND << " <left> <top> <width> <height> <pos>" << std::endl;
+	out << "  " << ADD_GROUP_COMMAND << " <pos>" << std::endl;
 	out << "  " << REMOVE_SHAPE_COMMAND << " <index>" << std::endl;
 	out << "  " << SET_FRAME_COMMAND << " <left> <top> <width> <height> <pos>" << std::endl;
 	out << "  " << SET_OUTLINE_COMMAND << " <isEnable> <color(0x00000000)> <thickness>" << std::endl;

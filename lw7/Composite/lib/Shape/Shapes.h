@@ -1,7 +1,9 @@
 #pragma once
 #include "../Canvas/ICanvas.h"
 #include "../CommonTypes/CommonTypes.h"
+#include <functional>
 #include <iostream>
+#include <limits>
 #include <optional>
 #include <vector>
 
@@ -97,191 +99,159 @@ public:
 private:
 	bool m_enable = false;
 	std::optional<RGBAColor> m_color = std::nullopt;
-	int m_thickness = 1;
+	int m_thickness = 0;
 };
 
 class GroupStyle : public IStyle
 {
 public:
-	void AddStyle(std::shared_ptr<IStyle> style)
+	GroupStyle(std::function<std::vector<std::shared_ptr<IStyle>>()> getStylesFn,
+		std::function<void(std::optional<bool>, std::optional<RGBAColor>)> editStylesFn)
+		: m_getStylesFn(getStylesFn)
+		, m_editStylesFn(editStylesFn)
 	{
-		m_styles.push_back(style);
-	};
+	}
 
 	bool IsEnable() const override
 	{
-		CheckStylesToEmpty();
+		std::vector<std::shared_ptr<IStyle>> styles = m_getStylesFn();
+		CheckStylesToEmpty(styles);
 
-		if (CheckStyleToEqualEachOther())
-		{
-			return m_styles[0]->IsEnable();
-		}
-		else
-		{
-			return false;
-		}
-	}
-	void Enable(bool enable) override
-	{
-		CheckStylesToEmpty();
+		auto enable = styles[0]->IsEnable();
 
-		for (int i = 0; i < m_styles.size(); i++)
+		for (size_t i = 1; i < styles.size(); i++)
 		{
-			m_styles[i]->Enable(enable);
-		}
-	}
-
-	std::optional<RGBAColor> GetColor() const override
-	{
-		CheckStylesToEmpty();
-
-		if (CheckStyleToEqualEachOther())
-		{
-			return m_styles[0]->GetColor();
-		}
-		else
-		{
-			return std::nullopt;
-		}
-	}
-	void SetColor(RGBAColor color) override
-	{
-		CheckStylesToEmpty();
-
-		for (int i = 0; i < m_styles.size(); i++)
-		{
-			m_styles[i]->SetColor(color);
-		}
-	}
-
-private:
-	std::vector<std::shared_ptr<IStyle>> m_styles;
-	void CheckStylesToEmpty() const
-	{
-		if (m_styles.empty())
-		{
-			throw std::invalid_argument("Style withut childs");
-		}
-	}
-	bool CheckStyleToEqualEachOther() const
-	{
-		CheckStylesToEmpty();
-
-		for (size_t i = 1; i < m_styles.size(); i++)
-		{
-			if (m_styles[i - 1]->IsEnable() != m_styles[i]->IsEnable()
-				|| m_styles[i - 1]->GetColor() != m_styles[i]->GetColor())
+			if (enable != styles[i]->IsEnable())
 			{
 				return false;
 			}
 		}
 
-		return true;
+		return enable;
+	}
+	void Enable(bool enable) override
+	{
+		m_editStylesFn(enable, std::nullopt);
+	}
+
+	std::optional<RGBAColor> GetColor() const override
+	{
+		std::vector<std::shared_ptr<IStyle>> styles = m_getStylesFn();
+		CheckStylesToEmpty(styles);
+
+		auto color = styles[0]->GetColor();
+
+		for (size_t i = 1; i < styles.size(); i++)
+		{
+			if (color != styles[i]->GetColor())
+			{
+				return std::nullopt;
+			}
+		}
+
+		return color;
+	}
+	void SetColor(RGBAColor color) override
+	{
+		m_editStylesFn(std::nullopt, color);
+	}
+
+private:
+	std::function<std::vector<std::shared_ptr<IStyle>>()> m_getStylesFn;
+	std::function<void(std::optional<bool>, std::optional<RGBAColor>)> m_editStylesFn;
+	void CheckStylesToEmpty(std::vector<std::shared_ptr<IStyle>> styles) const
+	{
+		if (styles.empty())
+		{
+			throw std::invalid_argument("Style withut childs");
+		}
 	}
 };
 
 class GroupStyleWithThicness : public IStyleWithThickness
 {
 public:
-// Поправить
-	void AddStyle(std::shared_ptr<IStyleWithThickness> style)
+	GroupStyleWithThicness(std::function<std::vector<std::shared_ptr<IStyleWithThickness>>()> getStylesFn,
+		std::function<void(std::optional<bool>, std::optional<RGBAColor>, std::optional<int>)> editStylesFn)
+		: m_getStylesFn(getStylesFn)
+		, m_editStylesFn(editStylesFn)
 	{
-		m_styles.push_back(style);
-	};
-
+	}
 	bool IsEnable() const override
 	{
-		CheckStylesToEmpty();
+		std::vector<std::shared_ptr<IStyleWithThickness>> styles = m_getStylesFn();
+		CheckStylesToEmpty(styles);
 
-		if (CheckStyleToEqualEachOther())
-		{
-			return m_styles[0]->IsEnable();
-		}
-		else
-		{
-			return false;
-		}
-	}
-	void Enable(bool enable) override
-	{
-		CheckStylesToEmpty();
+		auto enable = styles[0]->IsEnable();
 
-		for (int i = 0; i < m_styles.size(); i++)
+		for (size_t i = 1; i < styles.size(); i++)
 		{
-			m_styles[i]->Enable(enable);
-		}
-	}
-
-	std::optional<RGBAColor> GetColor() const override
-	{
-		CheckStylesToEmpty();
-
-		if (CheckStyleToEqualEachOther())
-		{
-			return m_styles[0]->GetColor();
-		}
-		else
-		{
-			return std::nullopt;
-		}
-	}
-	void SetColor(RGBAColor color) override
-	{
-		CheckStylesToEmpty();
-
-		for (int i = 0; i < m_styles.size(); i++)
-		{
-			m_styles[i]->SetColor(color);
-		}
-	}
-
-	int GetThickness() const override
-	{
-		CheckStylesToEmpty();
-
-		if (CheckStyleToEqualEachOther())
-		{
-			return m_styles[0]->GetThickness();
-		}
-		else
-		{
-			return 0;
-		}
-	}
-	void SetThickness(int thickness) override
-	{
-		CheckStylesToEmpty();
-
-		for (int i = 0; i < m_styles.size(); i++)
-		{
-			m_styles[i]->SetThickness(thickness);
-		}
-	}
-
-private:
-	std::vector<std::shared_ptr<IStyleWithThickness>> m_styles;
-	void CheckStylesToEmpty() const
-	{
-		if (m_styles.empty())
-		{
-			throw std::invalid_argument("Style withut childs");
-		}
-	}
-	bool CheckStyleToEqualEachOther() const
-	{
-		CheckStylesToEmpty();
-
-		for (size_t i = 1; i < m_styles.size(); i++)
-		{
-			if (m_styles[i - 1]->IsEnable() != m_styles[i]->IsEnable()
-				|| m_styles[i - 1]->GetColor() != m_styles[i]->GetColor()
-				|| m_styles[i - 1]->GetThickness() != m_styles[i]->GetThickness())
+			if (enable != styles[i]->IsEnable())
 			{
 				return false;
 			}
 		}
 
-		return true;
+		return enable;
+	}
+	void Enable(bool enable) override
+	{
+		m_editStylesFn(enable, std::nullopt, std::nullopt);
+	}
+
+	std::optional<RGBAColor> GetColor() const override
+	{
+		std::vector<std::shared_ptr<IStyleWithThickness>> styles = m_getStylesFn();
+		CheckStylesToEmpty(styles);
+
+		auto color = styles[0]->GetColor();
+
+		for (size_t i = 1; i < styles.size(); i++)
+		{
+			if (color != styles[i]->GetColor())
+			{
+				return std::nullopt;
+			}
+		}
+
+		return color;
+	}
+	void SetColor(RGBAColor color) override
+	{
+		m_editStylesFn(std::nullopt, color, std::nullopt);
+	}
+
+	int GetThickness() const override
+	{
+		std::vector<std::shared_ptr<IStyleWithThickness>> styles = m_getStylesFn();
+		CheckStylesToEmpty(styles);
+
+		auto thickness = styles[0]->GetThickness();
+
+		for (size_t i = 1; i < styles.size(); i++)
+		{
+			if (thickness != styles[i]->GetThickness())
+			{
+				return 0;
+			}
+		}
+
+		return thickness;
+	}
+	void SetThickness(int thickness) override
+	{
+		m_editStylesFn(std::nullopt, std::nullopt, thickness);
+	}
+
+private:
+	std::function<std::vector<std::shared_ptr<IStyleWithThickness>>()> m_getStylesFn;
+	std::function<void(std::optional<bool>, std::optional<RGBAColor>, std::optional<int>)> m_editStylesFn;
+	void CheckStylesToEmpty(std::vector<std::shared_ptr<IStyleWithThickness>> styles) const
+	{
+		if (styles.empty())
+		{
+			throw std::invalid_argument("Style withut childs");
+		}
 	}
 };
 
@@ -323,29 +293,6 @@ public:
 
 		RectD shapeFrame = shape->GetFrame();
 
-		if (shapeFrame.left < m_groupFrame.left)
-		{
-			double endX = m_groupFrame.left + m_groupFrame.width;
-
-			m_groupFrame.left = shapeFrame.left;
-			m_groupFrame.width = endX - m_groupFrame.left;
-		}
-		if (shapeFrame.top < m_groupFrame.top)
-		{
-			double endY = m_groupFrame.top + m_groupFrame.height;
-
-			m_groupFrame.top = shapeFrame.top;
-			m_groupFrame.height = endY - m_groupFrame.top;
-		}
-		if (shapeFrame.left + shapeFrame.width > m_groupFrame.left + m_groupFrame.width)
-		{
-			m_groupFrame.width = shapeFrame.left + shapeFrame.width - m_groupFrame.left;
-		}
-		if (shapeFrame.top + shapeFrame.height > m_groupFrame.top + m_groupFrame.height)
-		{
-			m_groupFrame.height = shapeFrame.top + shapeFrame.height - m_groupFrame.top;
-		}
-
 		if (m_shapes.empty())
 		{
 			m_shapes.push_back(shape);
@@ -380,50 +327,118 @@ public:
 
 	RectD GetFrame() const override
 	{
-		return m_groupFrame;
+		double minLeft = std::numeric_limits<double>::max();
+		double minTop = std::numeric_limits<double>::max();
+		double maxWidth = 0;
+		double maxHeight = 0;
+
+		for (int i = 0; i < m_shapes.size(); i++)
+		{
+			auto shapeFrame = m_shapes[i]->GetFrame();
+
+			if (shapeFrame.width == 0 && shapeFrame.height == 0)
+			{
+				continue;
+			}
+
+			if (minLeft == std::numeric_limits<double>::max())
+			{
+				minLeft = shapeFrame.left;
+			}
+			if (shapeFrame.left < minLeft)
+			{
+				double endX = minLeft + maxWidth;
+
+				minLeft = shapeFrame.left;
+				maxWidth = endX - minLeft;
+			}
+			if (minTop == std::numeric_limits<double>::max())
+			{
+				minTop = shapeFrame.top;
+			}
+			if (shapeFrame.top < minTop)
+			{
+				double endY = minTop + maxHeight;
+
+				minTop = shapeFrame.top;
+				maxHeight = endY - minTop;
+			}
+			if (shapeFrame.left + shapeFrame.width > minLeft + maxWidth)
+			{
+				maxWidth = shapeFrame.left + shapeFrame.width - minLeft;
+			}
+			if (shapeFrame.top + shapeFrame.height > minTop + maxHeight)
+			{
+				maxHeight = shapeFrame.top + shapeFrame.height - minTop;
+			}
+		}
+
+		minLeft = minLeft == std::numeric_limits<double>::max() ? 0 : minLeft;
+		minTop = minTop == std::numeric_limits<double>::max() ? 0 : minTop;
+
+		return RectD{ minLeft, minTop, maxWidth, maxHeight };
 	}
 	void SetFrame(RectD rect) override
 	{
+		RectD groupFrame = GetFrame();
+
 		for (auto& shape : m_shapes)
 		{
 			RectD shapeRect = shape->GetFrame();
 
-			double startX = shapeRect.left - m_groupFrame.left;
+			double startX = shapeRect.left - groupFrame.left;
 			double endX = startX + shapeRect.width;
 
-			double newStartX = (startX / m_groupFrame.width) * rect.width;
-			double newEndX = (endX / m_groupFrame.width) * rect.width;
+			double newStartX = (startX / groupFrame.width) * rect.width;
+			double newEndX = (endX / groupFrame.width) * rect.width;
 
 			shapeRect.width = newEndX - newStartX;
 			shapeRect.left = newStartX + rect.left;
 
-			double startY = shapeRect.top - m_groupFrame.top;
+			double startY = shapeRect.top - groupFrame.top;
 			double endY = startY + shapeRect.height;
 
-			double newStartY = (startY / m_groupFrame.height) * rect.height;
-			double newEndY = (endY / m_groupFrame.height) * rect.height;
+			double newStartY = (startY / groupFrame.height) * rect.height;
+			double newEndY = (endY / groupFrame.height) * rect.height;
 
 			shapeRect.height = newEndY - newStartY;
 			shapeRect.top = newStartY + rect.top;
 
 			shape->SetFrame(shapeRect);
 		}
-
-		m_groupFrame = rect;
 	}
 
 	std::shared_ptr<IStyleWithThickness> GetOutlineStyle() const override
 	{
-		if (m_shapes.size() == 0)
-		{
-			return nullptr;
-		}
-		GroupStyleWithThicness groupStyle;
+		const std::vector<std::shared_ptr<IShape>>* shapesPtr = &m_shapes;
+		auto getFn = [shapesPtr]() {
+			std::vector<std::shared_ptr<IStyleWithThickness>> styles;
 
-		for (int i = 1; i < m_shapes.size(); i++)
-		{
-			groupStyle.AddStyle(m_shapes[i]->GetOutlineStyle());
-		}
+			for (int i = 0; i < shapesPtr->size(); i++)
+			{
+				styles.push_back(shapesPtr->at(i)->GetOutlineStyle());
+			}
+
+			return styles;
+		};
+		auto editFn = [shapesPtr](std::optional<bool> enable, std::optional<RGBAColor> color, std::optional<int> thickness) {
+			for (int i = 0; i < shapesPtr->size(); i++)
+			{
+				if (enable != std::nullopt)
+				{
+					shapesPtr->at(i)->GetOutlineStyle()->Enable(enable.value());
+				}
+				if (color != std::nullopt)
+				{
+					shapesPtr->at(i)->GetOutlineStyle()->SetColor(color.value());
+				}
+				if (thickness != std::nullopt)
+				{
+					shapesPtr->at(i)->GetOutlineStyle()->SetThickness(thickness.value());
+				}
+			}
+		};
+		GroupStyleWithThicness groupStyle(getFn, editFn);
 
 		return std::make_shared<GroupStyleWithThicness>(groupStyle);
 	}
@@ -437,16 +452,32 @@ public:
 
 	std::shared_ptr<IStyle> GetFillStyle() const override
 	{
-		if (m_shapes.size() == 0)
-		{
-			return nullptr;
-		}
-		GroupStyle style;
+		const std::vector<std::shared_ptr<IShape>>* shapesPtr = &m_shapes;
+		auto getFn = [shapesPtr]() {
+			std::vector<std::shared_ptr<IStyle>> styles;
 
-		for (int i = 1; i < m_shapes.size(); i++)
-		{
-			style.AddStyle(m_shapes[i]->GetFillStyle());
-		}
+			for (int i = 0; i < shapesPtr->size(); i++)
+			{
+				styles.push_back(shapesPtr->at(i)->GetFillStyle());
+			}
+
+			return styles;
+		};
+		auto setFn = [shapesPtr](std::optional<bool> enable, std::optional<RGBAColor> color) {
+			for (int i = 0; i < shapesPtr->size(); i++)
+			{
+				if (enable != std::nullopt)
+				{
+					shapesPtr->at(i)->GetFillStyle()->Enable(enable.value());
+				}
+				if (color != std::nullopt)
+				{
+					shapesPtr->at(i)->GetFillStyle()->SetColor(color.value());
+				}
+			}
+		};
+
+		GroupStyle style(getFn, setFn);
 
 		return std::make_shared<GroupStyle>(style);
 	}
@@ -478,7 +509,6 @@ public:
 private:
 	std::shared_ptr<IShape> m_parent;
 	std::vector<std::shared_ptr<IShape>> m_shapes;
-	RectD m_groupFrame = { 0, 0, 0, 0 };
 };
 
 class Shape : public IShape

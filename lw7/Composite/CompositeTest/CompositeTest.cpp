@@ -44,27 +44,20 @@ TEST_CASE("Insert new shape")
 	}
 }
 
-TEST_CASE("Change group frame in insert")
+TEST_CASE("Getting frame")
 {
-	Shapes::Group group(nullptr);
-
-	RectD frame{ 100, 100, 100, 100 };
-	group.SetFrame(frame);
-
-	WHEN("Shape frame into group frame")
+	WHEN("Shape is one")
 	{
+		Shapes::Group group(nullptr);
+
 		SimpleShapes::Rectangle r(nullptr);
 
-		RectD shapeFrame{ 110, 110, 20, 20 };
-		r.SetFrame(shapeFrame);
+		RectD frame{ 10, 10, 10, 10 };
+		r.SetFrame(frame);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
 
-		THEN("Group frame not change")
+		THEN("Group frame == shape frame")
 		{
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height == frame.height);
-			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
 			CHECK(group.GetFrame().left == frame.left);
 			CHECK(group.GetFrame().top == frame.top);
 			CHECK(group.GetFrame().width == frame.width);
@@ -72,108 +65,30 @@ TEST_CASE("Change group frame in insert")
 		}
 	}
 
-	WHEN("Shape left smaller")
+	WHEN("Many shapes")
 	{
+		Shapes::Group group(nullptr);
+
 		SimpleShapes::Rectangle r(nullptr);
 
-		RectD shapeFrame{ 90, 110, 20, 20 };
-		r.SetFrame(shapeFrame);
+		RectD frame1{ 10, 10, 10, 10 };
+		r.SetFrame(frame1);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
 
-		THEN("Group left will change")
+		RectD frame2{ 15, 55, 100, 10 };
+		r.SetFrame(frame2);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		RectD frame3{ 50, 100, 20, 30 };
+		r.SetFrame(frame3);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		THEN("Shape frames into group frame")
 		{
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height == frame.height);
-			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
-			CHECK(group.GetFrame().left == shapeFrame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width + group.GetFrame().left == frame.left + frame.width);
-			CHECK(group.GetFrame().height + group.GetFrame().top == frame.top + frame.height);
-		}
-	}
-
-	WHEN("Shape top smaller")
-	{
-		SimpleShapes::Rectangle r(nullptr);
-
-		RectD shapeFrame{ 110, 50, 20, 20 };
-		r.SetFrame(shapeFrame);
-
-		THEN("Group top will change")
-		{
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height == frame.height);
-			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == shapeFrame.top);
-			CHECK(group.GetFrame().width + group.GetFrame().left == frame.left + frame.width);
-			CHECK(group.GetFrame().height + group.GetFrame().top == frame.top + frame.height);
-		}
-	}
-
-	WHEN("Shape endX > group endX")
-	{
-		SimpleShapes::Rectangle r(nullptr);
-
-		RectD shapeFrame{ 190, 110, 20, 20 };
-		r.SetFrame(shapeFrame);
-
-		THEN("Width will bigger")
-		{
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height == frame.height);
-			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width + group.GetFrame().left >= shapeFrame.left + shapeFrame.width);
-			CHECK(group.GetFrame().height == frame.height);
-		}
-	}
-
-	WHEN("Shape endY > group endY")
-	{
-		SimpleShapes::Rectangle r(nullptr);
-
-		RectD shapeFrame{ 110, 190, 20, 20 };
-		r.SetFrame(shapeFrame);
-
-		THEN("Height")
-		{
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height == frame.height);
-			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height + group.GetFrame().top >= shapeFrame.top + shapeFrame.height);
-		}
-	}
-
-	WHEN("Shape frame bigger group frame")
-	{
-		SimpleShapes::Rectangle r(nullptr);
-
-		RectD shapeFrame{ 50, 50, 200, 200 };
-		r.SetFrame(shapeFrame);
-
-		THEN("Height")
-		{
-			CHECK(group.GetFrame().left == frame.left);
-			CHECK(group.GetFrame().top == frame.top);
-			CHECK(group.GetFrame().width == frame.width);
-			CHECK(group.GetFrame().height == frame.height);
-			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
-			CHECK(group.GetFrame().left == shapeFrame.left);
-			CHECK(group.GetFrame().top == shapeFrame.top);
-			CHECK(group.GetFrame().width + group.GetFrame().left >= shapeFrame.left + shapeFrame.width);
-			CHECK(group.GetFrame().height + group.GetFrame().top >= shapeFrame.top + shapeFrame.height);
+			CHECK(group.GetFrame().left >= frame1.left);
+			CHECK(group.GetFrame().top >= frame1.top);
+			CHECK(group.GetFrame().left + group.GetFrame().width >= frame2.left + frame2.width);
+			CHECK(group.GetFrame().top + group.GetFrame().height >= frame3.top + frame3.height);
 		}
 	}
 }
@@ -330,20 +245,85 @@ TEST_CASE("Style tests")
 
 	WHEN("Child count = 0")
 	{
-		Shapes::GroupStyle groupStyle;
+		auto getFn = []() {
+			return std::vector<std::shared_ptr<Shapes::IStyle>>();
+		};
+		auto editFn = [](std::optional<bool>, std::optional<RGBAColor>) {};
+
+		Shapes::GroupStyle groupStyle(getFn, editFn);
 
 		THEN("Exception")
 		{
 			CHECK_THROWS_WITH(groupStyle.IsEnable(), "Style withut childs");
-			CHECK_THROWS_WITH(groupStyle.Enable(false), "Style withut childs");
 			CHECK_THROWS_WITH(groupStyle.GetColor(), "Style withut childs");
-			CHECK_THROWS_WITH(groupStyle.SetColor(0x11111111), "Style withut childs");
 		}
 	}
 
 	WHEN("Styles not same")
 	{
-		Shapes::GroupStyle groupStyle;
+		auto getFn = []() {
+			Shapes::Style style1;
+			style1.Enable(false);
+			style1.SetColor(0x123321);
+			Shapes::Style style2;
+			style2.Enable(true);
+			style2.SetColor(0x321123);
+
+			std::vector<std::shared_ptr<Shapes::IStyle>> styles;
+
+			styles.push_back(std::make_shared<Shapes::Style>(style1));
+			styles.push_back(std::make_shared<Shapes::Style>(style2));
+
+			return styles;
+		};
+		auto editFn = [](std::optional<bool>, std::optional<RGBAColor>) {};
+
+		Shapes::GroupStyle groupStyle(getFn, editFn);
+
+		THEN("Return defualt value for this types")
+		{
+			CHECK(groupStyle.IsEnable() == false);
+			CHECK(groupStyle.GetColor() == std::nullopt);
+		}
+	}
+
+	WHEN("Add new shapes after getting style from gruo")
+	{
+		Shapes::Group group(nullptr);
+
+		auto groupStyle = group.GetFillStyle();
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::Style style;
+
+		style.Enable(true);
+		style.SetColor(0x11221122);
+		r.SetFillStyle(std::make_shared<Shapes::Style>(style));
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		THEN("Child of group setting new style")
+		{
+			CHECK_NOTHROW(groupStyle->SetColor(0x123321));
+
+			CHECK(group.GetShapeAtIndex(0)->GetFillStyle()->GetColor() == 0x123321);
+			CHECK(group.GetShapeAtIndex(1)->GetFillStyle()->GetColor() == 0x123321);
+
+			CHECK_NOTHROW(groupStyle->Enable(false));
+
+			CHECK(group.GetShapeAtIndex(0)->GetFillStyle()->IsEnable() == false);
+			CHECK(group.GetShapeAtIndex(1)->GetFillStyle()->IsEnable() == false);
+		}
+	}
+	WHEN("Get fill style before inserting shapes")
+	{
+		Shapes::Group group(nullptr);
+
+		auto groupStyle = group.GetFillStyle();
+
+		SimpleShapes::Rectangle r(nullptr);
 
 		Shapes::Style style1;
 		style1.Enable(true);
@@ -351,14 +331,16 @@ TEST_CASE("Style tests")
 		Shapes::Style style2;
 		style2.Enable(true);
 		style2.SetColor(0x321123);
-
-		groupStyle.AddStyle(std::make_shared<Shapes::Style>(style1));
-		groupStyle.AddStyle(std::make_shared<Shapes::Style>(style2));
-
-		THEN("Return defualt value for this types")
+		r.SetFillStyle(std::make_shared<Shapes::Style>(style1));
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		THEN("Return style")
 		{
-			CHECK(groupStyle.IsEnable() == false);
-			CHECK(groupStyle.GetColor() == std::nullopt);
+			CHECK(groupStyle->IsEnable() == style1.IsEnable());
+			CHECK(groupStyle->GetColor() == style1.GetColor());
+			CHECK_NOTHROW(r.SetFillStyle(std::make_shared<Shapes::Style>(style2)));
+			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
+			CHECK(groupStyle->IsEnable() == true);
+			CHECK(groupStyle->GetColor() == std::nullopt);
 		}
 	}
 }
@@ -433,40 +415,111 @@ TEST_CASE("Style with thickness tests")
 
 	WHEN("Child count = 0")
 	{
-		Shapes::GroupStyleWithThicness groupStyle;
+		auto getFn = []() {
+			return std::vector<std::shared_ptr<Shapes::IStyleWithThickness>>();
+		};
+		auto editFn = [](std::optional<bool>, std::optional<RGBAColor>, std::optional<int>) {};
+		Shapes::GroupStyleWithThicness groupStyle(getFn, editFn);
 
 		THEN("Exception")
 		{
 			CHECK_THROWS_WITH(groupStyle.IsEnable(), "Style withut childs");
-			CHECK_THROWS_WITH(groupStyle.Enable(false), "Style withut childs");
 			CHECK_THROWS_WITH(groupStyle.GetColor(), "Style withut childs");
-			CHECK_THROWS_WITH(groupStyle.SetColor(0x11111111), "Style withut childs");
 			CHECK_THROWS_WITH(groupStyle.GetThickness(), "Style withut childs");
-			CHECK_THROWS_WITH(groupStyle.SetThickness(2), "Style withut childs");
 		}
 	}
 
 	WHEN("Styles not same")
 	{
-		Shapes::GroupStyleWithThicness groupStyle;
+		auto getFn = []() {
+			Shapes::StyleWithThickness style1;
+			style1.Enable(false);
+			style1.SetColor(0x123321);
+			style1.SetThickness(2);
+			Shapes::StyleWithThickness style2;
+			style2.Enable(true);
+			style2.SetColor(0x321123);
+			style1.SetThickness(1);
 
-		Shapes::StyleWithThickness style1;
-		style1.Enable(true);
-		style1.SetColor(0x123321);
-		style1.SetThickness(1);
-		Shapes::StyleWithThickness style2;
-		style2.Enable(true);
-		style2.SetColor(0x321123);
-		style1.SetThickness(1);
+			std::vector<std::shared_ptr<Shapes::IStyleWithThickness>> styles;
 
-		groupStyle.AddStyle(std::make_shared<Shapes::StyleWithThickness>(style1));
-		groupStyle.AddStyle(std::make_shared<Shapes::StyleWithThickness>(style2));
+			styles.push_back(std::make_shared<Shapes::StyleWithThickness>(style1));
+			styles.push_back(std::make_shared<Shapes::StyleWithThickness>(style2));
+
+			return styles;
+		};
+		auto editFn = [](std::optional<bool>, std::optional<RGBAColor>, std::optional<int>) {};
+		Shapes::GroupStyleWithThicness groupStyle(getFn, editFn);
 
 		THEN("Return defualt value for this types")
 		{
 			CHECK(groupStyle.IsEnable() == false);
 			CHECK(groupStyle.GetColor() == std::nullopt);
 			CHECK(groupStyle.GetThickness() == 0);
+		}
+	}
+	WHEN("Add new shapes after getting style from gruop")
+	{
+		Shapes::Group group(nullptr);
+
+		auto groupStyle = group.GetOutlineStyle();
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::StyleWithThickness style;
+
+		style.Enable(true);
+		style.SetColor(0x11221122);
+		style.SetThickness(3);
+		r.SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
+
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+
+		THEN("Child of group setting new style")
+		{
+			CHECK_NOTHROW(groupStyle->SetColor(0x123321));
+
+			CHECK(group.GetShapeAtIndex(0)->GetOutlineStyle()->GetColor() == 0x123321);
+			CHECK(group.GetShapeAtIndex(1)->GetOutlineStyle()->GetColor() == 0x123321);
+
+			CHECK_NOTHROW(groupStyle->Enable(false));
+
+			CHECK(group.GetShapeAtIndex(0)->GetOutlineStyle()->IsEnable() == false);
+			CHECK(group.GetShapeAtIndex(1)->GetOutlineStyle()->IsEnable() == false);
+
+			CHECK_NOTHROW(groupStyle->SetThickness(1));
+
+			CHECK(group.GetShapeAtIndex(0)->GetOutlineStyle()->GetThickness() == 1);
+			CHECK(group.GetShapeAtIndex(1)->GetOutlineStyle()->GetThickness() == 1);
+		}
+	}
+	WHEN("Get fill style before inserting shapes")
+	{
+		Shapes::Group group(nullptr);
+
+		auto groupStyle = group.GetOutlineStyle();
+
+		SimpleShapes::Rectangle r(nullptr);
+
+		Shapes::StyleWithThickness style1;
+		style1.Enable(true);
+		style1.SetColor(0x123321);
+		style1.SetThickness(3);
+		Shapes::StyleWithThickness style2;
+		style2.Enable(true);
+		style2.SetColor(0x321123);
+		style2.SetThickness(5);
+		r.SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style1));
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
+		THEN("Return style")
+		{
+			CHECK(groupStyle->IsEnable() == style1.IsEnable());
+			CHECK(groupStyle->GetColor() == style1.GetColor());
+			CHECK_NOTHROW(r.SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style2)));
+			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0));
+			CHECK(groupStyle->IsEnable() == true);
+			CHECK(groupStyle->GetColor() == std::nullopt);
 		}
 	}
 }
@@ -477,21 +530,33 @@ TEST_CASE("Resize childs")
 	{
 		Shapes::Group group(nullptr);
 
-		RectD frame{ 100, 100, 100, 100 };
-		group.SetFrame(frame);
-
 		SimpleShapes::Rectangle r(nullptr);
-		RectD shapeFrame{ 125, 125, 50, 50 };
-		r.SetFrame(shapeFrame);
+		RectD shapeFrame1{ 100, 100, 20, 20 };
+		r.SetFrame(shapeFrame1);
+		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
 
+		RectD shapeFrame2{ 140, 160, 60, 40 };
+		r.SetFrame(shapeFrame2);
 		group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 0);
 
 		THEN("Child frame will change")
 		{
-			CHECK_NOTHROW(group.SetFrame(RectD{ 40, 40, 40, 40 }));
-			CHECK(group.GetShapeAtIndex(0)->GetFrame().left == 50);
-			CHECK(group.GetShapeAtIndex(0)->GetFrame().top == 50);
-			CHECK(group.GetShapeAtIndex(0)->GetFrame().width == 20);
+			CHECK(group.GetFrame().left == 100);
+			CHECK(group.GetFrame().top == 100);
+			CHECK(group.GetFrame().width == 100);
+			CHECK(group.GetFrame().height == 100);
+			CHECK_NOTHROW(group.SetFrame(RectD{ 50, 50, 50, 50 }));
+			CHECK(group.GetFrame().left == 50);
+			CHECK(group.GetFrame().top == 50);
+			CHECK(group.GetFrame().width == 50);
+			CHECK(group.GetFrame().height == 50);
+			CHECK(group.GetShapeAtIndex(1)->GetFrame().left == 50);
+			CHECK(group.GetShapeAtIndex(1)->GetFrame().top == 50);
+			CHECK(group.GetShapeAtIndex(1)->GetFrame().width == 10);
+			CHECK(group.GetShapeAtIndex(1)->GetFrame().height == 10);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().left == 70);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().top == 80);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().width == 30);
 			CHECK(group.GetShapeAtIndex(0)->GetFrame().height == 20);
 		}
 	}
