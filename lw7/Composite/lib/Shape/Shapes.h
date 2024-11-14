@@ -286,19 +286,9 @@ public:
 	}
 	void InsertShape(std::shared_ptr<IShape> shape, size_t pos)
 	{
-		if (pos > m_shapes.size())
-		{
-			throw std::out_of_range("Out of range in inserting shape");
-		}
-
 		RectD shapeFrame = shape->GetFrame();
 
-		if (m_shapes.empty())
-		{
-			m_shapes.push_back(shape);
-			return;
-		}
-		else if (pos == m_shapes.size())
+		if (m_shapes.empty() || pos >= m_shapes.size())
 		{
 			m_shapes.push_back(shape);
 			return;
@@ -308,7 +298,7 @@ public:
 	}
 	std::shared_ptr<IShape> GetShapeAtIndex(size_t index)
 	{
-		if (index >= m_shapes.size())
+		if (index > m_shapes.size())
 		{
 			throw std::out_of_range("Out of range in getting shape");
 		}
@@ -411,6 +401,7 @@ public:
 	std::shared_ptr<IStyleWithThickness> GetOutlineStyle() const override
 	{
 		const std::vector<std::shared_ptr<IShape>>* shapesPtr = &m_shapes;
+		// Применить callback
 		auto getFn = [shapesPtr]() {
 			std::vector<std::shared_ptr<IStyleWithThickness>> styles;
 
@@ -491,7 +482,7 @@ public:
 
 	Group* GetGroup() override
 	{
-		return this;
+		return nullptr;
 	}
 	std::shared_ptr<IShape> GetParent() override
 	{
@@ -502,7 +493,7 @@ public:
 	{
 		for (int i = 0; i < m_shapes.size(); i++)
 		{
-			m_shapes[i]->Draw(canvas);
+			//m_shapes[i]->Draw(canvas);
 		}
 	}
 

@@ -16,7 +16,7 @@ TEST_CASE("Insert new shape")
 		RectD rect3{ 3, 3, 3, 3 };
 		RectD rect4{ 4, 4, 4, 4 };
 
-		THEN("Success inserting, last - error")
+		THEN("Success inserting")
 		{
 			CHECK(group.GetShapeCount() == 0);
 			CHECK_NOTHROW(r.SetFrame(rect1));
@@ -38,8 +38,12 @@ TEST_CASE("Insert new shape")
 			CHECK(group.GetShapeAtIndex(2)->GetFrame().left == rect3.left);
 
 			CHECK_NOTHROW(r.SetFrame(rect4));
-			CHECK_THROWS_WITH(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r), 10), "Out of range in inserting shape");
-			CHECK(group.GetShapeCount() == 3);
+			CHECK_NOTHROW(group.InsertShape(std::make_shared<SimpleShapes::Rectangle>(r),10));
+			CHECK(group.GetShapeCount() == 4);
+			CHECK(group.GetShapeAtIndex(0)->GetFrame().left == rect2.left);
+			CHECK(group.GetShapeAtIndex(1)->GetFrame().left == rect1.left);
+			CHECK(group.GetShapeAtIndex(2)->GetFrame().left == rect3.left);
+			CHECK(group.GetShapeAtIndex(3)->GetFrame().left == rect4.left);
 		}
 	}
 }
