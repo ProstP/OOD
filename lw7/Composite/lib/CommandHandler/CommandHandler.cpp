@@ -14,6 +14,7 @@ const std::string SET_FILL_COMMAND = "SetFill";
 const std::string GET_CHILD_COMMAND = "Get";
 const std::string STATUS_COMMAND = "Status";
 const std::string HELP_COMMAND = "Help";
+const std::string SET_BACKGROUND = "SetBackground";
 const std::string UP_TO_TREE_COMMAND = "Up";
 const std::string DRAW_COMMAND = "Draw";
 
@@ -85,13 +86,17 @@ void CommandHandler::DefineCommand(const std::string& command, std::ostream& out
 	{
 		HelpCommand(out);
 	}
+	else if (commandName == SET_BACKGROUND)
+	{
+		SetBackground(iss);
+	}
 	else if (commandName == UP_TO_TREE_COMMAND)
 	{
 		UpToTreeCommand(iss, out);
 	}
 	else if (commandName == DRAW_COMMAND)
 	{
-		DrawCommand(iss, out);
+		DrawCommand();
 	}
 	else
 	{
@@ -201,25 +206,37 @@ void CommandHandler::SetFrameCommand(std::stringstream& iss, std::ostream& out)
 void CommandHandler::SetOutlineCommand(std::stringstream& iss, std::ostream& out)
 {
 	std::string isEnableStr;
-	std::string colorStr;
-	int thickness;
-
-	iss >> isEnableStr >> colorStr >> thickness;
+	iss >> isEnableStr;
 
 	bool isEnable = isEnableStr == "true" || isEnableStr == "1" ? true : false;
 
-	uint32_t color = static_cast<uint32_t>(std::stoul(colorStr, nullptr, 16));
-
-	Shapes::StyleWithThickness style;
-
-	style.Enable(isEnable);
-	if (isEnable)
+	if (!isEnable)
 	{
-		style.SetColor(color);
-		style.SetThickness(thickness);
-	}
+		Shapes::StyleWithThickness style;
+		style.Enable(false);
 
-	m_currentShape->SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
+		m_currentShape->SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
+	}
+	else
+	{
+		std::string colorStr;
+		int thickness;
+
+		iss >> colorStr >> thickness;
+
+		uint32_t color = static_cast<uint32_t>(std::stoul(colorStr, nullptr, 16));
+
+		Shapes::StyleWithThickness style;
+
+		style.Enable(isEnable);
+		if (isEnable)
+		{
+			style.SetColor(color);
+			style.SetThickness(thickness);
+		}
+
+		m_currentShape->SetOutlineStyle(std::make_shared<Shapes::StyleWithThickness>(style));
+	}
 
 	out << "Outline style was changed" << std::endl
 		<< std::endl;
@@ -228,22 +245,34 @@ void CommandHandler::SetOutlineCommand(std::stringstream& iss, std::ostream& out
 void CommandHandler::SetFillCommand(std::stringstream& iss, std::ostream& out)
 {
 	std::string isEnableStr;
-	std::string colorStr;
-
-	iss >> isEnableStr >> colorStr;
+	iss >> isEnableStr;
 
 	bool isEnable = isEnableStr == "true" || isEnableStr == "1" ? true : false;
 
-	uint32_t color = static_cast<uint32_t>(std::stoul(colorStr, nullptr, 16));
-
-	Shapes::Style style;
-	style.Enable(isEnable);
-	if (isEnable)
+	if (!isEnable)
 	{
-		style.SetColor(color);
-	}
+		Shapes::Style style;
+		style.Enable(false);
 
-	m_currentShape->SetFillStyle(std::make_shared<Shapes::Style>(style));
+		m_currentShape->SetFillStyle(std::make_shared<Shapes::Style>(style));
+	}
+	else
+	{
+		std::string colorStr;
+
+		iss >> colorStr;
+
+		uint32_t color = static_cast<uint32_t>(std::stoul(colorStr, nullptr, 16));
+
+		Shapes::Style style;
+		style.Enable(isEnable);
+		if (isEnable)
+		{
+			style.SetColor(color);
+		}
+
+		m_currentShape->SetFillStyle(std::make_shared<Shapes::Style>(style));
+	}
 
 	out << "Fill style was changed" << std::endl
 		<< std::endl;
@@ -338,13 +367,25 @@ void CommandHandler::HelpCommand(std::ostream& out)
 	out << "  " << ADD_GROUP_COMMAND << " <pos>" << std::endl;
 	out << "  " << REMOVE_SHAPE_COMMAND << " <index>" << std::endl;
 	out << "  " << SET_FRAME_COMMAND << " <left> <top> <width> <height> <pos>" << std::endl;
-	out << "  " << SET_OUTLINE_COMMAND << " <isEnable> <color(0x00000000)> <thickness>" << std::endl;
-	out << "  " << SET_FILL_COMMAND << " <isEnable> <color(0x00000000)>" << std::endl;
+	out << "  " << SET_OUTLINE_COMMAND << " <isEnable> <color(00000000)> <thickness>" << std::endl;
+	out << "  " << SET_FILL_COMMAND << " <isEnable> <color(00000000)>" << std::endl;
 	out << "  " << GET_CHILD_COMMAND << " <pos>" << std::endl;
 	out << "  " << STATUS_COMMAND << std::endl;
+	out << "  " << SET_BACKGROUND << "<color(00000000)>" << std::endl;
 	out << "  " << UP_TO_TREE_COMMAND << std::endl;
 	out << "  " << DRAW_COMMAND << std::endl
 		<< std::endl;
+}
+
+void CommandHandler::SetBackground(std::stringstream& iss)
+{
+	std::string colorStr;
+
+	iss >> colorStr;
+
+	uint32_t color = static_cast<uint32_t>(std::stoul(colorStr, nullptr, 16));
+
+	m_slide.SetBackgroundColor(color);
 }
 
 void CommandHandler::UpToTreeCommand(std::stringstream& iss, std::ostream& out)
@@ -360,14 +401,12 @@ void CommandHandler::UpToTreeCommand(std::stringstream& iss, std::ostream& out)
 		<< std::endl;
 }
 
-void CommandHandler::DrawCommand(std::stringstream& iss, std::ostream& out)
+void CommandHandler::DrawCommand()
 {
-	m_slide.DrawBackground(m_canvas);
+	m_canvas.SetBackgroundColor(m_slide.GetBackgroundColor());
 	m_slide.GetShapes()->Draw(m_canvas);
 
-	out << std::endl
-		<< "Slide was drawing" << std::endl
-		<< std::endl;
+	m_canvas.Draw();
 }
 
 void CommandHandler::PrintColor(RGBAColor color, std::ostream& out)

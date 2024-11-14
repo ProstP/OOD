@@ -41,5 +41,11 @@
     <ClInclude Include="..\lib\CommandHandler\CommandHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\GraphicCanvas\Canvas.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\GraphicCanvas\WindowCanvas.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

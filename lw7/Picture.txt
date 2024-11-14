@@ -1,0 +1,26 @@
+SetBackground 9ce1f2ff
+AddGroup 0
+Get 0
+AddShape rectangle 0 600 800 200 0
+SetFill true 78f566ff
+Up
+AddGroup 1
+Get 1
+AddShape rectangle 200 300 400 350 0
+Get 0
+SetFill true f59866ff
+SetOutline true a5260aff 5
+Up
+AddShape triangle 50 100 700 200 1
+Get 1
+SetFill true 882e1bff
+Up
+Up
+AddGroup 2
+Get 2
+AddShape ellipse 100 50 170 70 0
+AddShape ellipse 500 20 200 90 1
+SetFill true edededaa
+SetOutline true dbdbdbff 3
+Up
+Draw

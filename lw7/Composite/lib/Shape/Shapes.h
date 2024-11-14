@@ -500,7 +500,7 @@ public:
 
 	void Draw(Canvas::ICanvas& canvas) const override
 	{
-		for (int i = 0; i <= m_shapes.size(); i++)
+		for (int i = 0; i < m_shapes.size(); i++)
 		{
 			m_shapes[i]->Draw(canvas);
 		}
@@ -516,7 +516,11 @@ class Shape : public IShape
 public:
 	Shape(std::shared_ptr<IShape> parent)
 		: m_frame({ 0, 0, 0, 0 })
-		, m_parent(parent){};
+		, m_parent(parent)
+	{
+		m_fillStyle = std::make_shared<Style>();
+		m_outlineStyle = std::make_shared<StyleWithThickness>();
+	};
 	RectD GetFrame() const override
 	{
 		return m_frame;
@@ -617,18 +621,9 @@ public:
 	{
 		return m_shapes;
 	}
-	void DrawBackground(Canvas::ICanvas& canvas)
+	RGBAColor GetBackgroundColor()
 	{
-		canvas.BeginFill(m_backgroundColor);
-
-		RectD rect = m_shapes->GetFrame();
-		canvas.MoveTo(0, 0);
-		canvas.LineTo(m_width, 0);
-		canvas.LineTo(m_width, m_height);
-		canvas.LineTo(0, m_height);
-		canvas.LineTo(0, 0);
-
-		canvas.EndFill();
+		return m_backgroundColor;
 	}
 	void SetBackgroundColor(RGBAColor color)
 	{
@@ -639,7 +634,7 @@ private:
 	double m_width;
 	double m_height;
 	std::shared_ptr<Group> m_shapes;
-	RGBAColor m_backgroundColor;
+	RGBAColor m_backgroundColor = 0xffffffff;
 };
 
 } // namespace Shapes

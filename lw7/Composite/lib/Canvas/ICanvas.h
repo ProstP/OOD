@@ -17,6 +17,7 @@ public:
 	virtual void DrawEllipse(double left, double top, double width, double height) = 0;
 	virtual void BeginFill(RGBAColor color) = 0;
 	virtual void EndFill() = 0;
+	virtual void SetBackgroundColor(RGBAColor color) = 0;
 
 	virtual ~ICanvas() = default;
 };

@@ -1,19 +1,19 @@
 #pragma once
-#include "../Canvas/ICanvas.h"
+#include "../GraphicCanvas/Canvas.h"
 #include <sstream>
 #include "../Shape/Shapes.h"
 
 class CommandHandler
 {
 public:
-	CommandHandler(Canvas::ICanvas& canvas, Shapes::Slide& slide)
+	CommandHandler(GraphicLib::GraphicCanvas& canvas, Shapes::Slide& slide)
 		: m_canvas(canvas)
 		, m_slide(slide)
 		, m_currentShape(slide.GetShapes()){};
 	void Handle(std::istream& in, std::ostream& out);
 
 private:
-	Canvas::ICanvas& m_canvas;
+	GraphicLib::GraphicCanvas& m_canvas;
 	Shapes::Slide& m_slide;
 	std::shared_ptr<Shapes::IShape> m_currentShape;
 
@@ -27,7 +27,8 @@ private:
 	void GetChildCommand(std::stringstream& iss, std::ostream& out);
 	void StatusCommand(std::ostream& out);
 	void HelpCommand(std::ostream& out);
+	void SetBackground(std::stringstream& iss);
 	void UpToTreeCommand(std::stringstream& iss, std::ostream& out);
-	void DrawCommand(std::stringstream& iss, std::ostream& out);
+	void DrawCommand();
 	void PrintColor(RGBAColor color, std::ostream& out);
 };
