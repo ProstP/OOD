@@ -482,7 +482,7 @@ public:
 
 	Group* GetGroup() override
 	{
-		return nullptr;
+		return this;
 	}
 	std::shared_ptr<IShape> GetParent() override
 	{
@@ -493,7 +493,7 @@ public:
 	{
 		for (int i = 0; i < m_shapes.size(); i++)
 		{
-			//m_shapes[i]->Draw(canvas);
+			m_shapes[i]->Draw(canvas);
 		}
 	}
 
