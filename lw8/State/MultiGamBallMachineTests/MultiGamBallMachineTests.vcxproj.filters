@@ -15,15 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="MultiGamBallMachineTests.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lib\multigamballmachine\MultiGamBallMachine.h">
-      <Filter>Файлы заголовков</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lib\GamBallMachine\GumBallMachine.h">
+    <ClInclude Include="..\lib\MultiGamBallMachine\NaiveMiltiGamBallMachine.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

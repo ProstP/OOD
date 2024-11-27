@@ -466,3 +466,197 @@ TEST_CASE("Machine in has quarter state")
 		}
 	}
 }
+
+TEST_CASE("Initial naive machine")
+{
+	WHEN("Ball count = 0")
+	{
+		NaiveGamBallMachine machine(0);
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 0 gumballs\n";
+		expected += "Machine is sold out\n";
+
+		THEN("BAll count is 0, state is sold out")
+		{
+			CHECK(machine.ToString() == expected);
+		}
+	}
+	WHEN("Ball count = 1")
+	{
+		NaiveGamBallMachine machine(1);
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 1 gumball\n";
+		expected += "Machine is waiting for quarter\n";
+
+		THEN("BAll count is 1, state is no quarter")
+		{
+			CHECK(machine.ToString() == expected);
+		}
+	}
+	WHEN("Ball count > 1")
+	{
+		NaiveGamBallMachine machine(5);
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 5 gumballs\n";
+		expected += "Machine is waiting for quarter\n";
+
+		THEN("BAll count is 5, state is no quarter")
+		{
+			CHECK(machine.ToString() == expected);
+		}
+	}
+}
+
+TEST_CASE("Naive machine in sold out state")
+{
+	NaiveGamBallMachine machine(0);
+	const std::string state = machine.ToString();
+
+	WHEN("Insert quarter")
+	{
+		machine.InsertQuarter();
+
+		THEN("Nothing")
+		{
+			CHECK(state == machine.ToString());
+		}
+	}
+
+	WHEN("Eject quarter")
+	{
+		machine.EjectQuarter();
+
+		THEN("Nothing")
+		{
+			CHECK(state == machine.ToString());
+		}
+	}
+
+	WHEN("Turn crank")
+	{
+		machine.TurnCrank();
+
+		THEN("Nothing")
+		{
+			CHECK(state == machine.ToString());
+		}
+	}
+}
+
+TEST_CASE("Naive machine in no quarter state")
+{
+	NaiveGamBallMachine machine(5);
+	const std::string state = machine.ToString();
+
+	WHEN("Insert quarter")
+	{
+		machine.InsertQuarter();
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 5 gumballs\n";
+		expected += "Machine is waiting for turn of crank\n";
+
+		THEN("State is has quarter")
+		{
+			CHECK(expected == machine.ToString());
+		}
+	}
+
+	WHEN("Eject quarter")
+	{
+		machine.EjectQuarter();
+
+		THEN("Nothing")
+		{
+			CHECK(state == machine.ToString());
+		}
+	}
+
+	WHEN("Turn crank")
+	{
+		machine.TurnCrank();
+
+		THEN("Nothing")
+		{
+			CHECK(state == machine.ToString());
+		}
+	}
+}
+
+TEST_CASE("Naive machine in has quarter state")
+{
+	NaiveGamBallMachine machine(5);
+	machine.InsertQuarter();
+	const std::string state = machine.ToString();
+
+	WHEN("Insert quarter")
+	{
+		machine.InsertQuarter();
+
+		THEN("Nothing")
+		{
+			CHECK(state == machine.ToString());
+		}
+	}
+
+	WHEN("Eject quarter")
+	{
+		machine.EjectQuarter();
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 5 gumballs\n";
+		expected += "Machine is waiting for quarter\n";
+
+		THEN("State is no quarty")
+		{
+			CHECK(expected == machine.ToString());
+		}
+	}
+
+	WHEN("Turn crank balls > 1")
+	{
+		machine.TurnCrank();
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 4 gumballs\n";
+		expected += "Machine is waiting for quarter\n";
+
+		THEN("State will be no quarter, ball count decrease")
+		{
+			CHECK(expected == machine.ToString());
+		}
+	}
+
+	WHEN("Turn crank balls = 1")
+	{
+		NaiveGamBallMachine machineWithOneBall(1);
+		machineWithOneBall.InsertQuarter();
+		machineWithOneBall.TurnCrank();
+
+		std::string expected = "\n";
+		expected += "Mighty Gumball, Inc.\n";
+		expected += "C++-enabled Standing Gumball Model #2024\n";
+		expected += "Inventory: 0 gumballs\n";
+		expected += "Machine is sold out\n";
+
+		THEN("State will be sold out, ball count = 0")
+		{
+			CHECK(expected == machineWithOneBall.ToString());
+		}
+	}
+}
