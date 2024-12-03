@@ -1,0 +1,94 @@
+---
+title: State
+---
+
+classDiagram
+namespace GamballMachine {
+
+    class IState {
+        <<Interface>> 
+        + InsertQuarter(): void
+        + EjectQuarter(): void
+        + TurnCrank(): void
+        + Dispense(): void
+        + ToString(): string
+    }
+
+    class IGumballMachine {
+        <<Interface>> 
+        + ReleaseBall(): void
+        + GetBallCount(): int
+        + SetSoldOutState(): void
+        + SetNoQuarterState(): void
+        + SetSoldState(): void
+        + SetHasQuarterState(): void
+    }
+
+    class SoldState {
+        + InsertQuarter(): void
+        + EjectQuarter(): void
+        + TurnCrank(): void
+        + Dispense(): void
+        + ToString(): string
+        - m_gumballMachine: IGumballMachine&
+    }
+    class SoldOutState {
+        + InsertQuarter(): void
+        + EjectQuarter(): void
+        + TurnCrank(): void
+        + Dispense(): void
+        + ToString(): string
+        - m_gumballMachine: IGumballMachine&
+    }
+    class HasQuarterState {
+        + InsertQuarter(): void
+        + EjectQuarter(): void
+        + TurnCrank(): void
+        + Dispense(): void
+        + ToString(): string
+        - m_gumballMachine: IGumballMachine&
+    }
+    class NoQuarterState {
+        + InsertQuarter(): void
+        + EjectQuarter(): void
+        + TurnCrank(): void
+        + Dispense(): void
+        + ToString(): string
+        - m_gumballMachine: IGumballMachine&
+    }
+    class GumballMachine {
+        + EjectQuarter():void
+        + InsertQuarter():void
+        + TurnCrank():void
+        + ToString(): string
+        - ReleaseBall(): void
+        - GetBallCount(): int
+        - SetSoldOutState(): void
+        - SetNoQuarterState(): void
+        - SetSoldState(): void
+        - SetHasQuarterState(): void
+        - m_count: unsigned int
+        - m_soldState: SoldState 
+        - m_soldOutState: SoldOutState 
+        - m_noQuarterState: NoQuarterState 
+        - m_hasQuarterState: HasQuarterState
+        - m_state: IState&ast;
+    }
+}
+    IState <|.. SoldState
+    IState <|.. SoldOutState
+    IState <|.. HasQuarterState
+    IState <|.. NoQuarterState
+
+    IGumballMachine o.. SoldState
+    IGumballMachine o.. SoldOutState
+    IGumballMachine o.. HasQuarterState
+    IGumballMachine o.. NoQuarterState
+
+    IGumballMachine <|.. GumballMachine
+
+    IState *.. GumballMachine
+    SoldState *.. GumballMachine
+    SoldOutState *.. GumballMachine
+    HasQuarterState *.. GumballMachine
+    NoQuarterState *.. GumballMachine
