@@ -57,7 +57,7 @@ public:
 	void Dispense() override
 	{
 		m_gumballMachine.ReleaseBall();
-		m_gumballMachine.ReleaseQuarter();
+		m_gumballMachine.ReleaseQuarter();//Разные методы
 
 		if (m_gumballMachine.GetBallCount() == 0)
 		{

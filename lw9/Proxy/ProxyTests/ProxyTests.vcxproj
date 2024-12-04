@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{493fcb17-7ebb-4e4e-b1ce-502b1a5278db}</ProjectGuid>
-    <RootNamespace>Proxy</RootNamespace>
+    <ProjectGuid>{3a281fa1-ecb9-4708-b961-ea2f3931a4ff}</ProjectGuid>
+    <RootNamespace>ProxyTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -122,6 +122,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -142,10 +145,9 @@
   <ItemGroup>
     <ClCompile Include="..\lib\Image\Image.cpp" />
     <ClCompile Include="..\lib\Image\Tile.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ProxyTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lib\CoW\CoW.h" />
     <ClInclude Include="..\lib\Geom\Geom.h" />
     <ClInclude Include="..\lib\Image\Image.h" />
     <ClInclude Include="..\lib\Image\Tile.h" />

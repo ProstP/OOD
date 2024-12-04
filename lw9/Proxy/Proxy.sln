@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.34931.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Proxy", "Proxy\Proxy.vcxproj", "{493FCB17-7EBB-4E4E-B1CE-502B1A5278DB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProxyTests", "ProxyTests\ProxyTests.vcxproj", "{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{493FCB17-7EBB-4E4E-B1CE-502B1A5278DB}.Release|x64.Build.0 = Release|x64
 		{493FCB17-7EBB-4E4E-B1CE-502B1A5278DB}.Release|x86.ActiveCfg = Release|Win32
 		{493FCB17-7EBB-4E4E-B1CE-502B1A5278DB}.Release|x86.Build.0 = Release|Win32
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Debug|x64.ActiveCfg = Debug|x64
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Debug|x64.Build.0 = Debug|x64
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Debug|x86.ActiveCfg = Debug|Win32
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Debug|x86.Build.0 = Debug|Win32
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Release|x64.ActiveCfg = Release|x64
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Release|x64.Build.0 = Release|x64
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Release|x86.ActiveCfg = Release|Win32
+		{3A281FA1-ECB9-4708-B961-EA2F3931A4FF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
