@@ -8,13 +8,13 @@ class Tile
 public:
 	const static int SIZE = 8;
 
-	Tile(char color = ' ');
+	Tile(uint32_t color = ' ');
 	Tile(const Tile& other);
 
 	~Tile();
 
-	void SetPixel(Point p, char color);
-	char GetPixel(Point p) const;
+	void SetPixel(Point p, uint32_t color);
+	uint32_t GetPixel(Point p) const;
 
 	// Возвращает количество экземпляра класса Tile в программе.
 	static int GetInstanceCount() noexcept;
@@ -24,5 +24,5 @@ private:
 	inline static int m_instanceCount = 0;
 	// -------------- не удалять ------------
 
-	std::vector<std::vector<char>> m_pixels;
+	std::vector<std::vector<uint32_t>> m_pixels;
 };

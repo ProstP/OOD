@@ -1,8 +1,8 @@
 #include "Tile.h"
 
-Tile::Tile(char color)
+Tile::Tile(uint32_t color)
 {
-	m_pixels = std::vector<std::vector<char>>(SIZE, std::vector<char>(SIZE, color));
+	m_pixels = std::vector<std::vector<uint32_t>>(SIZE, std::vector<uint32_t>(SIZE, color));
 
 	// -------------- не удалять ------------
 	assert(m_instanceCount >= 0);
@@ -28,7 +28,7 @@ Tile::~Tile()
 	// -------------- не удалять ------------
 }
 
-void Tile::SetPixel(Point p, char color)
+void Tile::SetPixel(Point p, uint32_t color)
 {
 	if (p.x >= SIZE || p.y >= SIZE)
 	{
@@ -38,7 +38,7 @@ void Tile::SetPixel(Point p, char color)
 	m_pixels[p.x][p.y] = color;
 }
 
-char Tile::GetPixel(Point p) const
+uint32_t Tile::GetPixel(Point p) const
 {
 	if (p.x >= SIZE || p.y >= SIZE)
 	{

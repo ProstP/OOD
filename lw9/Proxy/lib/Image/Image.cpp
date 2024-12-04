@@ -1,9 +1,10 @@
 #include "Image.h"
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 
-Image::Image(Size size, char color)
+Image::Image(Size size, uint32_t color)
 {
 	if (size.width <= 0 || size.height <= 0)
 	{
@@ -27,7 +28,7 @@ Size Image::GetSize() const noexcept
 	return m_size;
 }
 
-char Image::GetPixel(Point p) const noexcept
+uint32_t Image::GetPixel(Point p) const noexcept
 {
 	if (p.x >= m_size.width || p.y >= m_size.height)
 	{
@@ -42,7 +43,7 @@ char Image::GetPixel(Point p) const noexcept
 	return m_tiles[tileIndexX][tileIndexY]->GetPixel({ pixelIndexX, pixelIndexY });
 }
 
-void Image::SetPixel(Point p, char color)
+void Image::SetPixel(Point p, uint32_t color)
 {
 	if (p.x >= m_size.width || p.y >= m_size.height)
 	{
@@ -97,4 +98,29 @@ Image LoadImage(const std::string& pixels)
 	}
 
 	return img;
+}
+
+void SaveImage(const Image& image, const std::string& fileName)
+{
+	std::ofstream file(fileName);
+
+	file << "P3\n";
+
+	file << image.GetSize().width << " " << image.GetSize().height << "\n";
+
+	file << "255\n";
+
+	for (int y = 0; y < image.GetSize().height; y++)
+	{
+		for (int x = 0; x < image.GetSize().width; x++)
+		{
+			uint32_t color = image.GetPixel({ x, y });
+
+			uint8_t b = color;
+			uint8_t g = color >> 8;
+			uint8_t r = color >> 16;
+
+			file << static_cast<int>(r) << " " << static_cast<int>(g) << " " << static_cast<int>(b) << "\n";
+		}
+	}
 }
