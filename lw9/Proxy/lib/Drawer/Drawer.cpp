@@ -61,13 +61,22 @@ void Drawer::FillCircle(Image& image, Point center, int radius, char color)
 	int error = 0;
 	while (y >= x)
 	{
-		for (int i = center.y - y; i <= center.y + y; i++)
+		for (int i = center.y - y; i <= center.y - x; i++)
 		{
 			image.SetPixel({ center.x + x, i }, color);
 			image.SetPixel({ center.x - x, i }, color);
 		}
-
-		for (int i = center.x - y; i <= center.x + y; i++)
+		for (int i = center.x - y; i < center.x - x; i++)
+		{
+			image.SetPixel({ i, center.y + x }, color);
+			image.SetPixel({ i, center.y - x }, color);
+		}
+		for (int i = center.y + x; i <= center.y + y; i++)
+		{
+			image.SetPixel({ center.x + x, i }, color);
+			image.SetPixel({ center.x - x, i }, color);
+		}
+		for (int i = center.x + x + 1; i <= center.x + y; i++)
 		{
 			image.SetPixel({ i, center.y + x }, color);
 			image.SetPixel({ i, center.y - x }, color);

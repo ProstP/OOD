@@ -8,6 +8,7 @@ int main()
 	//Drawer::DrawLine(image, { 1, 1 }, { 1, 5 }, '%');
 	//Drawer::DrawCircle(image, { 24, 24 }, 24, '%');
 	Drawer::FillCircle(image, { 24, 24 }, 24, '%');
+	image.SetPixel({ 24, 24 }, '@');
 
 	Print(image, std::cout);
 }
