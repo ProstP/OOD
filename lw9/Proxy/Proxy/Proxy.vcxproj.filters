@@ -24,6 +24,9 @@
     <ClCompile Include="..\lib\Image\Tile.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\Drawer\Drawer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\CoW\CoW.h">
@@ -36,6 +39,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\Image\Tile.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\Drawer\Drawer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

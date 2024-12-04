@@ -140,12 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\Drawer\Drawer.cpp" />
     <ClCompile Include="..\lib\Image\Image.cpp" />
     <ClCompile Include="..\lib\Image\Tile.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\CoW\CoW.h" />
+    <ClInclude Include="..\lib\Drawer\Drawer.h" />
     <ClInclude Include="..\lib\Geom\Geom.h" />
     <ClInclude Include="..\lib\Image\Image.h" />
     <ClInclude Include="..\lib\Image\Tile.h" />

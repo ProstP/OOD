@@ -1,14 +1,13 @@
-﻿#include "../lib/CoW/CoW.h"
+﻿#include "../lib/Drawer/Drawer.h"
 #include <iostream>
 
 int main()
 {
-	CoW<std::string> s1("Hello");
-	CoW<std::string> s2(s1);
+	Image image({ 49, 49 }, '*');
 
-	s1.Write()->append("!!!");
+	//Drawer::DrawLine(image, { 1, 1 }, { 1, 5 }, '%');
+	//Drawer::DrawCircle(image, { 24, 24 }, 24, '%');
+	Drawer::FillCircle(image, { 24, 24 }, 24, '%');
 
-	auto write = s1.Write();
-
-	std::cout << *s1 << " " << *s2 << std::endl;
+	Print(image, std::cout);
 }
