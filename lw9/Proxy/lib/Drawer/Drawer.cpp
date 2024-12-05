@@ -27,7 +27,7 @@ void Drawer::DrawCircle(Image& image, Point center, int radius, uint32_t color)
 	int delta = 1 - 2 * radius;
 	int error = 0;
 	while (y >= x)
-	{
+	{//Разобраться в алгоритмом
 		image.SetPixel({ center.x + x, center.y + y }, color);
 		image.SetPixel({ center.x + x, center.y - y }, color);
 		image.SetPixel({ center.x - x, center.y + y }, color);

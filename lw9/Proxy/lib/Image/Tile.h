@@ -24,5 +24,5 @@ private:
 	inline static int m_instanceCount = 0;
 	// -------------- не удалять ------------
 
-	std::vector<std::vector<uint32_t>> m_pixels;
+	std::vector<std::vector<uint32_t>> m_pixels; //array
 };
