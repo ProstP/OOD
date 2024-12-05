@@ -354,6 +354,20 @@ TEST_CASE("Image GetPixel")
 			CHECK(image.GetPixel({ 1, 1 }) == color);
 		}
 	}
+	WHEN("x < 0")
+	{
+		THEN("Return pixel with space")
+		{
+			CHECK(image.GetPixel({ -1, 1 }) == ' ');
+		}
+	}
+	WHEN("y < 0")
+	{
+		THEN("Return pixel with space")
+		{
+			CHECK(image.GetPixel({ 1, -1 }) == ' ');
+		}
+	}
 }
 
 TEST_CASE("Image SetColor")
@@ -393,6 +407,22 @@ TEST_CASE("Image SetColor")
 		THEN("Nothing")
 		{
 			CHECK_NOTHROW(image.SetPixel({ 1, size.height + 1 }, anotherColor));
+			CHECK(Tile::GetInstanceCount() == 1);
+		}
+	}
+	WHEN("x < 0")
+	{
+		THEN("Nothing")
+		{
+			CHECK_NOTHROW(image.SetPixel({ -1, 1 }, anotherColor));
+			CHECK(Tile::GetInstanceCount() == 1);
+		}
+	}
+	WHEN("y < 0")
+	{
+		THEN("Nothing")
+		{
+			CHECK_NOTHROW(image.SetPixel({ 1, -1 }, anotherColor));
 			CHECK(Tile::GetInstanceCount() == 1);
 		}
 	}

@@ -30,7 +30,7 @@ Size Image::GetSize() const noexcept
 
 uint32_t Image::GetPixel(Point p) const noexcept
 {
-	if (p.x >= m_size.width || p.y >= m_size.height)
+	if (!IsPointInSize(p, m_size))
 	{
 		return ' ';
 	}
@@ -45,7 +45,7 @@ uint32_t Image::GetPixel(Point p) const noexcept
 
 void Image::SetPixel(Point p, uint32_t color)
 {
-	if (p.x >= m_size.width || p.y >= m_size.height)
+	if (!IsPointInSize(p, m_size))
 	{
 		return;
 	}
