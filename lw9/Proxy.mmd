@@ -1,0 +1,79 @@
+---
+title: Proxy
+---
+
+classDiagram
+  namespace CoWNamepcase {
+    class CoW
+  }
+
+  namespace Geom {
+    class Point {
+        + x: int
+        + y: int
+    }
+    class Size {
+        + width: int
+        + height: int
+    }
+  }
+
+  namespace ImageNamepace {
+    class Tile {
+        + SIZE
+        - m_pixels: vector&lt;vector&lt;uint32_t&gt;&gt;
+        - m_instanceCount
+        + SetPixel(p: Point, color: uint32_t): void
+        + GetPixel(p: Point): uint32_t
+        + GetInstanceCount(): int
+    }
+    class Image {
+        - m_tiles: vector&lt;vector&lt;CoW&lt;Tile&gt;&gt;&gt;
+        - m_size: Size
+        + GetSize(): Size
+        + GetPixel(p: Point): uint32_t
+        + SetPixel(p: Point, color: uint32_t): void 
+    }
+  }
+
+  namespace DrawerNamepace {
+    class Drawer {
+        + DrawLine(image: Image, from: Point, to: Point, color: uint32_t):  void
+        + DrawCircle(image: Image, center: Point, radius: int, color: uint32_t):  void
+        + FillCircle(image: Image, center: Point, radius: int, color: uint32_t):  void
+        - DrawSteepLine(image: Image, from: Point, to: Point, color: uint32_t):  void
+        - DrawSlopeLine(image: Image, from: Point, to: Point, color: uint32_t):  void
+    }
+  }
+
+  Tile ..> Point
+  
+  Image ..> Point
+  Image *-- Size
+  Image *-- Tile
+  Image *-- CoW
+
+  Drawer ..> Image
+  Drawer ..> Point
+
+
+  namespace ProxyPattern {
+    class Client 
+    class Subject {
+        <<interface>>
+        + Request()*
+    }
+    class RealSubject {
+        + Request()
+    }
+    class Proxy {
+        + Request()
+    }
+  }
+
+  RealSubject ..|> Subject
+
+  Proxy --> RealSubject
+  Proxy ..|> Subject
+
+  Client ..> Subject
