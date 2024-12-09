@@ -125,8 +125,8 @@ TEST_CASE("Naive machine eject quarter")
 		std::string expectedAfter = "\n";
 		expectedAfter += "Mighty Gumball, Inc.\n";
 		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
-		expectedAfter += "Inventory: 5 gumballs, 4 quarters\n";
-		expectedAfter += "Machine is waiting for turn of crank\n";
+		expectedAfter += "Inventory: 5 gumballs, 0 quarters\n";
+		expectedAfter += "Machine is waiting for quarter\n";
 
 		THEN("Nothing")
 		{
@@ -238,11 +238,17 @@ TEST_CASE("Naive machine turn of crank")
 		expectedBefore1 += "Inventory: 1 gumball, 3 quarters\n";
 		expectedBefore1 += "Machine is waiting for turn of crank\n";
 
-		std::string expectedAfter = "\n";
-		expectedAfter += "Mighty Gumball, Inc.\n";
-		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
-		expectedAfter += "Inventory: 0 gumballs, 2 quarters\n";
-		expectedAfter += "Machine is sold out\n";
+		std::string expectedAfter1 = "\n";
+		expectedAfter1 += "Mighty Gumball, Inc.\n";
+		expectedAfter1 += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter1 += "Inventory: 0 gumballs, 2 quarters\n";
+		expectedAfter1 += "Machine is sold out\n";
+
+		std::string expectedAfter2 = "\n";
+		expectedAfter2 += "Mighty Gumball, Inc.\n";
+		expectedAfter2 += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter2 += "Inventory: 0 gumballs, 0 quarters\n";
+		expectedAfter2 += "Machine is sold out\n";
 
 		THEN("Gamball is sold out")
 		{
@@ -255,7 +261,9 @@ TEST_CASE("Naive machine turn of crank")
 			CHECK_NOTHROW(machine.TurnCrank());
 			CHECK(machine.ToString() == expectedBefore1);
 			CHECK_NOTHROW(machine.TurnCrank());
-			CHECK(machine.ToString() == expectedAfter);
+			CHECK(machine.ToString() == expectedAfter1);
+			CHECK_NOTHROW(machine.EjectQuarter());
+			CHECK(machine.ToString() == expectedAfter2);
 		}
 	}
 }
@@ -380,8 +388,8 @@ TEST_CASE("Machine eject quarter")
 		std::string expectedAfter = "\n";
 		expectedAfter += "Mighty Gumball, Inc.\n";
 		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
-		expectedAfter += "Inventory: 5 gumballs, 4 quarters\n";
-		expectedAfter += "Machine is waiting for turn of crank\n";
+		expectedAfter += "Inventory: 5 gumballs, 0 quarters\n";
+		expectedAfter += "Machine is waiting for quarter\n";
 
 		THEN("Nothing")
 		{
@@ -493,11 +501,17 @@ TEST_CASE("Turn of crank")
 		expectedBefore1 += "Inventory: 1 gumball, 3 quarters\n";
 		expectedBefore1 += "Machine is waiting for turn of crank\n";
 
-		std::string expectedAfter = "\n";
-		expectedAfter += "Mighty Gumball, Inc.\n";
-		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
-		expectedAfter += "Inventory: 0 gumballs, 2 quarters\n";
-		expectedAfter += "Machine is sold out\n";
+		std::string expectedAfter1 = "\n";
+		expectedAfter1 += "Mighty Gumball, Inc.\n";
+		expectedAfter1 += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter1 += "Inventory: 0 gumballs, 2 quarters\n";
+		expectedAfter1 += "Machine is sold out\n";
+
+		std::string expectedAfter2 = "\n";
+		expectedAfter2 += "Mighty Gumball, Inc.\n";
+		expectedAfter2 += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter2 += "Inventory: 0 gumballs, 0 quarters\n";
+		expectedAfter2 += "Machine is sold out\n";
 
 		THEN("Gamball is sold out")
 		{
@@ -510,7 +524,252 @@ TEST_CASE("Turn of crank")
 			CHECK_NOTHROW(machine.TurnCrank());
 			CHECK(machine.ToString() == expectedBefore1);
 			CHECK_NOTHROW(machine.TurnCrank());
+			CHECK(machine.ToString() == expectedAfter1);
+			CHECK_NOTHROW(machine.EjectQuarter());
+			CHECK(machine.ToString() == expectedAfter2);
+		}
+	}
+}
+
+TEST_CASE("Refill automata")
+{
+	WHEN("Sold out state with no quarter")
+	{
+		MultiGumballMachine machine(0);
+
+		std::string expectedBefore = "\n";
+		expectedBefore += "Mighty Gumball, Inc.\n";
+		expectedBefore += "C++-enabled Standing Gumball Model #2024\n";
+		expectedBefore += "Inventory: 0 gumballs, 0 quarters\n";
+		expectedBefore += "Machine is sold out\n";
+
+		std::string expectedAfter = "\n";
+		expectedAfter += "Mighty Gumball, Inc.\n";
+		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter += "Inventory: 5 gumballs, 0 quarters\n";
+		expectedAfter += "Machine is waiting for quarter\n";
+
+		THEN("Gumball count is greated")
+		{
+			CHECK(machine.ToString() == expectedBefore);
+			CHECK_NOTHROW(machine.Fill(5));
 			CHECK(machine.ToString() == expectedAfter);
+		}
+	}
+	WHEN("Sold out state with quarter")
+	{
+		MultiGumballMachine machine(1);
+
+		std::string expectedBefore = "\n";
+		expectedBefore += "Mighty Gumball, Inc.\n";
+		expectedBefore += "C++-enabled Standing Gumball Model #2024\n";
+		expectedBefore += "Inventory: 0 gumballs, 1 quarter\n";
+		expectedBefore += "Machine is sold out\n";
+
+		std::string expectedAfter = "\n";
+		expectedAfter += "Mighty Gumball, Inc.\n";
+		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter += "Inventory: 5 gumballs, 1 quarter\n";
+		expectedAfter += "Machine is waiting for turn of crank\n";
+
+		THEN("Gumball count is greated")
+		{
+			CHECK_NOTHROW(machine.InsertQuarter());
+			CHECK_NOTHROW(machine.InsertQuarter());
+			CHECK_NOTHROW(machine.TurnCrank());
+			CHECK(machine.ToString() == expectedBefore);
+			CHECK_NOTHROW(machine.Fill(5));
+			CHECK(machine.ToString() == expectedAfter);
+		}
+	}
+	WHEN("No quarter state")
+	{
+		MultiGumballMachine machine(1);
+
+		std::string expectedBefore = "\n";
+		expectedBefore += "Mighty Gumball, Inc.\n";
+		expectedBefore += "C++-enabled Standing Gumball Model #2024\n";
+		expectedBefore += "Inventory: 1 gumball, 0 quarters\n";
+		expectedBefore += "Machine is waiting for quarter\n";
+
+		std::string expectedAfter = "\n";
+		expectedAfter += "Mighty Gumball, Inc.\n";
+		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter += "Inventory: 5 gumballs, 0 quarters\n";
+		expectedAfter += "Machine is waiting for quarter\n";
+
+		THEN("Success added")
+		{
+			CHECK(machine.ToString() == expectedBefore);
+			CHECK_NOTHROW(machine.Fill(4));
+			CHECK(machine.ToString() == expectedAfter);
+		}
+	}
+	WHEN("Has quarter")
+	{
+		MultiGumballMachine machine(1);
+
+		std::string expectedBefore = "\n";
+		expectedBefore += "Mighty Gumball, Inc.\n";
+		expectedBefore += "C++-enabled Standing Gumball Model #2024\n";
+		expectedBefore += "Inventory: 1 gumball, 1 quarter\n";
+		expectedBefore += "Machine is waiting for turn of crank\n";
+
+		std::string expectedAfter = "\n";
+		expectedAfter += "Mighty Gumball, Inc.\n";
+		expectedAfter += "C++-enabled Standing Gumball Model #2024\n";
+		expectedAfter += "Inventory: 5 gumballs, 1 quarter\n";
+		expectedAfter += "Machine is waiting for turn of crank\n";
+
+		THEN("Success added")
+		{
+			CHECK_NOTHROW(machine.InsertQuarter());
+			CHECK(machine.ToString() == expectedBefore);
+			CHECK_NOTHROW(machine.Fill(4));
+			CHECK(machine.ToString() == expectedAfter);
+		}
+	}
+}
+
+class TestMachine : public IMultiGumballMachine
+{
+public:
+	void AddGumballs(unsigned gumballCount)
+	{
+		m_count += gumballCount;
+	}
+	void ReleaseBall()
+	{
+		if (m_count != 0)
+		{
+			--m_count;
+		}
+	}
+	unsigned GetBallCount() const
+	{
+		return m_count;
+	}
+
+	void ReleaseQuarters()
+	{
+		m_quarter = 0;
+	}
+	void UseQuarter()
+	{
+		if (m_quarter != 0)
+		{
+			--m_quarter;
+		}
+	}
+	void AddQuarter()
+	{
+		++m_quarter;
+	}
+	unsigned GetQuarterCount() const
+	{
+		return m_quarter;
+	}
+
+	void SetSoldOutState()
+	{
+		m_state = "sold out";
+	}
+	void SetNoQuarterState()
+	{
+		m_state = "no quarter";
+	}
+	void SetSoldState()
+	{
+		m_state = "sold";
+	}
+	void SetHasQuarterState()
+	{
+		m_state = "has quarter";
+	}
+
+	unsigned m_count = 0;
+	unsigned m_quarter = 0;
+	std::string m_state;
+};
+
+TEST_CASE("States")
+{
+	TestMachine machine;
+
+	WHEN("Sold out with 0 quarter")
+	{
+		SoldOutState state(machine);
+
+		THEN("Gumball count is greate")
+		{
+			CHECK(machine.m_count == 0);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
+			CHECK_NOTHROW(state.AddGumballs(5));
+			CHECK(machine.m_count == 5);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "no quarter");
+		}
+	}
+	WHEN("Sold out with some quarter")
+	{
+		SoldOutState state(machine);
+		machine.m_quarter = 5;
+
+		THEN("Gumball count is greate")
+		{
+			CHECK(machine.m_count == 0);
+			CHECK(machine.m_quarter == 5);
+			CHECK(machine.m_state == "");
+			CHECK_NOTHROW(state.AddGumballs(5));
+			CHECK(machine.m_count == 5);
+			CHECK(machine.m_quarter == 5);
+			CHECK(machine.m_state == "has quarter");
+		}
+	}
+	WHEN("No quarter")
+	{
+		NoQuarterState state(machine);
+
+		THEN("Gumball count is greate")
+		{
+			CHECK(machine.m_count == 0);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
+			CHECK_NOTHROW(state.AddGumballs(5));
+			CHECK(machine.m_count == 5);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
+		}
+	}
+	WHEN("Has quarter")
+	{
+		HasQuarterState state(machine);
+
+		THEN("Gumball count is greate")
+		{
+			CHECK(machine.m_count == 0);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
+			CHECK_NOTHROW(state.AddGumballs(5));
+			CHECK(machine.m_count == 5);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
+		}
+	}
+	WHEN("Sold")
+	{
+		SoldState state(machine);
+
+		THEN("Gumball count is greate")
+		{
+			CHECK(machine.m_count == 0);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
+			CHECK_NOTHROW(state.AddGumballs(5));
+			CHECK(machine.m_count == 0);
+			CHECK(machine.m_quarter == 0);
+			CHECK(machine.m_state == "");
 		}
 	}
 }

@@ -8,6 +8,7 @@ namespace MultiGumBallMachine
 class IState
 {
 public:
+	virtual void AddGumballs(unsigned gumballCount) = 0;
 	virtual void InsertQuarter() = 0;
 	virtual void EjectQuarter() = 0;
 	virtual void TurnCrank() = 0;
@@ -20,10 +21,12 @@ public:
 class IMultiGumballMachine
 {
 public:
+	virtual void AddGumballs(unsigned gumballCount) = 0;
 	virtual void ReleaseBall() = 0;
 	virtual unsigned GetBallCount() const = 0;
 
-	virtual void ReleaseQuarter() = 0;
+	virtual void ReleaseQuarters() = 0;
+	virtual void UseQuarter() = 0;
 	virtual void AddQuarter() = 0;
 	virtual unsigned GetQuarterCount() const = 0;
 
@@ -42,6 +45,10 @@ public:
 		: m_gumballMachine(gumballMachine)
 	{
 	}
+	void AddGumballs(unsigned gumballCount) override
+	{
+		std::cout << "Tou cannot refill automata in giving gumball\n";
+	}
 	void InsertQuarter() override
 	{
 		std::cout << "Please wait, we're already giving you a gumball\n";
@@ -57,7 +64,7 @@ public:
 	void Dispense() override
 	{
 		m_gumballMachine.ReleaseBall();
-		m_gumballMachine.ReleaseQuarter();//Разные методы
+		m_gumballMachine.UseQuarter();
 
 		if (m_gumballMachine.GetBallCount() == 0)
 		{
@@ -93,13 +100,26 @@ public:
 	{
 	}
 
+	void AddGumballs(unsigned gumballCount) override
+	{
+		m_gumballMachine.AddGumballs(gumballCount);
+
+		if (m_gumballMachine.GetQuarterCount() != 0)
+		{
+			m_gumballMachine.SetHasQuarterState();
+		}
+		else
+		{
+			m_gumballMachine.SetNoQuarterState();
+		}
+	}
 	void InsertQuarter() override
 	{
 		std::cout << "You can't insert a quarter, the machine is sold out\n";
 	}
 	void EjectQuarter() override
 	{
-		std::cout << "You can't eject, you haven't inserted a quarter yet\n";
+		m_gumballMachine.ReleaseQuarters();
 	}
 	void TurnCrank() override
 	{
@@ -126,6 +146,11 @@ public:
 	{
 	}
 
+	void AddGumballs(unsigned gumballCount) override
+	{
+		m_gumballMachine.AddGumballs(gumballCount);
+
+	}
 	void InsertQuarter() override
 	{
 		if (m_gumballMachine.GetQuarterCount() >= 5)
@@ -140,19 +165,7 @@ public:
 	}
 	void EjectQuarter() override
 	{
-		if (m_gumballMachine.GetQuarterCount() > 0)
-		{
-			std::cout << "Quarter returned\n";
-			m_gumballMachine.ReleaseQuarter();
-
-			if (m_gumballMachine.GetQuarterCount() > 0)
-			{
-				m_gumballMachine.SetHasQuarterState();
-
-				return;
-			}
-		}
-
+		m_gumballMachine.ReleaseQuarters();
 		m_gumballMachine.SetNoQuarterState();
 	}
 	void TurnCrank() override
@@ -181,6 +194,10 @@ public:
 	{
 	}
 
+	void AddGumballs(unsigned gumballCount) override
+	{
+		m_gumballMachine.AddGumballs(gumballCount);
+	}
 	void InsertQuarter() override
 	{
 		std::cout << "You inserted a quarter\n";
@@ -224,6 +241,10 @@ public:
 			m_state = &m_noQuarterState;
 		}
 	}
+	void Fill(unsigned gumballCount)
+	{
+		m_state->AddGumballs(gumballCount);
+	}
 	void EjectQuarter()
 	{
 		m_state->EjectQuarter();
@@ -249,6 +270,10 @@ Machine is {}
 	}
 
 private:
+	void AddGumballs(unsigned gumballCount) override
+	{
+		m_count += gumballCount;
+	}
 	unsigned GetBallCount() const override
 	{
 		return m_count;
@@ -272,7 +297,11 @@ private:
 			++m_quarterCount;
 		}
 	}
-	void ReleaseQuarter() override
+	void ReleaseQuarters() override
+	{
+		m_quarterCount = 0;
+	}
+	void UseQuarter() override
 	{
 		if (m_quarterCount != 0)
 		{
@@ -318,28 +347,15 @@ public:
 		switch (m_state)
 		{
 		case State::SoldOut:
-			std::cout << "You can't eject, you haven't inserted a quarter yet\n";
+			m_quarterCount = 0;
 			break;
 		case State::NoQuarter:
 			std::cout << "You haven't inserted a quarter\n";
 			break;
 		case State::HasQuarter:
-			if (m_quarterCount == 0)
-			{
-				m_state = State::NoQuarter;
-				break;
-			}
+			m_quarterCount = 0;
+			m_state = State::NoQuarter;
 			std::cout << "Quarter returned\n";
-			--m_quarterCount;
-
-			if (m_quarterCount == 0)
-			{
-				m_state = State::NoQuarter;
-			}
-			else
-			{
-				m_state = State::HasQuarter;
-			}
 
 			break;
 		case State::Sold:
