@@ -143,11 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\CommandCreator\CommandCreator.cpp" />
+    <ClCompile Include="..\lib\Menu\Menu.cpp" />
     <ClCompile Include="..\lib\multigamballmachine\MultiGamBallMachine.h" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\CommandCreator\CommandCreator.h" />
     <ClInclude Include="..\lib\GamBallMachine\GumBallMachine.h" />
+    <ClInclude Include="..\lib\Menu\Menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

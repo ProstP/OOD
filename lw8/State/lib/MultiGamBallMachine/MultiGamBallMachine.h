@@ -119,6 +119,7 @@ public:
 	}
 	void EjectQuarter() override
 	{
+		std::cout << "All quarters released from machine" << std::endl;
 		m_gumballMachine.ReleaseQuarters();
 	}
 	void TurnCrank() override
@@ -149,7 +150,6 @@ public:
 	void AddGumballs(unsigned gumballCount) override
 	{
 		m_gumballMachine.AddGumballs(gumballCount);
-
 	}
 	void InsertQuarter() override
 	{
@@ -165,6 +165,7 @@ public:
 	}
 	void EjectQuarter() override
 	{
+		std::cout << "All quarters released from machine" << std::endl;
 		m_gumballMachine.ReleaseQuarters();
 		m_gumballMachine.SetNoQuarterState();
 	}
@@ -273,6 +274,7 @@ private:
 	void AddGumballs(unsigned gumballCount) override
 	{
 		m_count += gumballCount;
+		std::cout << "Machine filling with new gumballs" << std::endl;
 	}
 	unsigned GetBallCount() const override
 	{
