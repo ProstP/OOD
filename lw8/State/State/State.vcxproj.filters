@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\lib\multigamballmachine\MultiGamBallMachine.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClCompile>
     <ClCompile Include="..\lib\Menu\Menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -36,6 +33,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\CommandCreator\CommandCreator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\multigamballmachine\MultiGamBallMachine.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

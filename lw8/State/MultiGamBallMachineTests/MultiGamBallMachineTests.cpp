@@ -531,7 +531,7 @@ TEST_CASE("Turn of crank")
 	}
 }
 
-TEST_CASE("Refill automata")
+TEST_CASE("Fill automata")
 {
 	WHEN("Sold out state with no quarter")
 	{
@@ -650,7 +650,7 @@ public:
 		return m_count;
 	}
 
-	void ReleaseQuarters()
+	void EjectQuarters()
 	{
 		m_quarter = 0;
 	}
@@ -714,16 +714,16 @@ TEST_CASE("States")
 	WHEN("Sold out with some quarter")
 	{
 		SoldOutState state(machine);
-		machine.m_quarter = 5;
+		machine.m_quarter = 4;
 
 		THEN("Gumball count is greate")
 		{
 			CHECK(machine.m_count == 0);
-			CHECK(machine.m_quarter == 5);
+			CHECK(machine.m_quarter == 4);
 			CHECK(machine.m_state == "");
 			CHECK_NOTHROW(state.AddGumballs(5));
 			CHECK(machine.m_count == 5);
-			CHECK(machine.m_quarter == 5);
+			CHECK(machine.m_quarter == 4);
 			CHECK(machine.m_state == "has quarter");
 		}
 	}

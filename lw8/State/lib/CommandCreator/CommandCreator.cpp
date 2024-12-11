@@ -15,7 +15,7 @@ void CommandCreator::AddFillCommand(Menu& menu, MultiGumballMachine& machine)
 {
 	menu.AddItem("Fill", "Fill <count>", [&machine](std::istream& in) {
 		unsigned count;
-
+		// Проверка что вели count
 		in >> count;
 
 		try

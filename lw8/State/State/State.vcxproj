@@ -145,7 +145,7 @@
   <ItemGroup>
     <ClCompile Include="..\lib\CommandCreator\CommandCreator.cpp" />
     <ClCompile Include="..\lib\Menu\Menu.cpp" />
-    <ClCompile Include="..\lib\multigamballmachine\MultiGamBallMachine.h" />
+    <ClInclude Include="..\lib\multigamballmachine\MultiGamBallMachine.h" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

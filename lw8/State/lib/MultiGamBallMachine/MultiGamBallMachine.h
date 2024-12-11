@@ -25,7 +25,7 @@ public:
 	virtual void ReleaseBall() = 0;
 	virtual unsigned GetBallCount() const = 0;
 
-	virtual void ReleaseQuarters() = 0;
+	virtual void EjectQuarters() = 0;
 	virtual void UseQuarter() = 0;
 	virtual void AddQuarter() = 0;
 	virtual unsigned GetQuarterCount() const = 0;
@@ -120,7 +120,7 @@ public:
 	void EjectQuarter() override
 	{
 		std::cout << "All quarters released from machine" << std::endl;
-		m_gumballMachine.ReleaseQuarters();
+		m_gumballMachine.EjectQuarters();
 	}
 	void TurnCrank() override
 	{
@@ -166,7 +166,7 @@ public:
 	void EjectQuarter() override
 	{
 		std::cout << "All quarters released from machine" << std::endl;
-		m_gumballMachine.ReleaseQuarters();
+		m_gumballMachine.EjectQuarters();
 		m_gumballMachine.SetNoQuarterState();
 	}
 	void TurnCrank() override
@@ -299,7 +299,7 @@ private:
 			++m_quarterCount;
 		}
 	}
-	void ReleaseQuarters() override
+	void EjectQuarters() override
 	{
 		m_quarterCount = 0;
 	}
