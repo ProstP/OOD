@@ -141,10 +141,12 @@
   <ItemGroup>
     <ClInclude Include="..\lib\Canvas\ICanvas.h" />
     <ClInclude Include="..\lib\Factory\IShapeFactory.h" />
-    <ClInclude Include="..\lib\Shape\Image.h" />
+    <ClInclude Include="..\lib\Model\ShapeStore.h" />
     <ClInclude Include="..\lib\Shape\Shape.h" />
     <ClInclude Include="..\lib\SimpleShapeFactory\ShapeFactory.h" />
     <ClInclude Include="..\lib\SimpleShapeFactory\SimpleShapes.h" />
+    <ClInclude Include="..\lib\View\Controller.h" />
+    <ClInclude Include="..\lib\View\View.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Lw10.h" />
     <ClInclude Include="Resource.h" />
@@ -152,9 +154,10 @@
     <ClInclude Include="..\lib\Types\Types.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\lib\Shape\Image.cpp" />
+    <ClCompile Include="..\lib\Model\ShapeStore.cpp" />
     <ClCompile Include="..\lib\Shape\Shape.cpp" />
     <ClCompile Include="..\lib\SimpleShapeFactory\ShapeFactory.cpp" />
+    <ClCompile Include="..\lib\View\Controller.cpp" />
     <ClCompile Include="Lw10.cpp" />
   </ItemGroup>
   <ItemGroup>
