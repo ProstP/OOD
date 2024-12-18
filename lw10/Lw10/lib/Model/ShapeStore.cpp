@@ -24,7 +24,7 @@ std::shared_ptr<Shapes::Shape> Model::ShapeStore::GetAt(size_t index) const
 {
 	if (index >= m_shapes.size())
 	{
-		throw std::out_of_range("Index out of range");
+		return nullptr;
 	}
 
 	return m_shapes[index];

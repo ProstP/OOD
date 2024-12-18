@@ -145,7 +145,8 @@
     <ClInclude Include="..\lib\Shape\Shape.h" />
     <ClInclude Include="..\lib\SimpleShapeFactory\ShapeFactory.h" />
     <ClInclude Include="..\lib\SimpleShapeFactory\SimpleShapes.h" />
-    <ClInclude Include="..\lib\View\Controller.h" />
+    <ClInclude Include="..\lib\Controller\Controller.h" />
+    <ClInclude Include="..\lib\View\ClassicCanvas.h" />
     <ClInclude Include="..\lib\View\View.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Lw10.h" />
@@ -157,7 +158,8 @@
     <ClCompile Include="..\lib\Model\ShapeStore.cpp" />
     <ClCompile Include="..\lib\Shape\Shape.cpp" />
     <ClCompile Include="..\lib\SimpleShapeFactory\ShapeFactory.cpp" />
-    <ClCompile Include="..\lib\View\Controller.cpp" />
+    <ClCompile Include="..\lib\Controller\Controller.cpp" />
+    <ClCompile Include="..\lib\View\ClassicCanvas.cpp" />
     <ClCompile Include="Lw10.cpp" />
   </ItemGroup>
   <ItemGroup>
