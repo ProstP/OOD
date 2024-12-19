@@ -40,6 +40,7 @@ public:
 	}
 
 private:
+	// Вынести меню в отдельное класс или окно
 	Rect m_menuRect = { 0, 0, CANVAS_WIDTH, 50 };
 	Rect m_canvasRect = { 0, 60, CANVAS_WIDTH, CANVAS_HEIGHT };
 	HINSTANCE m_hInstance;
@@ -50,6 +51,7 @@ private:
 
 	void RegistWindow()
 	{
+		// Класс окна должен регестрироваться только одмн раз
 		WNDCLASSEXW wcex = { 0 };
 
 		wcex.cbSize = sizeof(WNDCLASSEXW);
@@ -88,6 +90,7 @@ private:
 		{
 			view = reinterpret_cast<View*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 		}
+		// Разбить на фугкции
 
 		switch (message)
 		{
