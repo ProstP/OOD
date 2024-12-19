@@ -133,7 +133,7 @@ private:
 			int x = LOWORD(lParam);
 			int y = HIWORD(lParam);
 
-			if (y <= view->m_menuRect.height)
+			if (y <= static_cast<int>(view->m_menuRect.height))
 			{
 				view->ClickToMenu(x, y);
 			}
@@ -365,7 +365,7 @@ private:
 		}
 	}
 
-	bool CheckClickToVert(int vx, int vy, int mx, int my)
+	static bool CheckClickToVert(int vx, int vy, int mx, int my)
 	{
 		if (vx - HALF_SIDE <= mx && mx <= vx + HALF_SIDE && vy - HALF_SIDE <= my && my <= vy + HALF_SIDE)
 		{
@@ -375,7 +375,7 @@ private:
 		return false;
 	}
 
-	void RegistMouseToLeave(HWND hWnd)
+	static void RegistMouseToLeave(HWND hWnd)
 	{
 		TRACKMOUSEEVENT tme;
 		tme.cbSize = sizeof(TRACKMOUSEEVENT);

@@ -54,8 +54,8 @@ void Controller::Select(Point point)
 	{
 		Rect rect = m_store.GetAt(i)->GetRect();
 
-		if (rect.left <= point.x && point.x <= rect.left + rect.width
-			&& rect.top <= point.y && point.y <= rect.top + rect.height)
+		if (rect.left <= point.x && point.x <= rect.left + static_cast<int>(rect.width)
+			&& rect.top <= point.y && point.y <= rect.top + static_cast<int>(rect.height))
 		{
 			m_selected = i;
 			m_oldMousePos = point;

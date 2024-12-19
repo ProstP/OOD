@@ -14,5 +14,5 @@ void ClassicCanvas::DrawPolygon(const std::vector<Point>& points)
 		figure.push_back(POINT{ points[i].x, points[i].y + m_hOffset });
 	}
 
-	Polygon(m_hdc, figure.data(), figure.size());
+	Polygon(m_hdc, figure.data(), static_cast<int>(figure.size()));
 }

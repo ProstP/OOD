@@ -45,7 +45,7 @@ void Shapes::Shape::Move(int dx, int dy)
 		m_rect.top = 0;
 	}
 
-	if (m_rect.left + m_rect.width > Types::CANVAS_WIDTH - dx)
+	if (m_rect.left + static_cast<int>(m_rect.width) > Types::CANVAS_WIDTH - dx)
 	{
 		m_rect.left = Types::CANVAS_WIDTH - m_rect.width;
 	}
@@ -54,7 +54,7 @@ void Shapes::Shape::Move(int dx, int dy)
 		m_rect.left += dx;
 	}
 
-	if (m_rect.top + m_rect.height > Types::CANVAS_HEIGHT - dy)
+	if (m_rect.top + static_cast<int>(m_rect.height) > Types::CANVAS_HEIGHT - dy)
 	{
 		m_rect.top = Types::CANVAS_HEIGHT - m_rect.height;
 	}
@@ -62,12 +62,6 @@ void Shapes::Shape::Move(int dx, int dy)
 	{
 		m_rect.top += dy;
 	}
-}
-
-void Shapes::Shape::Resize(int width, int height)
-{
-	m_rect.width = width;
-	m_rect.height = height;
 }
 
 void Shapes::Shape::Draw(Canvas::ICanvas& canvas) const

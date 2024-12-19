@@ -12,7 +12,6 @@ public:
 	Types::Rect GetRect() const;
 
 	void Move(int dx, int dy);
-	void Resize(int width, int height);
 
 	void Draw(Canvas::ICanvas& canvas) const;
 
